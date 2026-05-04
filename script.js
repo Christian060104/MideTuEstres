@@ -11,25 +11,37 @@ function initializeApp() {
     // Load user data from localStorage
     loadUserData();
     
+    // Check authentication and show appropriate screen
+    checkAuthenticationStatus();
+    
     // Setup event listeners
     setupEventListeners();
     
     // Update UI based on authentication state
     updateAuthUI();
     
-    // Load stress measurements
-    loadStressMeasurements();
-    
-    // Initialize chart
-    initializeChart();
+    // Load stress measurements (only if authenticated)
+    if (currentUser) {
+        loadStressMeasurements();
+        // Initialize chart
+        initializeChart();
+    }
 }
 
 // Event Listeners Setup
 function setupEventListeners() {
-    // Navigation smooth scrolling
+    // Navigation smooth scrolling with authentication check
     document.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
+            
+            // Check if user is authenticated
+            if (!currentUser) {
+                showMessage('error', 'Debes registrarte o iniciar sesión para acceder a esta sección');
+                showRegisterModal();
+                return;
+            }
+            
             const targetId = this.getAttribute('href').substring(1);
             scrollToSection(targetId);
         });
@@ -98,6 +110,10 @@ function handleLogin(e) {
         closeModal('loginModal');
         showMessage('success', '¡Bienvenido de nuevo!');
         
+        // Load user data after successful login
+        loadStressMeasurements();
+        initializeChart();
+        
         // Reset form
         document.getElementById('loginForm').reset();
     } else {
@@ -160,6 +176,10 @@ function handleRegister(e) {
     closeModal('registerModal');
     showMessage('success', '¡Registro exitoso! Bienvenido a MideTuEstres');
     
+    // Initialize user data after successful registration
+    loadStressMeasurements();
+    initializeChart();
+    
     // Reset form
     document.getElementById('registerForm').reset();
 }
@@ -169,17 +189,59 @@ function logout() {
     localStorage.removeItem('currentUser');
     updateAuthUI();
     showMessage('success', 'Sesión cerrada correctamente');
+    
+    // Clear user-specific data
+    stressMeasurements = [];
+    document.getElementById('totalMeasurements').textContent = '0';
+    document.getElementById('averageScore').textContent = '0';
+    document.getElementById('improvement').textContent = '0%';
+    initializeChart();
 }
 
 function updateAuthUI() {
-    const loginBtn = document.querySelector('.btn-login');
+    const loginBtn = document.getElementById('loginBtn');
+    const welcomeScreen = document.getElementById('welcomeScreen');
+    const mainContent = document.getElementById('mainContent');
+    const mainNav = document.getElementById('mainNav');
     
     if (currentUser) {
-        loginBtn.textContent = `Hola, ${currentUser.name.split(' ')[0]}`;
-        loginBtn.onclick = logout;
+        // Show main content, hide welcome screen
+        if (welcomeScreen) welcomeScreen.style.display = 'none';
+        if (mainContent) mainContent.style.display = 'block';
+        if (mainNav) mainNav.style.display = 'flex';
+        
+        // Update login button
+        if (loginBtn) {
+            loginBtn.textContent = `Hola, ${currentUser.name.split(' ')[0]}`;
+            loginBtn.onclick = logout;
+        }
     } else {
-        loginBtn.textContent = 'Iniciar Sesión';
-        loginBtn.onclick = showLoginModal;
+        // Show welcome screen, hide main content
+        if (welcomeScreen) welcomeScreen.style.display = 'flex';
+        if (mainContent) mainContent.style.display = 'none';
+        if (mainNav) mainNav.style.display = 'none';
+        
+        // Update login button
+        if (loginBtn) {
+            loginBtn.textContent = 'Iniciar Sesión';
+            loginBtn.onclick = showLoginModal;
+        }
+    }
+}
+
+// New function to check authentication status
+function checkAuthenticationStatus() {
+    const welcomeScreen = document.getElementById('welcomeScreen');
+    const mainContent = document.getElementById('mainContent');
+    
+    if (currentUser) {
+        // User is authenticated, show main content
+        if (welcomeScreen) welcomeScreen.style.display = 'none';
+        if (mainContent) mainContent.style.display = 'block';
+    } else {
+        // User is not authenticated, show welcome screen
+        if (welcomeScreen) welcomeScreen.style.display = 'flex';
+        if (mainContent) mainContent.style.display = 'none';
     }
 }
 
@@ -428,6 +490,13 @@ function playVideo(videoType) {
 
 // Utility Functions
 function scrollToSection(sectionId) {
+    // Check authentication before allowing navigation
+    if (!currentUser && sectionId !== 'inicio') {
+        showMessage('error', 'Debes registrarte para acceder a esta sección');
+        showRegisterModal();
+        return;
+    }
+    
     const section = document.getElementById(sectionId);
     if (section) {
         section.scrollIntoView({ behavior: 'smooth' });
@@ -451,11 +520,34 @@ function showMessage(type, message) {
     messageDiv.style.zIndex = '3000';
     messageDiv.style.maxWidth = '400px';
     messageDiv.style.textAlign = 'center';
+    messageDiv.style.padding = '1rem 1.5rem';
+    messageDiv.style.borderRadius = '8px';
+    messageDiv.style.fontWeight = '500';
+    messageDiv.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
     
-    // Auto remove after 3 seconds
+    // Set colors based on type
+    if (type === 'success') {
+        messageDiv.style.background = '#d4edda';
+        messageDiv.style.color = '#155724';
+        messageDiv.style.border = '1px solid #c3e6cb';
+    } else if (type === 'error') {
+        messageDiv.style.background = '#f8d7da';
+        messageDiv.style.color = '#721c24';
+        messageDiv.style.border = '1px solid #f5c6cb';
+    } else if (type === 'info') {
+        messageDiv.style.background = '#d1ecf1';
+        messageDiv.style.color = '#0c5460';
+        messageDiv.style.border = '1px solid #bee5eb';
+    }
+    
+    // Auto remove after 4 seconds
     setTimeout(() => {
-        messageDiv.remove();
-    }, 3000);
+        messageDiv.style.opacity = '0';
+        messageDiv.style.transition = 'opacity 0.3s ease';
+        setTimeout(() => {
+            messageDiv.remove();
+        }, 300);
+    }, 4000);
 }
 
 function loadUserData() {

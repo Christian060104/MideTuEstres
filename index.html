@@ -16,7 +16,7 @@
                 <i class="fas fa-brain"></i>
                 <h1>MideTuEstres</h1>
             </div>
-            <nav class="nav">
+            <nav class="nav" id="mainNav" style="display: none;">
                 <ul>
                     <li><a href="#inicio" class="nav-link">Inicio</a></li>
                     <li><a href="#medicion" class="nav-link">Medición</a></li>
@@ -24,12 +24,58 @@
                     <li><a href="#recursos" class="nav-link">Recursos</a></li>
                 </ul>
             </nav>
-            <button class="btn-login" onclick="showLoginModal()">Iniciar Sesión</button>
+            <button class="btn-login" id="loginBtn" onclick="showLoginModal()">Iniciar Sesión</button>
         </div>
     </header>
 
+    <!-- Welcome Screen (shown when not authenticated) -->
+    <div id="welcomeScreen" class="welcome-screen" style="display: none;">
+        <div class="welcome-container">
+            <div class="welcome-header">
+                <div class="logo">
+                    <i class="fas fa-brain"></i>
+                    <h1>MideTuEstres</h1>
+                </div>
+                <h2>Controla tu estrés académico</h2>
+                <p>Herramienta oficial del Instituto Tecnológico de Tehuacán para medir, registrar y dar seguimiento a tu bienestar emocional</p>
+            </div>
+            
+            <div class="welcome-features">
+                <div class="feature-item">
+                    <i class="fas fa-clipboard-check"></i>
+                    <h3>Evaluación Rápida</h3>
+                    <p>Cuestionarios breves y validados para medir tu nivel de estrés</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Seguimiento Continuo</h3>
+                    <p>Registra tu progreso y observa patrones en tu bienestar emocional</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-video"></i>
+                    <h3>Recursos Educativos</h3>
+                    <p>Videos y guías para manejar el estrés académico efectivamente</p>
+                </div>
+            </div>
+            
+            <div class="welcome-actions">
+                <h3>Comienza a monitorear tu bienestar</h3>
+                <p>Para acceder a todas las funcionalidades, primero necesitas registrarte con tu correo institucional</p>
+                <div class="welcome-buttons">
+                    <button class="btn-primary" onclick="showRegisterModal()">Registrarme Ahora</button>
+                    <button class="btn-secondary" onclick="showLoginModal()">Ya tengo cuenta</button>
+                </div>
+            </div>
+            
+            <div class="welcome-footer">
+                <p><i class="fas fa-shield-alt"></i> Tus datos están seguros y son privados</p>
+                <p><i class="fas fa-university"></i> Servicio exclusivo para estudiantes del IT Tehuacán</p>
+            </div>
+        </div>
+    </div>
+
     <!-- Main Content -->
-    <main>
+    <main id="mainContent" style="display: none;">
         <!-- Hero Section -->
         <section id="inicio" class="hero">
             <div class="container">
