@@ -12,7 +12,7 @@ services:
       MYSQL_USER: midetu_user
       MYSQL_PASSWORD: midetu_password
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - mysql_data:/var/lib/mysql
       - ./database:/docker-entrypoint-initdb.d
@@ -28,7 +28,7 @@ services:
     container_name: midetu_estres_apache
     restart: unless-stopped
     ports:
-      - "8080:80"
+      - "8082:80"
     volumes:
       - .:/var/www/html
       - ./logs:/var/log/apache2
@@ -45,13 +45,13 @@ services:
     networks:
       - midetu_network
 
-  # phpMyAdmin (opcional, para administración de la BD)
+  # phpMyAdmin
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
     container_name: midetu_estres_phpmyadmin
     restart: unless-stopped
     ports:
-      - "8081:80"
+      - "8083:80"
     environment:
       PMA_HOST: mysql
       PMA_USER: root
