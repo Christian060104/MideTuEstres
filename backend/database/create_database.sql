@@ -8,6 +8,9 @@ COLLATE utf8mb4_unicode_ci;
 
 -- Usar la base de datos
 USE midetu_estres;
+      
+
+      
 
 -- Tabla de usuarios
 CREATE TABLE IF NOT EXISTS users (

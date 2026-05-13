@@ -3,6 +3,7 @@ FROM php:8.0-apache
 # Establecer el directorio de trabajo
 WORKDIR /var/www/html
 
+
 # Instalar dependencias del sistema
 RUN apt-get update && apt-get install -y \
     libpng-dev \
