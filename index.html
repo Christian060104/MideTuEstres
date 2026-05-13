@@ -29,93 +29,314 @@
     </header>
 
     <!-- Welcome Screen (shown when not authenticated) -->
-    <div id="welcomeScreen" class="welcome-screen" style="display: none;">
-        <div class="welcome-container">
-            <div class="welcome-header">
+    <!-- Welcome Screen (shown when not authenticated) -->
+<div id="welcomeScreen" class="welcome-screen" style="display: none;">
+    <div class="welcome-container">
+
+        <div class="welcome-hero">
+
+            <!-- LEFT -->
+            <div class="hero-left">
+
+                <div class="hero-badge">
+                    <i class="fas fa-heartbeat"></i>
+                    Plataforma de bienestar estudiantil
+                </div>
+
                 <div class="logo">
                     <i class="fas fa-brain"></i>
                     <h1>MideTuEstres</h1>
                 </div>
-                <h2>Controla tu estrés académico</h2>
-                <p>Herramienta oficial del Instituto Tecnológico de Tehuacán para medir, registrar y dar seguimiento a tu bienestar emocional</p>
-            </div>
-            
-            <div class="welcome-features">
-                <div class="feature-item">
-                    <i class="fas fa-clipboard-check"></i>
-                    <h3>Evaluación Rápida</h3>
-                    <p>Cuestionarios breves y validados para medir tu nivel de estrés</p>
+
+                <h2>
+                    Controla tu estrés
+                    <span>académico</span>
+                </h2>
+
+                <p>
+                    Herramienta oficial del Instituto Tecnológico de Tehuacán para
+                    evaluar, monitorear y mejorar tu bienestar emocional mediante
+                    seguimiento inteligente y recursos especializados.
+                </p>
+
+                <div class="hero-buttons">
+                    <button class="btn-primary" onclick="showRegister()">
+                        <i class="fas fa-user-plus"></i>
+                        Comenzar ahora
+                    </button>
+
+                    <button class="btn-secondary" onclick="showLogin()">
+                        <i class="fas fa-arrow-right"></i>
+                        Ya tengo cuenta
+                    </button>
                 </div>
-                <div class="feature-item">
-                    <i class="fas fa-chart-line"></i>
-                    <h3>Seguimiento Continuo</h3>
-                    <p>Registra tu progreso y observa patrones en tu bienestar emocional</p>
+
+                <div class="hero-stats">
+                    <div class="stat-card">
+                        <h3>24/7</h3>
+                        <span>Seguimiento emocional</span>
+                    </div>
+
+                    <div class="stat-card">
+                        <h3>100%</h3>
+                        <span>Privacidad segura</span>
+                    </div>
+
+                    <div class="stat-card">
+                        <h3>ITT</h3>
+                        <span>Uso institucional</span>
+                    </div>
                 </div>
-                <div class="feature-item">
-                    <i class="fas fa-video"></i>
-                    <h3>Recursos Educativos</h3>
-                    <p>Videos y guías para manejar el estrés académico efectivamente</p>
+
+            </div>
+
+            <!-- RIGHT -->
+            <div class="hero-right">
+                <div class="dashboard-preview">
+
+                    <div class="floating-card card-1">
+                        <i class="fas fa-chart-line"></i>
+                        <div>
+                            <strong>Seguimiento</strong>
+                            <span>Progreso emocional</span>
+                        </div>
+                    </div>
+
+                    <div class="main-preview">
+                        <div class="preview-top">
+                            <div class="preview-dot"></div>
+                            <div class="preview-dot"></div>
+                            <div class="preview-dot"></div>
+                        </div>
+
+                        <div class="preview-chart">
+                            <div class="chart-bar"></div>
+                            <div class="chart-bar"></div>
+                            <div class="chart-bar"></div>
+                            <div class="chart-bar"></div>
+                        </div>
+
+                        <div class="preview-cards">
+                            <div class="mini-card">
+                                <i class="fas fa-smile"></i>
+                                <span>Estrés bajo</span>
+                            </div>
+
+                            <div class="mini-card">
+                                <i class="fas fa-brain"></i>
+                                <span>Monitoreo IA</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="floating-card card-2">
+                        <i class="fas fa-heart"></i>
+                        <div>
+                            <strong>Bienestar</strong>
+                            <span>Estado saludable</span>
+                        </div>
+                    </div>
+
                 </div>
             </div>
-            
-            <div class="welcome-actions">
-                <h3>Comienza a monitorear tu bienestar</h3>
-                <p>Para acceder a todas las funcionalidades, primero necesitas registrarte con tu correo institucional</p>
-                <div class="welcome-buttons">
-                    <button class="btn-primary" onclick="showRegisterModal()">Registrarme Ahora</button>
-                    <button class="btn-secondary" onclick="showLoginModal()">Ya tengo cuenta</button>
-                </div>
-            </div>
-            
-            <div class="welcome-footer">
-                <p><i class="fas fa-shield-alt"></i> Tus datos están seguros y son privados</p>
-                <p><i class="fas fa-university"></i> Servicio exclusivo para estudiantes del IT Tehuacán</p>
-            </div>
+
         </div>
+
+        <!-- FEATURES -->
+        <div class="welcome-features">
+
+            <div class="feature-item">
+                <i class="fas fa-clipboard-check"></i>
+                <h3>Evaluación rápida</h3>
+                <p>Cuestionarios inteligentes para medir tu nivel de estrés académico.</p>
+            </div>
+
+            <div class="feature-item">
+                <i class="fas fa-chart-line"></i>
+                <h3>Seguimiento continuo</h3>
+                <p>Visualiza patrones y monitorea tu bienestar emocional.</p>
+            </div>
+
+            <div class="feature-item">
+                <i class="fas fa-video"></i>
+                <h3>Recursos educativos</h3>
+                <p>Accede a contenido especializado para manejar el estrés.</p>
+            </div>
+
+        </div>
+
+        <div class="welcome-footer">
+            <p>
+                <i class="fas fa-shield-alt"></i>
+                Tus datos están seguros y protegidos
+            </p>
+
+            <p>
+                <i class="fas fa-university"></i>
+                Plataforma oficial del Instituto Tecnológico de Tehuacán
+            </p>
+        </div>
+
     </div>
+</div>
+ 
 
     <!-- Main Content -->
     <main id="mainContent" style="display: none;">
         <!-- Hero Section -->
-        <section id="inicio" class="hero">
-            <div class="container">
-                <div class="hero-content">
-                    <h2>Controla tu estrés académico</h2>
-                    <p>Herramienta oficial del Instituto Tecnológico de Tehuacán para medir, registrar y dar seguimiento a tu bienestar emocional</p>
-                    <div class="hero-buttons">
-                        <button class="btn-primary" onclick="showRegisterModal()">Registrarse</button>
-                        <button class="btn-secondary" onclick="scrollToSection('medicion')">Medir mi estrés</button>
-                    </div>
-                </div>
-                <div class="hero-image">
-                    <i class="fas fa-user-graduate"></i>
-                </div>
-            </div>
-        </section>
+<section id="inicio" class="dashboard-hero">
 
-        <!-- Features Section -->
-        <section class="features">
-            <div class="container">
-                <h3>¿Qué ofrecemos?</h3>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <i class="fas fa-clipboard-check"></i>
-                        <h4>Evaluación Rápida</h4>
-                        <p>Cuestionarios breves y validados para medir tu nivel de estrés</p>
-                    </div>
-                    <div class="feature-card">
-                        <i class="fas fa-chart-line"></i>
-                        <h4>Seguimiento Continuo</h4>
-                        <p>Registra tu progreso y observa patrones en tu bienestar emocional</p>
-                    </div>
-                    <div class="feature-card">
-                        <i class="fas fa-video"></i>
-                        <h4>Recursos Educativos</h4>
-                        <p>Videos y guías para manejar el estrés académico efectivamente</p>
-                    </div>
+    <div class="container">
+
+        <div class="dashboard-welcome">
+
+            <div class="welcome-info">
+
+                <span class="dashboard-badge">
+                    Bienestar estudiantil
+                </span>
+
+                <h2>
+                    Hola, <span id="userGreeting">Estudiante</span> 👋
+                </h2>
+
+                <p>
+                    ¿Cómo te sientes hoy?
+                    Registra tu estado emocional o realiza una evaluación completa.
+                </p>
+
+                <!-- Mood Selector -->
+                <div class="mood-selector">
+
+                    <button class="mood-btn" data-mood="Excelente">
+                        😄
+                        <span>Bien</span>
+                    </button>
+
+                    <button class="mood-btn" data-mood="Tranquilo">
+                        🙂
+                        <span>Tranquilo</span>
+                    </button>
+
+                    <button class="mood-btn" data-mood="Regular">
+                        😐
+                        <span>Regular</span>
+                    </button>
+
+                    <button class="mood-btn" data-mood="Estresado">
+                        😟
+                        <span>Estresado</span>
+                    </button>
+
+                    <button class="mood-btn" data-mood="Muy estresado">
+                        😣
+                        <span>Muy estresado</span>
+                    </button>
+
                 </div>
+
+                <div class="dashboard-actions">
+
+                    <button class="btn-primary"
+                        onclick="scrollToSection('medicion')">
+
+                        <i class="fas fa-clipboard-check"></i>
+                        Nueva evaluación
+                    </button>
+
+                </div>
+
             </div>
-        </section>
+
+            <!-- Summary Card -->
+            <div class="summary-card">
+
+                <div class="summary-top">
+                    <h3>Resumen actual</h3>
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+
+                <div class="summary-item">
+                    <span>Último nivel</span>
+                    <strong id="lastStressLevel">Moderado</strong>
+                </div>
+
+                <div class="summary-item">
+                    <span>Última medición</span>
+                    <strong id="lastMeasurementDate">Sin registros</strong>
+                </div>
+
+                <div class="summary-item">
+                    <span>Total evaluaciones</span>
+                    <strong id="dashboardTotalMeasurements">0</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="did-you-know">
+    <div class="container">
+
+        <div class="dyk-header">
+            <span>Bienestar académico</span>
+            <h3>¿Sabías que?</h3>
+            <p>Pequeños datos para entender mejor el estrés y cuidar tu salud emocional.</p>
+        </div>
+
+        <div class="dyk-carousel">
+
+            <button class="dyk-btn prev" onclick="moveDykSlide(-1)">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+
+            <div class="dyk-track" id="dykTrack">
+
+                <div class="dyk-card">
+                    <i class="fas fa-brain"></i>
+                    <h4>El estrés afecta la concentración</h4>
+                    <p>Cuando el estrés aumenta, puede ser más difícil memorizar, organizar ideas y mantener la atención.</p>
+                </div>
+
+                <div class="dyk-card">
+                    <i class="fas fa-bed"></i>
+                    <h4>Dormir también es estudiar</h4>
+                    <p>Un buen descanso ayuda a procesar la información y mejora el rendimiento académico.</p>
+                </div>
+
+                <div class="dyk-card">
+                    <i class="fas fa-clock"></i>
+                    <h4>Las pausas ayudan</h4>
+                    <p>Tomar descansos breves durante el estudio puede reducir la fatiga mental y mejorar la productividad.</p>
+                </div>
+
+                <div class="dyk-card">
+                    <i class="fas fa-heart"></i>
+                    <h4>Pedir apoyo es importante</h4>
+                    <p>Hablar con alguien de confianza puede ayudarte a manejar mejor la presión académica.</p>
+                </div>
+
+            </div>
+
+            <button class="dyk-btn next" onclick="moveDykSlide(1)">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+
+        </div>
+
+        <div class="dyk-dots">
+            <button class="dyk-dot active" onclick="goToDykSlide(0)"></button>
+            <button class="dyk-dot" onclick="goToDykSlide(1)"></button>
+            <button class="dyk-dot" onclick="goToDykSlide(2)"></button>
+            <button class="dyk-dot" onclick="goToDykSlide(3)"></button>
+        </div>
+
+    </div>
+</section>
 
         <!-- Stress Measurement Section -->
         <section id="medicion" class="measurement">
@@ -128,55 +349,192 @@
                             <p>Responde sinceramente las siguientes preguntas</p>
                         </div>
                         <form id="stressForm">
-                            <div class="question-group" data-question="1">
-                                <label>1. ¿Cómo te sientes con la carga de tareas académicas?</label>
-                                <div class="radio-group">
-                                    <label><input type="radio" name="q1" value="1"> Muy relajado</label>
-                                    <label><input type="radio" name="q1" value="2"> Algo presionado</label>
-                                    <label><input type="radio" name="q1" value="3"> Bastante estresado</label>
-                                    <label><input type="radio" name="q1" value="4"> Muy estresado</label>
-                                </div>
-                            </div>
+                           <div class="question-card" data-question="1">
 
-                            <div class="question-group" data-question="2">
-                                <label>2. ¿Cómo calificas tu nivel de ansiedad antes de los exámenes?</label>
-                                <div class="radio-group">
-                                    <label><input type="radio" name="q2" value="1"> Baja</label>
-                                    <label><input type="radio" name="q2" value="2"> Moderada</label>
-                                    <label><input type="radio" name="q2" value="3"> Alta</label>
-                                    <label><input type="radio" name="q2" value="4"> Muy alta</label>
-                                </div>
-                            </div>
+    <div class="question-header">
+        <span class="question-number">01</span>
+        <h4>¿Cómo te sientes con la carga de tareas académicas?</h4>
+    </div>
 
-                            <div class="question-group" data-question="3">
-                                <label>3. ¿Qué tan bien duermes durante periodos de exámenes?</label>
-                                <div class="radio-group">
-                                    <label><input type="radio" name="q3" value="1"> Muy bien</label>
-                                    <label><input type="radio" name="q3" value="2"> Regular</label>
-                                    <label><input type="radio" name="q3" value="3"> Mal</label>
-                                    <label><input type="radio" name="q3" value="4"> Muy mal</label>
-                                </div>
-                            </div>
+    <div class="emotion-options">
 
-                            <div class="question-group" data-question="4">
-                                <label>4. ¿Cómo afecta la presión académica tu vida social?</label>
-                                <div class="radio-group">
-                                    <label><input type="radio" name="q4" value="1"> No afecta</label>
-                                    <label><input type="radio" name="q4" value="2"> Levemente</label>
-                                    <label><input type="radio" name="q4" value="3"> Moderadamente</label>
-                                    <label><input type="radio" name="q4" value="4"> Severamente</label>
-                                </div>
-                            </div>
+        <label class="emotion-card">
+            <input type="radio" name="q1" value="1">
+            <span class="emoji">😌</span>
+            <span class="emotion-title">Muy relajado</span>
+        </label>
 
-                            <div class="question-group" data-question="5">
-                                <label>5. ¿Con qué frecuencia sientes que no puedes con todo?</label>
-                                <div class="radio-group">
-                                    <label><input type="radio" name="q5" value="1"> Nunca</label>
-                                    <label><input type="radio" name="q5" value="2"> Rara vez</label>
-                                    <label><input type="radio" name="q5" value="3"> Frecuentemente</label>
-                                    <label><input type="radio" name="q5" value="4"> Siempre</label>
-                                </div>
-                            </div>
+        <label class="emotion-card">
+            <input type="radio" name="q1" value="2">
+            <span class="emoji">🙂</span>
+            <span class="emotion-title">Tranquilo</span>
+        </label>
+
+        <label class="emotion-card">
+            <input type="radio" name="q1" value="3">
+            <span class="emoji">😐</span>
+            <span class="emotion-title">Regular</span>
+        </label>
+
+        <label class="emotion-card">
+            <input type="radio" name="q1" value="4">
+            <span class="emoji">😣</span>
+            <span class="emotion-title">Estresado</span>
+        </label>
+
+    </div>
+
+</div>
+                          <div class="question-card" data-question="2">
+
+    <div class="question-header">
+        <span class="question-number">02</span>
+        <h4>¿Cómo calificas tu nivel de ansiedad antes de los exámenes?</h4>
+    </div>
+
+    <div class="emotion-options">
+
+        <label class="emotion-card">
+            <input type="radio" name="q2" value="1">
+            <span class="emoji">😌</span>
+            <span class="emotion-title">Baja</span>
+        </label>
+
+        <label class="emotion-card">
+            <input type="radio" name="q2" value="2">
+            <span class="emoji">🙂</span>
+            <span class="emotion-title">Moderada</span>
+        </label>
+
+        <label class="emotion-card">
+            <input type="radio" name="q2" value="3">
+            <span class="emoji">😟</span>
+            <span class="emotion-title">Alta</span>
+        </label>
+
+        <label class="emotion-card">
+            <input type="radio" name="q2" value="4">
+            <span class="emoji">😰</span>
+            <span class="emotion-title">Muy alta</span>
+        </label>
+
+    </div>
+
+</div>
+
+
+<div class="question-card" data-question="3">
+
+    <div class="question-header">
+        <span class="question-number">03</span>
+        <h4>¿Qué tan bien duermes durante periodos de exámenes?</h4>
+    </div>
+
+    <div class="emotion-options">
+
+        <label class="emotion-card">
+            <input type="radio" name="q3" value="1">
+            <span class="emoji">😴</span>
+            <span class="emotion-title">Muy bien</span>
+        </label>
+
+        <label class="emotion-card">
+            <input type="radio" name="q3" value="2">
+            <span class="emoji">😐</span>
+            <span class="emotion-title">Regular</span>
+        </label>
+
+        <label class="emotion-card">
+            <input type="radio" name="q3" value="3">
+            <span class="emoji">😪</span>
+            <span class="emotion-title">Mal</span>
+        </label>
+
+        <label class="emotion-card">
+            <input type="radio" name="q3" value="4">
+            <span class="emoji">🥱</span>
+            <span class="emotion-title">Muy mal</span>
+        </label>
+
+    </div>
+
+</div>
+
+
+<div class="question-card" data-question="4">
+
+    <div class="question-header">
+        <span class="question-number">04</span>
+        <h4>¿Cómo afecta la presión académica tu vida social?</h4>
+    </div>
+
+    <div class="emotion-options">
+
+        <label class="emotion-card">
+            <input type="radio" name="q4" value="1">
+            <span class="emoji">😊</span>
+            <span class="emotion-title">No afecta</span>
+        </label>
+
+        <label class="emotion-card">
+            <input type="radio" name="q4" value="2">
+            <span class="emoji">🙂</span>
+            <span class="emotion-title">Levemente</span>
+        </label>
+
+        <label class="emotion-card">
+            <input type="radio" name="q4" value="3">
+            <span class="emoji">😕</span>
+            <span class="emotion-title">Moderadamente</span>
+        </label>
+
+        <label class="emotion-card">
+            <input type="radio" name="q4" value="4">
+            <span class="emoji">😞</span>
+            <span class="emotion-title">Severamente</span>
+        </label>
+
+    </div>
+
+</div>
+
+
+<div class="question-card" data-question="5">
+
+    <div class="question-header">
+        <span class="question-number">05</span>
+        <h4>¿Con qué frecuencia sientes que no puedes con todo?</h4>
+    </div>
+
+    <div class="emotion-options">
+
+        <label class="emotion-card">
+            <input type="radio" name="q5" value="1">
+            <span class="emoji">😌</span>
+            <span class="emotion-title">Nunca</span>
+        </label>
+
+        <label class="emotion-card">
+            <input type="radio" name="q5" value="2">
+            <span class="emoji">🙂</span>
+            <span class="emotion-title">Rara vez</span>
+        </label>
+
+        <label class="emotion-card">
+            <input type="radio" name="q5" value="3">
+            <span class="emoji">😟</span>
+            <span class="emotion-title">Frecuentemente</span>
+        </label>
+
+        <label class="emotion-card">
+            <input type="radio" name="q5" value="4">
+            <span class="emoji">😣</span>
+            <span class="emotion-title">Siempre</span>
+        </label>
+
+    </div>
+
+</div>
 
                             <button type="submit" class="btn-primary">Calcular mi nivel de estrés</button>
                         </form>
@@ -339,7 +697,14 @@
                 </div>
                 <div class="form-group">
                     <label for="password">Contraseña</label>
-                    <input type="password" id="password" name="password" required>
+                   <div class="password-field">
+                       <input type="password" id="password">
+
+                 <button type="button" class="toggle-password"
+                       onclick="togglePassword('password', this)">
+                       <i class="fas fa-eye"></i>
+                 </button>
+     </div>
                 </div>
                 <button type="submit" class="btn-primary">Iniciar Sesión</button>
                 <p class="form-link">¿No tienes cuenta? <a href="#" onclick="switchToRegister()">Regístrate</a></p>
@@ -399,11 +764,25 @@
                 </div>
                 <div class="form-group">
                     <label for="regPassword">Contraseña</label>
-                    <input type="password" id="regPassword" name="password" required>
+                   <div class="password-field">
+    <input type="password" id="regPassword">
+
+    <button type="button" class="toggle-password"
+        onclick="togglePassword('regPassword', this)">
+        <i class="fas fa-eye"></i>
+    </button>
+</div>
                 </div>
                 <div class="form-group">
                     <label for="regConfirmPassword">Confirmar Contraseña</label>
-                    <input type="password" id="regConfirmPassword" name="confirmPassword" required>
+                   <div class="password-field">
+    <input type="password" id="regConfirmPassword">
+
+    <button type="button" class="toggle-password"
+        onclick="togglePassword('regConfirmPassword', this)">
+        <i class="fas fa-eye"></i>
+    </button>
+</div>
                 </div>
                 <button type="submit" class="btn-primary">Registrarse</button>
                 <p class="form-link">¿Ya tienes cuenta? <a href="#" onclick="switchToLogin()">Inicia sesión</a></p>

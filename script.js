@@ -65,23 +65,56 @@ function setupEventListeners() {
 }
 
 // Authentication Functions
+// ===============================
+// AUTHENTICATION FUNCTIONS
+// ===============================
+
+// Abrir modal login
 function showLoginModal() {
-    document.getElementById('loginModal').style.display = 'block';
+    const modal = document.getElementById('loginModal');
+
+    if (modal) {
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    }
 }
 
+// Abrir modal registro
 function showRegisterModal() {
-    document.getElementById('registerModal').style.display = 'block';
+    const modal = document.getElementById('registerModal');
+
+    if (modal) {
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    }
 }
 
+// Compatibilidad con botones de bienvenida
+function showLogin() {
+    showLoginModal();
+}
+
+function showRegister() {
+    showRegisterModal();
+}
+
+// Cerrar modal
 function closeModal(modalId) {
-    document.getElementById(modalId).style.display = 'none';
+    const modal = document.getElementById(modalId);
+
+    if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
 }
 
+// Cambiar login -> registro
 function switchToRegister() {
     closeModal('loginModal');
     showRegisterModal();
 }
 
+// Cambiar registro -> login
 function switchToLogin() {
     closeModal('registerModal');
     showLoginModal();
@@ -120,6 +153,7 @@ function handleLogin(e) {
         showMessage('error', 'Correo o contraseña incorrectos');
     }
 }
+
 
 function handleRegister(e) {
     e.preventDefault();
@@ -236,7 +270,7 @@ function checkAuthenticationStatus() {
     
     if (currentUser) {
         // User is authenticated, show main content
-        if (welcomeScreen) welcomeScreen.style.display = 'none';
+        if (welcomeScreen) welcomeScreen.style.display= 'none';
         if (mainContent) mainContent.style.display = 'block';
     } else {
         // User is not authenticated, show welcome screen
@@ -656,7 +690,21 @@ function debounce(func, wait) {
         timeout = setTimeout(later, wait);
     };
 }
+function togglePassword(inputId, button) {
 
+    const input = document.getElementById(inputId);
+    const icon = button.querySelector('i');
+
+    if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+    } else {
+        input.type = 'password';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+    }
+}
 // Mobile-specific functions
 function checkMobileView() {
     return window.innerWidth <= 768;
@@ -669,6 +717,56 @@ function optimizeForMobile() {
     } else {
         document.body.classList.remove('mobile-view');
     }
+}
+// Mood selector
+document.addEventListener('click', function(e){
+
+    const btn = e.target.closest('.mood-btn');
+
+    if(!btn) return;
+
+    document.querySelectorAll('.mood-btn').forEach(b=>{
+        b.classList.remove('active');
+    });
+
+    btn.classList.add('active');
+
+});
+// Carrusel ¿Sabías que?
+let dykIndex = 0;
+
+function updateDykCarousel() {
+    const track = document.getElementById('dykTrack');
+    const dots = document.querySelectorAll('.dyk-dot');
+
+    if (!track) return;
+
+    track.style.transform = `translateX(-${dykIndex * 100}%)`;
+
+    dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === dykIndex);
+    });
+}
+
+function moveDykSlide(direction) {
+    const totalSlides = document.querySelectorAll('.dyk-card').length;
+
+    dykIndex += direction;
+
+    if (dykIndex < 0) {
+        dykIndex = totalSlides - 1;
+    }
+
+    if (dykIndex >= totalSlides) {
+        dykIndex = 0;
+    }
+
+    updateDykCarousel();
+}
+
+function goToDykSlide(index) {
+    dykIndex = index;
+    updateDykCarousel();
 }
 
 window.addEventListener('resize', debounce(optimizeForMobile, 250));
