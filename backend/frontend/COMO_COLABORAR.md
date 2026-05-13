@@ -80,7 +80,7 @@
 ### **Para Dudas Técnicas**
 - **Issues en GitHub**: Reporta problemas
 - **Discusiones**: Propone mejoras
-- **Email**: christian060104@ejemplo.com
+- **Email**: 2004camposcorteschristian@gmail.com
 
 ### **Para Colaboración**
 - **Administrador**: Christian060104

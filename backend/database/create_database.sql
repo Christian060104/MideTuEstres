@@ -1,14 +1,16 @@
 -- Base de datos para MideTuEstres - Instituto Tecnológico de Tehuacán
 -- Versión: 1.0
--- Autor: Departamento de Bienestar Estudiantil
+-- Autor: Christian Campos Cortes, Amayrani Michel Vazquez Torres, Jesus Emanuel Grez Garcia 
 
--- Crear la base de datos si no existe
 CREATE DATABASE IF NOT EXISTS midetu_estres 
 CHARACTER SET utf8mb4 
 COLLATE utf8mb4_unicode_ci;
 
 -- Usar la base de datos
 USE midetu_estres;
+      
+
+      
 
 -- Tabla de usuarios
 CREATE TABLE IF NOT EXISTS users (
