@@ -1,7 +1,7 @@
 // Global Variables
 let currentUser = null;
 let stressMeasurements = [];
-const API_URL = 'http://localhost:8000/api';
+const API_URL = '/api';
 
 
 // Initialize the application
