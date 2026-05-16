@@ -1,0 +1,22 @@
+[Fri May 15 22:25:50.964352 2026] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.56 (Debian) PHP/8.0.30 configured -- resuming normal operations
+[Fri May 15 22:25:50.968990 2026] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+[Fri May 15 22:38:56.109757 2026] [php:notice] [pid 17] [client 192.168.65.1:24304] Request: GET /
+[Fri May 15 22:44:11.456942 2026] [php:notice] [pid 19] [client 192.168.65.1:53556] Request: GET /
+[Fri May 15 22:44:19.530757 2026] [php:notice] [pid 20] [client 192.168.65.1:56758] Request: GET /
+[Fri May 15 22:44:21.955045 2026] [php:notice] [pid 20] [client 192.168.65.1:56758] Request: GET /
+[Fri May 15 22:44:53.845849 2026] [mpm_prefork:notice] [pid 1] AH00170: caught SIGWINCH, shutting down gracefully
+[Fri May 15 22:44:59.753953 2026] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.56 (Debian) PHP/8.0.30 configured -- resuming normal operations
+[Fri May 15 22:44:59.754727 2026] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+[Fri May 15 22:45:39.765525 2026] [php:notice] [pid 18] [client 192.168.65.1:30728] Request: GET /
+[Fri May 15 22:45:40.809215 2026] [php:notice] [pid 18] [client 192.168.65.1:30728] Request: GET /
+[Fri May 15 22:46:17.519567 2026] [php:notice] [pid 17] [client 192.168.65.1:42634] Request: GET /
+[Fri May 15 23:20:45.581900 2026] [mpm_prefork:notice] [pid 1] AH00170: caught SIGWINCH, shutting down gracefully
+[Fri May 15 23:21:22.449989 2026] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.56 (Debian) PHP/8.0.30 configured -- resuming normal operations
+[Fri May 15 23:21:22.453133 2026] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+[Fri May 15 23:26:53.503233 2026] [php:notice] [pid 17] [client 192.168.65.1:39951] Request: GET /
+[Fri May 15 23:45:12.170595 2026] [mpm_prefork:notice] [pid 1] AH00170: caught SIGWINCH, shutting down gracefully
+[Fri May 15 23:45:29.262958 2026] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.56 (Debian) PHP/8.0.30 configured -- resuming normal operations
+[Fri May 15 23:45:29.264416 2026] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+[Fri May 15 23:49:53.857220 2026] [mpm_prefork:notice] [pid 1] AH00170: caught SIGWINCH, shutting down gracefully
+[Fri May 15 23:50:09.104090 2026] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.56 (Debian) PHP/8.0.30 configured -- resuming normal operations
+[Fri May 15 23:50:09.105169 2026] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'

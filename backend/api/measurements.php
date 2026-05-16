@@ -32,7 +32,10 @@ class MeasurementsAPI
      */
     public function authenticate()
     {
-        $token = $_SERVER['HTTP_AUTHORIZATION'] ?? '';
+
+        $headers = getallheaders();
+
+        $token = $headers['Authorization'] ?? $headers['authorization'] ?? '';
 
         if (empty($token)) {
             throw new Exception("Token de autenticación requerido");
