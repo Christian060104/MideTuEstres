@@ -1,9 +1,8 @@
 FROM php:8.0-apache
 
-# Establecer el directorio de trabajo
 WORKDIR /var/www/html
 
-# Instalar dependencias del sistema
+# Instalar dependencias
 RUN apt-get update && apt-get install -y \
     libpng-dev \
     libonig-dev \
@@ -13,7 +12,7 @@ RUN apt-get update && apt-get install -y \
     unzip \
     && rm -rf /var/lib/apt/lists/*
 
-# Instalar extensiones de PHP necesarias
+# Extensiones PHP
 RUN docker-php-ext-install \
     pdo_mysql \
     mysqli \
@@ -22,34 +21,33 @@ RUN docker-php-ext-install \
     zip \
     bcmath
 
-# Configurar Apache correctamente para Railway
+# SOLO habilitar rewrite
 RUN a2enmod rewrite
 
-RUN a2dismod mpm_event || true
-RUN a2dismod mpm_worker || true
-RUN a2enmod mpm_prefork || true
+# Eliminar MPM duplicados
+RUN rm -f /etc/apache2/mods-enabled/mpm_event.load
+RUN rm -f /etc/apache2/mods-enabled/mpm_worker.load
 
-# Configurar PHP
+# Asegurar prefork
+RUN ln -s /etc/apache2/mods-available/mpm_prefork.load /etc/apache2/mods-enabled/mpm_prefork.load
+RUN ln -s /etc/apache2/mods-available/mpm_prefork.conf /etc/apache2/mods-enabled/mpm_prefork.conf
+
+# Configuración PHP
 RUN echo "memory_limit = 256M" >> /usr/local/etc/php/conf.ini
 RUN echo "upload_max_filesize = 64M" >> /usr/local/etc/php/conf.ini
 RUN echo "post_max_size = 64M" >> /usr/local/etc/php/conf.ini
 RUN echo "max_execution_time = 300" >> /usr/local/etc/php/conf.ini
 
-# Configurar Apache
+# Apache
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
-# Copiar archivos de la aplicación
+# Copiar proyecto
 COPY . /var/www/html/
 
-# Establecer permisos
+# Permisos
 RUN chown -R www-data:www-data /var/www/html
 RUN chmod -R 755 /var/www/html
 
-# Exponer puerto 80
 EXPOSE 80
 
-# Ver módulos cargados (debug)
-RUN apachectl -M
-
-# Comando de inicio
 CMD ["apache2-foreground"]
