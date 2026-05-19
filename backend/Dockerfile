@@ -25,7 +25,9 @@ RUN docker-php-ext-install \
 
 # Habilitar mod_rewrite de Apache
 RUN a2enmod rewrite
-
+RUN a2dismod mpm_event
+RUN a2dismod mpm_worker
+RUN a2enmod mpm_prefork
 # Configurar PHP
 RUN echo "memory_limit = 256M" >> /usr/local/etc/php/conf.ini
 RUN echo "upload_max_filesize = 64M" >> /usr/local/etc/php/conf.ini
