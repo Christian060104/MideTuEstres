@@ -3,7 +3,6 @@ FROM php:8.0-apache
 # Establecer el directorio de trabajo
 WORKDIR /var/www/html
 
-
 # Instalar dependencias del sistema
 RUN apt-get update && apt-get install -y \
     libpng-dev \
@@ -23,11 +22,13 @@ RUN docker-php-ext-install \
     zip \
     bcmath
 
-# Habilitar mod_rewrite de Apache
+# Configurar Apache correctamente para Railway
 RUN a2enmod rewrite
-RUN a2dismod mpm_event
-RUN a2dismod mpm_worker
-RUN a2enmod mpm_prefork
+
+RUN a2dismod mpm_event || true
+RUN a2dismod mpm_worker || true
+RUN a2enmod mpm_prefork || true
+
 # Configurar PHP
 RUN echo "memory_limit = 256M" >> /usr/local/etc/php/conf.ini
 RUN echo "upload_max_filesize = 64M" >> /usr/local/etc/php/conf.ini
@@ -46,6 +47,9 @@ RUN chmod -R 755 /var/www/html
 
 # Exponer puerto 80
 EXPOSE 80
+
+# Ver módulos cargados (debug)
+RUN apachectl -M
 
 # Comando de inicio
 CMD ["apache2-foreground"]
