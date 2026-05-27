@@ -7,28 +7,20 @@
 
 class Database
 {
-    private $host = 'localhost';
-    private $db_name = 'midetu_estres';
-    private $username = 'root';
-    private $password = '';
+    private $host;
+    private $db_name;
+    private $username;
+    private $password;
     private $charset = 'utf8mb4';
     private $conn;
 
     public function __construct()
     {
-        // Configuración para Docker
-        if (getenv('DOCKER_ENV')) {
-            $this->host = getenv('DB_HOST') ?: 'mysql';
-            $this->username = getenv('DB_USER') ?: 'root';
-            $this->password = getenv('DB_PASSWORD') ?: 'rootpassword';
-            $this->db_name = getenv('DB_NAME') ?: 'midetu_estres';
-        } else {
-            // Configuración local para MySQL Workbench
-            $this->host = 'localhost';
-            $this->username = 'root';
-            $this->password = ''; // Cambia esto por tu contraseña de MySQL
-            $this->db_name = 'midetu_estres';
-        }
+        // Variables de entorno de Railway
+        $this->host = getenv('MYSQLHOST');
+        $this->username = getenv('MYSQLUSER');
+        $this->password = getenv('MYSQLPASSWORD');
+        $this->db_name = getenv('MYSQLDATABASE');
     }
 
     /**
@@ -54,12 +46,7 @@ class Database
         } catch (PDOException $exception) {
             error_log("Error de conexión: " . $exception->getMessage());
 
-            // En modo desarrollo, mostrar error detallado
-            if (getenv('APP_ENV') === 'development') {
-                throw new Exception("Error de conexión: " . $exception->getMessage());
-            } else {
-                throw new Exception("Error al conectar con la base de datos");
-            }
+            throw new Exception("Error al conectar con la base de datos");
         }
     }
 
@@ -212,10 +199,10 @@ function getDB()
  * Configuración adicional
  */
 define('JWT_SECRET', getenv('JWT_SECRET') ?: 'midetu_estres_secret_key_2024');
-define('JWT_EXPIRE_TIME', 3600 * 24 * 7); // 7 días
+define('JWT_EXPIRE_TIME', 3600 * 24 * 7);
 define('PASSWORD_MIN_LENGTH', 8);
 define('MAX_LOGIN_ATTEMPTS', 5);
-define('LOGIN_ATTEMPT_TIMEOUT', 900); // 15 minutos
+define('LOGIN_ATTEMPT_TIMEOUT', 900);
 
 /**
  * Configuración para correos institucionales
@@ -226,5 +213,5 @@ define('ALLOWED_DOMAINS', ['tehuacan.tecnm.mx']);
  * Configuración de seguridad
  */
 define('BCRYPT_COST', 12);
-define('SESSION_TIMEOUT', 3600 * 8); // 8 horas
-define('REQUIRE_EMAIL_VERIFICATION', false); // Cambiar a true en producción
+define('SESSION_TIMEOUT', 3600 * 8);
+define('REQUIRE_EMAIL_VERIFICATION', false);
