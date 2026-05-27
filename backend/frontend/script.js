@@ -138,7 +138,7 @@ async function handleLogin(e) {
   }
 
   try {
-    const response = await fetch("../api/auth.php?action=login", {
+    const response = await fetch("/api/auth.php?action=login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -207,7 +207,7 @@ async function handleRegister(e) {
   }
 
   try {
-    const response = await fetch("../api/auth.php?action=register", {
+    const response = await fetch("/api/auth.php?action=register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -318,7 +318,7 @@ async function handleStressMeasurement(e) {
   try {
     const token = localStorage.getItem("token");
 
-    const response = await fetch("../api/measurements.php?action=create", {
+    const response = await fetch("/api/measurements.php?action=create", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -437,7 +437,7 @@ async function loadStressMeasurements() {
   try {
     const token = localStorage.getItem("token");
 
-    const response = await fetch("../api/measurements.php?action=list", {
+    const response = await fetch("/api/measurements.php?action=list", {
       method: "GET",
       headers: {
         Authorization: token,
