@@ -2,7 +2,6 @@
 
 /**
  * Configuración de la base de datos para MideTuEstres
- * Instituto Tecnológico de Tehuacán
  */
 
 class Database
@@ -17,16 +16,16 @@ class Database
 
     public function __construct()
     {
-        // Variables de entorno de Railway
-        $this->host = getenv('MYSQLHOST');
-        $this->username = getenv('MYSQLUSER');
-        $this->password = getenv('MYSQLPASSWORD');
-        $this->db_name = getenv('MYSQLDATABASE');
-        $this->port = getenv('MYSQLPORT');
+        // VARIABLES DE RAILWAY
+        $this->host = getenv('MYSQLHOST') ?: 'localhost';
+        $this->db_name = getenv('MYSQLDATABASE') ?: 'railway';
+        $this->username = getenv('MYSQLUSER') ?: 'root';
+        $this->password = getenv('MYSQLPASSWORD') ?: '';
+        $this->port = getenv('MYSQLPORT') ?: 3306;
     }
 
     /**
-     * Obtener conexión a la base de datos
+     * Obtener conexión
      */
     public function getConnection()
     {
@@ -34,16 +33,12 @@ class Database
 
         try {
 
-            $dsn = "mysql:host=" . $this->host .
-                ";port=" . $this->port .
-                ";dbname=" . $this->db_name .
-                ";charset=" . $this->charset;
+            $dsn = "mysql:host={$this->host};port={$this->port};dbname={$this->db_name};charset={$this->charset}";
 
             $options = [
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                PDO::ATTR_EMULATE_PREPARES => false,
-                PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci"
+                PDO::ATTR_EMULATE_PREPARES => false
             ];
 
             $this->conn = new PDO(
@@ -71,38 +66,6 @@ class Database
     }
 
     /**
-     * Iniciar transacción
-     */
-    public function beginTransaction()
-    {
-        return $this->conn->beginTransaction();
-    }
-
-    /**
-     * Confirmar transacción
-     */
-    public function commit()
-    {
-        return $this->conn->commit();
-    }
-
-    /**
-     * Revertir transacción
-     */
-    public function rollBack()
-    {
-        return $this->conn->rollBack();
-    }
-
-    /**
-     * Obtener último ID insertado
-     */
-    public function lastInsertId()
-    {
-        return $this->conn->lastInsertId();
-    }
-
-    /**
      * Ejecutar consulta preparada
      */
     public function executeQuery($sql, $params = [])
@@ -127,7 +90,6 @@ class Database
     public function fetchAll($sql, $params = [])
     {
         $stmt = $this->executeQuery($sql, $params);
-
         return $stmt->fetchAll();
     }
 
@@ -137,7 +99,6 @@ class Database
     public function fetchOne($sql, $params = [])
     {
         $stmt = $this->executeQuery($sql, $params);
-
         return $stmt->fetch();
     }
 
@@ -147,14 +108,13 @@ class Database
     public function insert($table, $data)
     {
         $columns = implode(', ', array_keys($data));
-
         $placeholders = implode(', ', array_fill(0, count($data), '?'));
 
         $sql = "INSERT INTO $table ($columns) VALUES ($placeholders)";
 
         $this->executeQuery($sql, array_values($data));
 
-        return $this->lastInsertId();
+        return $this->conn->lastInsertId();
     }
 
     /**
@@ -163,13 +123,10 @@ class Database
     public function update($table, $data, $where, $whereParams = [])
     {
         $setClause = [];
-
         $params = [];
 
         foreach ($data as $column => $value) {
-
             $setClause[] = "$column = ?";
-
             $params[] = $value;
         }
 
@@ -210,7 +167,7 @@ class Database
 }
 
 /**
- * Función para obtener instancia de la base de datos
+ * Obtener instancia DB
  */
 function getDB()
 {
@@ -219,7 +176,6 @@ function getDB()
     if ($db === null) {
 
         $db = new Database();
-
         $db->getConnection();
     }
 
@@ -230,7 +186,6 @@ function getDB()
  * Configuración adicional
  */
 define('JWT_SECRET', getenv('JWT_SECRET') ?: 'midetu_estres_secret_key_2024');
-
 define('JWT_EXPIRE_TIME', 3600 * 24 * 7);
 
 define('PASSWORD_MIN_LENGTH', 8);
@@ -239,14 +194,8 @@ define('MAX_LOGIN_ATTEMPTS', 5);
 
 define('LOGIN_ATTEMPT_TIMEOUT', 900);
 
-/**
- * Configuración para correos institucionales
- */
 define('ALLOWED_DOMAINS', ['tehuacan.tecnm.mx']);
 
-/**
- * Configuración de seguridad
- */
 define('BCRYPT_COST', 12);
 
 define('SESSION_TIMEOUT', 3600 * 8);
