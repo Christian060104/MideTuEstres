@@ -115,13 +115,16 @@ class AuthAPI
                 'requires_verification' => REQUIRE_EMAIL_VERIFICATION
             ]);
         } catch (Exception $e) {
+
+            error_log("REGISTER ERROR: " . $e->getMessage());
+
             http_response_code(400);
+
             echo json_encode([
                 'success' => false,
                 'message' => $e->getMessage()
             ]);
         }
-    }
 
     /**
      * Iniciar sesión
