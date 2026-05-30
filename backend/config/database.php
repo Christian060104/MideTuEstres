@@ -53,6 +53,13 @@ class Database
                 PDO::ATTR_EMULATE_PREPARES => false
             ];
 
+            error_log("HOST: " . $this->host);
+            error_log("DB: " . $this->db_name);
+            error_log("USER: " . $this->username);
+            error_log("PORT: " . $this->port);
+
+
+
             $this->conn = new PDO(
                 $dsn,
                 $this->username,
