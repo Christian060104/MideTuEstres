@@ -125,6 +125,7 @@ class AuthAPI
                 'message' => $e->getMessage()
             ]);
         }
+    }
 
     /**
      * Iniciar sesión
