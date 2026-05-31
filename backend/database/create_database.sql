@@ -8,9 +8,12 @@
 
 -- Usar la base de datos
 -- USE midetu_estres;
-      
+   
 
-USE railway;      
+USE railway; 
+show tables;
+select count(*) users;
+   
 
 -- Tabla de usuarios
 CREATE TABLE IF NOT EXISTS users (

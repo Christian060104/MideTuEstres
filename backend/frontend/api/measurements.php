@@ -124,7 +124,11 @@ class MeasurementsAPI
                 'level' => $level
             ]);
         } catch (Exception $e) {
+
+            error_log("CREATE ERROR: " . $e->getMessage());
+
             http_response_code(400);
+
             echo json_encode([
                 'success' => false,
                 'message' => $e->getMessage()
