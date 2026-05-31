@@ -369,7 +369,10 @@ class MeasurementsAPI
     /**
      * Calcular estadísticas de usuario
      */
-    private function calculateUserStatistics($user_id) {}
+    private function calculateUserStatistics($user_id)
+    {
+        return true;
+    }
 
     /**
      * Registrar actividad en el log
