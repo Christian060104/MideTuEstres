@@ -2,15 +2,15 @@
 -- Versión: 1.0
 -- Autor: Christian Campos Cortes, Amayrani Michel Vazquez Torres, Jesus Emanuel Grez Garcia 
 
-CREATE DATABASE IF NOT EXISTS midetu_estres 
-CHARACTER SET utf8mb4 
-COLLATE utf8mb4_unicode_ci;
+-- CREATE DATABASE IF NOT EXISTS midetu_estres 
+-- CHARACTER SET utf8mb4 
+-- COLLATE utf8mb4_unicode_ci;
 
 -- Usar la base de datos
-USE midetu_estres;
+-- USE midetu_estres;
       
 
-      
+USE railway;      
 
 -- Tabla de usuarios
 CREATE TABLE IF NOT EXISTS users (

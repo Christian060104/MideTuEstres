@@ -369,10 +369,7 @@ class MeasurementsAPI
     /**
      * Calcular estadísticas de usuario
      */
-    private function calculateUserStatistics($user_id)
-    {
-        $this->db->executeQuery("CALL UpdateUserStatistics(?)", [$user_id]);
-    }
+    private function calculateUserStatistics($user_id) {}
 
     /**
      * Registrar actividad en el log
