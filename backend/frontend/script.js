@@ -522,7 +522,7 @@ function updateChart(measurements) {
   }
 
   const chartData = measurements.map((m) => ({
-    date: new Date(m.measurement_date).toLocaleDateString(),
+    date: new Date(m.measurement_date).toLocaleDateString("es-MX"),
     score: m.score,
   }));
 
