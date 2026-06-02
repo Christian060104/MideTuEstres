@@ -465,6 +465,8 @@ function updateTrackingStats(userMeasurements = null) {
     userMeasurements ||
     stressMeasurements.filter((m) => m.userId === currentUser.id);
 
+  console.log("Measurements:", measurements);
+
   if (measurements.length === 0) {
     document.getElementById("totalMeasurements").textContent = "0";
     document.getElementById("averageScore").textContent = "0";
@@ -520,7 +522,7 @@ function updateChart(measurements) {
   }
 
   const chartData = measurements.map((m) => ({
-    date: new Date(m.date).toLocaleDateString(),
+    date: new Date(m.measurement_date).toLocaleDateString(),
     score: m.score,
   }));
 
