@@ -498,22 +498,17 @@ function updateTrackingStats(userMeasurements = null) {
   updateChart(measurements);
 }
 
+let stressChart = null;
+
 function initializeChart() {
-  // This would initialize a real chart library like Chart.js
-  // For now, we'll create a placeholder
   const chartContainer = document.querySelector(".chart-container");
+
   chartContainer.innerHTML = `
-        <div class="chart-placeholder">
-            <i class="fas fa-chart-line" style="font-size: 4rem; color: #667eea; margin-bottom: 1rem;"></i>
-            <p>Gráfico de progreso</p>
-            <p style="font-size: 0.9rem; color: #999;">Tus mediciones aparecerán aquí</p>
-        </div>
-    `;
+      <canvas id="stressChart" height="250"></canvas>
+  `;
 }
 
 function updateChart(measurements) {
-  // This would update a real chart
-  // For now, we'll just show a simple text representation
   const chartContainer = document.querySelector(".chart-container");
 
   if (measurements.length === 0) {
@@ -521,28 +516,53 @@ function updateChart(measurements) {
     return;
   }
 
-  const chartData = measurements.map((m) => ({
-    date: new Date(m.measurement_date).toLocaleDateString("es-MX"),
-    score: m.score,
-  }));
-
   chartContainer.innerHTML = `
-        <div style="text-align: center; padding: 2rem;">
-            <h4 style="margin-bottom: 1rem;">Historial de Estrés</h4>
-            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-                ${chartData
-                  .map(
-                    (d) => `
-                    <div style="display: flex; justify-content: space-between; padding: 0.5rem; background: #f8f9fa; border-radius: 5px;">
-                        <span>${d.date}</span>
-                        <span style="font-weight: bold; color: ${d.score <= 8 ? "#28a745" : d.score <= 14 ? "#ffc107" : "#dc3545"}">${d.score} pts</span>
-                    </div>
-                `,
-                  )
-                  .join("")}
-            </div>
-        </div>
-    `;
+      <canvas id="stressChart" height="250"></canvas>
+  `;
+
+  const labels = measurements.map((m) =>
+    new Date(m.measurement_date).toLocaleDateString("es-MX"),
+  );
+
+  const scores = measurements.map((m) => m.score);
+
+  const ctx = document.getElementById("stressChart").getContext("2d");
+
+  if (stressChart) {
+    stressChart.destroy();
+  }
+
+  stressChart = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: "Nivel de Estrés",
+          data: scores,
+          borderColor: "#667eea",
+          backgroundColor: "rgba(102,126,234,0.2)",
+          fill: true,
+          tension: 0.3,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        title: {
+          display: true,
+          text: "Historial de Estrés",
+        },
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: 20,
+        },
+      },
+    },
+  });
 }
 
 // Resource Functions
