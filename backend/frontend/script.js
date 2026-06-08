@@ -394,6 +394,20 @@ function showStressResults(score) {
   // Update UI
   document.getElementById("levelTitle").textContent = level;
   document.getElementById("levelDescription").textContent = description;
+  let aiAnalysis = "";
+
+  if (score <= 8) {
+    aiAnalysis =
+      "Tus respuestas muestran un nivel bajo de estrés. Mantienes un equilibrio saludable entre tus actividades académicas y tu bienestar emocional.";
+  } else if (score <= 14) {
+    aiAnalysis =
+      "Se detectan señales moderadas de estrés académico. Conviene prestar atención a la organización del tiempo, el descanso y las pausas activas.";
+  } else {
+    aiAnalysis =
+      "Se observa un nivel elevado de estrés. Es recomendable aplicar estrategias de manejo emocional y buscar apoyo si esta situación continúa.";
+  }
+
+  document.getElementById("aiAnalysis").textContent = aiAnalysis;
 
   // Update recommendations
   const recommendationsList = document.getElementById("recommendationsList");
