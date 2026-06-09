@@ -902,6 +902,12 @@ async function generatePDF() {
     20,
     55,
   );
+  doc.text(
+    `Tendencia: ${document.getElementById("stressTrend")?.textContent || ""}`,
+    20,
+    65,
+    { maxWidth: 160 },
+  );
 
   doc.text(
     `Análisis: ${document.getElementById("aiAnalysis")?.textContent || ""}`,
@@ -910,7 +916,19 @@ async function generatePDF() {
     { maxWidth: 160 },
   );
 
-  let y = 100;
+  // Agregar gráfica al PDF
+  const chartCanvas = document.getElementById("stressChart");
+
+  if (chartCanvas) {
+    const chartImage = chartCanvas.toDataURL("image/png");
+
+    doc.setFontSize(14);
+    doc.text("Gráfica de Evolución del Estrés", 20, 90);
+
+    doc.addImage(chartImage, "PNG", 15, 100, 180, 80);
+  }
+
+  let y = 200;
 
   doc.text("Historial de Mediciones:", 20, y);
 
