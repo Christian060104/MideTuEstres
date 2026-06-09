@@ -882,13 +882,15 @@ window.addEventListener("resize", debounce(optimizeForMobile, 250));
 // Initialize mobile optimizations
 optimizeForMobile();
 
-//genrar pdf
+// Generar PDF
 async function generatePDF() {
   const { jsPDF } = window.jspdf;
 
   const doc = new jsPDF();
+
   const nivel = document.getElementById("levelTitle")?.textContent || "";
 
+  // Color del encabezado según nivel
   if (nivel.includes("Bajo")) {
     doc.setFillColor(40, 167, 69);
   } else if (nivel.includes("Moderado")) {
@@ -897,6 +899,7 @@ async function generatePDF() {
     doc.setFillColor(220, 53, 69);
   }
 
+  // Encabezado
   doc.rect(0, 0, 210, 25, "F");
 
   doc.setTextColor(255, 255, 255);
@@ -906,19 +909,40 @@ async function generatePDF() {
   doc.setFontSize(12);
   doc.text("Reporte de Estrés Académico", 20, 22);
 
+  // Información general
   doc.setTextColor(0, 0, 0);
-
   doc.setFontSize(12);
 
   doc.text(`Fecha: ${new Date().toLocaleDateString("es-MX")}`, 20, 35);
 
   doc.text(`Usuario: ${currentUser?.name || "Estudiante"}`, 20, 45);
 
-  doc.text(
-    `Nivel actual: ${document.getElementById("levelTitle")?.textContent || ""}`,
-    20,
-    55,
-  );
+  doc.text(`Nivel actual: ${nivel}`, 20, 55);
+
+  // Tendencia
+  let trendText = document.getElementById("stressTrend")?.textContent || "";
+
+  trendText = trendText
+    .replace(/📈|📉|➡️/g, "")
+    .replace(/[^\x20-\x7EáéíóúÁÉÍÓÚñÑüÜ]/g, "")
+    .trim();
+
+  const trendLines = doc.splitTextToSize(`Tendencia: ${trendText}`, 170);
+
+  doc.text(trendLines, 20, 70);
+
+  let currentY = 70 + trendLines.length * 7;
+
+  // Análisis Inteligente
+  const analysisText = document.getElementById("aiAnalysis")?.textContent || "";
+
+  const analysisLines = doc.splitTextToSize(`Análisis: ${analysisText}`, 170);
+
+  doc.text(analysisLines, 20, currentY);
+
+  currentY += analysisLines.length * 7 + 10;
+
+  // Estado actual
   doc.setFontSize(14);
 
   if (nivel.includes("Bajo")) {
@@ -929,37 +953,31 @@ async function generatePDF() {
     doc.setTextColor(220, 53, 69);
   }
 
-  let trendText = document.getElementById("stressTrend")?.textContent || "";
+  doc.text(`Estado actual: ${nivel}`, 20, currentY);
 
-  // eliminar emojis problemáticos
-  trendText = trendText
-    .replace("📈", "")
-    .replace("📉", "")
-    .replace("➡️", "")
-    .trim();
+  doc.setTextColor(0, 0, 0);
 
-  doc.text(`Tendencia: ${trendText}`, 20, 65, { maxWidth: 160 });
+  currentY += 15;
 
-  doc.text(
-    `Análisis: ${document.getElementById("aiAnalysis")?.textContent || ""}`,
-    20,
-    85,
-    { maxWidth: 160 },
-  );
-
-  // Agregar gráfica al PDF
+  // Gráfica
   const chartCanvas = document.getElementById("stressChart");
 
   if (chartCanvas) {
     const chartImage = chartCanvas.toDataURL("image/png");
 
     doc.setFontSize(14);
-    doc.text("Gráfica de Evolución del Estrés", 20, 125);
 
-    doc.addImage(chartImage, "PNG", 15, 135, 180, 80);
+    doc.text("Gráfica de Evolución del Estrés", 20, currentY);
+
+    doc.addImage(chartImage, "PNG", 15, currentY + 10, 180, 80);
+
+    currentY += 100;
   }
 
-  let y = 225;
+  // Historial
+  let y = currentY;
+
+  doc.setFontSize(12);
 
   doc.text("Historial de Mediciones:", 20, y);
 
@@ -969,15 +987,17 @@ async function generatePDF() {
     doc.text(`${index + 1}. ${m.measurement_date} - ${m.score} puntos`, 25, y);
   });
 
+  // Pie de página
   doc.setFontSize(10);
 
   doc.text("Generado automáticamente por MideTuEstrés", 20, 285);
 
-  doc.text(new Date().toLocaleString("es-MX"), 150, 285);
+  doc.text(new Date().toLocaleString("es-MX"), 145, 285);
+
   doc.save("Reporte_MideTuEstres.pdf");
 }
 
-//activar el boton cuchau
+// Activar botón PDF
 document.addEventListener("click", (e) => {
   if (e.target.id === "downloadPdfBtn") {
     generatePDF();
