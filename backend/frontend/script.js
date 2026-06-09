@@ -984,8 +984,15 @@ async function generatePDF() {
   stressMeasurements.forEach((m, index) => {
     y += 10;
 
+    if (y > 260) return;
+
     doc.text(`${index + 1}. ${m.measurement_date} - ${m.score} puntos`, 25, y);
   });
+  doc.text(
+    `Total de mediciones registradas: ${stressMeasurements.length}`,
+    20,
+    y + 15,
+  );
 
   // Pie de página
   doc.setFontSize(10);
