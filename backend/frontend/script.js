@@ -881,3 +881,51 @@ window.addEventListener("resize", debounce(optimizeForMobile, 250));
 
 // Initialize mobile optimizations
 optimizeForMobile();
+
+//genrar pdf
+async function generatePDF() {
+  const { jsPDF } = window.jspdf;
+
+  const doc = new jsPDF();
+
+  doc.setFontSize(18);
+  doc.text("Reporte de Estrés Académico", 20, 20);
+
+  doc.setFontSize(12);
+
+  doc.text(`Fecha: ${new Date().toLocaleDateString("es-MX")}`, 20, 35);
+
+  doc.text(`Usuario: ${currentUser?.name || "Estudiante"}`, 20, 45);
+
+  doc.text(
+    `Nivel actual: ${document.getElementById("levelTitle")?.textContent || ""}`,
+    20,
+    55,
+  );
+
+  doc.text(
+    `Análisis: ${document.getElementById("aiAnalysis")?.textContent || ""}`,
+    20,
+    70,
+    { maxWidth: 160 },
+  );
+
+  let y = 100;
+
+  doc.text("Historial de Mediciones:", 20, y);
+
+  stressMeasurements.forEach((m, index) => {
+    y += 10;
+
+    doc.text(`${index + 1}. ${m.measurement_date} - ${m.score} puntos`, 25, y);
+  });
+
+  doc.save("Reporte_MideTuEstres.pdf");
+}
+
+//activar el boton cuchau
+document.addEventListener("click", (e) => {
+  if (e.target.id === "downloadPdfBtn") {
+    generatePDF();
+  }
+});
