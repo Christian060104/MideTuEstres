@@ -887,9 +887,26 @@ async function generatePDF() {
   const { jsPDF } = window.jspdf;
 
   const doc = new jsPDF();
+  const nivel = document.getElementById("levelTitle")?.textContent || "";
 
-  doc.setFontSize(18);
-  doc.text("Reporte de Estrés Académico", 20, 20);
+  if (nivel.includes("Bajo")) {
+    doc.setFillColor(40, 167, 69);
+  } else if (nivel.includes("Moderado")) {
+    doc.setFillColor(255, 193, 7);
+  } else {
+    doc.setFillColor(220, 53, 69);
+  }
+
+  doc.rect(0, 0, 210, 25, "F");
+
+  doc.setTextColor(255, 255, 255);
+  doc.setFontSize(20);
+  doc.text("MideTuEstrés", 20, 15);
+
+  doc.setFontSize(12);
+  doc.text("Reporte de Estrés Académico", 20, 22);
+
+  doc.setTextColor(0, 0, 0);
 
   doc.setFontSize(12);
 
@@ -902,6 +919,19 @@ async function generatePDF() {
     20,
     55,
   );
+  doc.setFontSize(14);
+
+  if (nivel.includes("Bajo")) {
+    doc.setTextColor(40, 167, 69);
+  } else if (nivel.includes("Moderado")) {
+    doc.setTextColor(255, 140, 0);
+  } else {
+    doc.setTextColor(220, 53, 69);
+  }
+
+  doc.text(`Estado actual: ${nivel}`, 20, 80);
+
+  doc.setTextColor(0, 0, 0);
   doc.text(
     `Tendencia: ${document.getElementById("stressTrend")?.textContent || ""}`,
     20,
@@ -938,6 +968,11 @@ async function generatePDF() {
     doc.text(`${index + 1}. ${m.measurement_date} - ${m.score} puntos`, 25, y);
   });
 
+  doc.setFontSize(10);
+
+  doc.text("Generado automáticamente por MideTuEstrés", 20, 285);
+
+  doc.text(new Date().toLocaleString("es-MX"), 150, 285);
   doc.save("Reporte_MideTuEstres.pdf");
 }
 
