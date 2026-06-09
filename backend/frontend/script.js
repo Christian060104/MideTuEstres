@@ -479,6 +479,33 @@ function updateTrackingStats(userMeasurements = null) {
     userMeasurements ||
     stressMeasurements.filter((m) => m.userId === currentUser.id);
 
+  // Analizar tendencia de estrés
+  const trendElement = document.getElementById("stressTrend");
+
+  if (trendElement) {
+    if (measurements.length < 2) {
+      trendElement.textContent =
+        "Necesitas al menos 2 mediciones para analizar una tendencia.";
+    } else {
+      const recentMeasurements = measurements.slice(0, 3);
+
+      const latestScore = recentMeasurements[0].score;
+      const oldestScore =
+        recentMeasurements[recentMeasurements.length - 1].score;
+
+      if (latestScore < oldestScore) {
+        trendElement.textContent =
+          "📈 Mejorando: tus niveles de estrés han disminuido en las últimas mediciones.";
+      } else if (latestScore > oldestScore) {
+        trendElement.textContent =
+          "📉 Empeorando: tus niveles de estrés han aumentado recientemente.";
+      } else {
+        trendElement.textContent =
+          "➖ Estable: tus niveles de estrés se mantienen constantes.";
+      }
+    }
+  }
+
   console.log("Measurements:", measurements);
 
   if (measurements.length === 0) {
