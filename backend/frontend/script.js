@@ -929,20 +929,21 @@ async function generatePDF() {
     doc.setTextColor(220, 53, 69);
   }
 
-  doc.text(`Estado actual: ${nivel}`, 20, 80);
+  let trendText = document.getElementById("stressTrend")?.textContent || "";
 
-  doc.setTextColor(0, 0, 0);
-  doc.text(
-    `Tendencia: ${document.getElementById("stressTrend")?.textContent || ""}`,
-    20,
-    65,
-    { maxWidth: 160 },
-  );
+  // eliminar emojis problemáticos
+  trendText = trendText
+    .replace("📈", "")
+    .replace("📉", "")
+    .replace("➡️", "")
+    .trim();
+
+  doc.text(`Tendencia: ${trendText}`, 20, 65, { maxWidth: 160 });
 
   doc.text(
     `Análisis: ${document.getElementById("aiAnalysis")?.textContent || ""}`,
     20,
-    70,
+    85,
     { maxWidth: 160 },
   );
 
@@ -953,12 +954,12 @@ async function generatePDF() {
     const chartImage = chartCanvas.toDataURL("image/png");
 
     doc.setFontSize(14);
-    doc.text("Gráfica de Evolución del Estrés", 20, 90);
+    doc.text("Gráfica de Evolución del Estrés", 20, 125);
 
-    doc.addImage(chartImage, "PNG", 15, 100, 180, 80);
+    doc.addImage(chartImage, "PNG", 15, 135, 180, 80);
   }
 
-  let y = 200;
+  let y = 225;
 
   doc.text("Historial de Mediciones:", 20, y);
 
