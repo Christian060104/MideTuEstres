@@ -131,7 +131,7 @@
 
                   <div class="mini-card">
                     <i class="fas fa-brain"></i>
-                    <span>Monitoreo IA</span>
+                    <span>Analisis Inteligente</span>
                   </div>
                 </div>
               </div>
@@ -595,12 +595,11 @@
         </div>
       </section>
 
-
-      <section id="bienestar" class="wellness-section">
+<section id="bienestar" class="wellness-section">
   <div class="container">
     <h2 class="section-title">Centro de Bienestar</h2>
     <p class="section-subtitle">
-      Completa actividades rápidas para reducir el estrés y mejorar tu constancia.
+      Completa actividades rápidas para reducir el estrés y hacer crecer tu jardín virtual.
     </p>
 
     <div class="wellness-grid">
@@ -617,80 +616,76 @@
       </div>
 
       <div class="wellness-card">
-        <i class="fas fa
-        -trophy"></i>
+        <i class="fas fa-trophy"></i>
         <h3>Logro</h3>
         <p id="currentAchievement">Aún no tienes logros</p>
       </div>
     </div>
 
+    <div class="garden-card">
+      <h3>🌱 Jardín virtual</h3>
+      <div id="virtualGarden" class="virtual-garden">🌱</div>
+      <p id="gardenMessage">Completa actividades para hacer crecer tu jardín.</p>
+
+      <div class="garden-progress-box">
+        <div class="garden-progress-top">
+          <span>Progreso del jardín</span>
+          <strong><span id="activitiesCounter">0</span>/30</strong>
+        </div>
+        <div class="garden-progress-bar">
+          <div id="gardenProgressFill" class="garden-progress-fill"></div>
+        </div>
+      </div>
+    </div>
+
     <div class="daily-challenge-card">
-      <h3>Reto diario</h3>
+      <h3>🎯 Reto diario</h3>
       <p id="dailyChallengeText">Respira profundo durante 1 minuto.</p>
       <button class="btn-primary" onclick="completeDailyChallenge()">
         Completar reto
       </button>
     </div>
 
-    <div class="garden-card">
-      <h3>Jardín virtual</h3>
-      <div id="virtualGarden" class="virtual-garden">🌱</div>
-      <p id="gardenMessage">Tu jardín crecerá con tus hábitos positivos.</p>
-      <p>
-  Actividades completadas:
-  <strong id="activitiesCounter">0</strong>
-</p>
-    </div>
-    
     <div class="wellness-actions-grid">
-    <div class="breathing-card">
+      <div class="breathing-card">
+        <h3>🧘 Respiración guiada</h3>
 
-  <h3>🧘 Respiración Guiada</h3>
+        <div id="breathingCircle" class="breathing-circle">
+          Inhala
+        </div>
 
-  <div id="breathingCircle" class="breathing-circle">
-      Inhala
-  </div>
+        <button class="btn-primary" onclick="startBreathingExercise()">
+          Iniciar ejercicio
+        </button>
+      </div>
 
-  <button class="btn-primary" onclick="startBreathingExercise()">
-      Iniciar ejercicio
-  </button>
+      <div class="pomodoro-card">
+        <h3>⏰ Pomodoro</h3>
 
-</div>
-<div class="pomodoro-card">
+        <h1 id="pomodoroTime">25:00</h1>
 
-  <h3>⏰ Pomodoro</h3>
+        <button class="btn-primary" onclick="startPomodoro()">
+          Iniciar
+        </button>
+      </div>
 
-  <h1 id="pomodoroTime">25:00</h1>
+      <div class="activity-card">
+        <h3>🎲 Ruleta anti estrés</h3>
 
-  <button class="btn-primary" onclick="startPomodoro()">
-      Iniciar
-  </button>
+        <div class="real-wheel-box">
+          <div class="wheel-marker">▼</div>
+          <canvas id="stressWheelCanvas" width="320" height="320"></canvas>
+        </div>
 
-</div>
-<div class="activity-card">
-  <h3>🎲 Ruleta Anti Estrés</h3>
+        <div id="activityResult" class="activity-result">
+          Presiona el botón para girar la ruleta.
+        </div>
 
-  <div class="wheel-wrapper">
-    <div class="wheel-pointer">▼</div>
-    <div id="stressWheel" class="stress-wheel">
-      <span>Respira</span>
-      <span>Camina</span>
-      <span>Agua</span>
-      <span>Música</span>
-      <span>Estira</span>
-      <span>Ordena</span>
+        <button class="btn-primary" onclick="spinStressWheel()">
+          Girar ruleta
+        </button>
+      </div>
     </div>
-  </div>
-
-  <div id="activityResult" class="activity-result">
-    Presiona el botón para girar la ruleta.
-  </div>
-
-  <button class="btn-primary" onclick="spinStressWheel()">
-    Girar Ruleta
-  </button>
-</div>
-  </div>
   </div>
 </section>
       <!-- Resources Section -->

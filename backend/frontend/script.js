@@ -1056,18 +1056,30 @@ const dailyChallenges = [
   "Escucha una canción relajante."
 ];
 
-const randomActivities = [
-  "Haz respiración 4-4-4: inhala, mantén y exhala.",
-  "Camina durante 5 minutos.",
-  "Ordena tu espacio de estudio.",
-  "Cierra los ojos y descansa 2 minutos.",
-  "Escribe tus 3 tareas más importantes.",
-  "Toma agua y relaja los hombros.",
-  "Haz una pausa sin pantalla."
-];
-
 function saveWellnessData() {
   localStorage.setItem("wellnessData", JSON.stringify(wellnessData));
+}
+
+function addGardenProgress(points = 5) {
+  wellnessData.activitiesCompleted++;
+  wellnessData.points += points;
+
+  if (wellnessData.activitiesCompleted >= 30) {
+    wellnessData.achievement = "🌳 Jardín completamente florecido";
+  } else if (wellnessData.activitiesCompleted >= 20) {
+    wellnessData.achievement = "🌸 Árbol con flores";
+  } else if (wellnessData.activitiesCompleted >= 10) {
+    wellnessData.achievement = "🌳 Árbol saludable";
+  } else if (wellnessData.activitiesCompleted >= 5) {
+    wellnessData.achievement = "🌿 Planta en crecimiento";
+  } else if (wellnessData.activitiesCompleted >= 3) {
+    wellnessData.achievement = "🌱 Primer brote";
+  } else {
+    wellnessData.achievement = "✨ Primer paso completado";
+  }
+
+  saveWellnessData();
+  updateWellnessUI();
 }
 
 function updateWellnessUI() {
@@ -1077,6 +1089,7 @@ function updateWellnessUI() {
   const virtualGarden = document.getElementById("virtualGarden");
   const gardenMessage = document.getElementById("gardenMessage");
   const activitiesCounter = document.getElementById("activitiesCounter");
+  const gardenProgressFill = document.getElementById("gardenProgressFill");
   const dailyChallengeText = document.getElementById("dailyChallengeText");
 
   if (!streakDays) return;
@@ -1085,63 +1098,42 @@ function updateWellnessUI() {
   wellnessPoints.textContent = wellnessData.points;
   currentAchievement.textContent = wellnessData.achievement;
 
-  const todayChallenge =
+  dailyChallengeText.textContent =
     dailyChallenges[new Date().getDay() % dailyChallenges.length];
 
-  dailyChallengeText.textContent = todayChallenge;
   const completed = wellnessData.activitiesCompleted;
 
-if (completed >= 30) {
-
+  if (completed >= 30) {
     virtualGarden.innerHTML = "🌳🌷🌼";
-
-    gardenMessage.textContent =
-    "Tu jardín está completamente florecido.";
-
-}
-else if (completed >= 20) {
-
+    gardenMessage.textContent = "Tu jardín está completamente florecido.";
+  } else if (completed >= 20) {
     virtualGarden.innerHTML = "🌳🌸";
-
-    gardenMessage.textContent =
-    "Tu árbol ya tiene flores.";
-
-}
-else if (completed >= 10) {
-
+    gardenMessage.textContent = "Tu árbol ya tiene flores.";
+  } else if (completed >= 10) {
     virtualGarden.innerHTML = "🌳";
-
-    gardenMessage.textContent =
-    "Tu árbol ha crecido.";
-
-}
-else if (completed >= 5) {
-
+    gardenMessage.textContent = "Tu árbol ha crecido.";
+  } else if (completed >= 5) {
     virtualGarden.innerHTML = "🌿🌿";
-
-    gardenMessage.textContent =
-    "Tu planta sigue creciendo.";
-
-}
-else if (completed >= 3) {
-
+    gardenMessage.textContent = "Tu planta sigue creciendo.";
+  } else if (completed >= 3) {
     virtualGarden.innerHTML = "🌱🌿";
-
-    gardenMessage.textContent =
-    "Tu semilla comenzó a brotar.";
-
-}
-else {
-
+    gardenMessage.textContent = "Tu semilla comenzó a brotar.";
+  } else {
     virtualGarden.innerHTML = "🌱";
+    gardenMessage.textContent = "Completa actividades para hacer crecer tu jardín.";
+  }
 
-    gardenMessage.textContent =
-    "Completa actividades para hacer crecer tu jardín.";
+  virtualGarden.classList.add("garden-grow");
+  setTimeout(() => virtualGarden.classList.remove("garden-grow"), 700);
 
-}if (activitiesCounter) {
-  activitiesCounter.textContent =
-  wellnessData.activitiesCompleted;
-}
+  if (activitiesCounter) {
+    activitiesCounter.textContent = completed;
+  }
+
+  if (gardenProgressFill) {
+    const progress = Math.min((completed / 30) * 100, 100);
+    gardenProgressFill.style.width = progress + "%";
+  }
 }
 
 function completeDailyChallenge() {
@@ -1162,139 +1154,162 @@ function completeDailyChallenge() {
     wellnessData.streak = 1;
   }
 
-  wellnessData.points += 15;
   wellnessData.lastCompletedDate = today;
 
-  if (wellnessData.streak >= 7) {
-    wellnessData.achievement = "🏆 Una semana constante";
-  } else if (wellnessData.streak >= 3) {
-    wellnessData.achievement = "🥉 Tres días de bienestar";
-  } else if (wellnessData.points >= 100) {
-    wellnessData.achievement = "🌳 Jardín florecido";
-  } else {
-    wellnessData.achievement = "✨ Primer paso completado";
-  }
+  addGardenProgress(15);
 
-  saveWellnessData();
-  updateWellnessUI();
-
-  alert("Reto completado. Ganaste 15 puntos 💜");
+  alert("Reto completado. Tu jardín creció 🌱");
 }
 
-function generateRandomActivity() {
-
-  const activities = [
-    "🌿 Respira profundamente durante 1 minuto",
-    "🚶 Camina durante 5 minutos",
-    "💧 Toma un vaso de agua",
-    "🎵 Escucha una canción relajante",
-    "🧘 Haz estiramientos rápidos",
-    "📚 Organiza tu espacio de estudio",
-    "☀️ Sal a tomar aire fresco",
-    "😊 Escribe algo positivo de tu día"
-  ];
-
-  const random =
-    activities[Math.floor(Math.random() * activities.length)];
-
-  document.getElementById("activityResult").innerHTML = random;
-}
-function startBreathingExercise(){
-
-  const circle =
-    document.getElementById("breathingCircle");
+function startBreathingExercise() {
+  const circle = document.getElementById("breathingCircle");
+  if (!circle) return;
 
   circle.innerHTML = "Inhala";
-
   circle.classList.add("expand");
 
-  setTimeout(()=>{
+  setTimeout(() => {
+    circle.innerHTML = "Mantén";
+  }, 4000);
 
-      circle.innerHTML = "Mantén";
+  setTimeout(() => {
+    circle.innerHTML = "Exhala";
+    circle.classList.remove("expand");
+  }, 8000);
 
-  },4000);
-
-  setTimeout(()=>{
-
-      circle.innerHTML = "Exhala";
-
-      circle.classList.remove("expand");
-
-  },8000);
-
+  setTimeout(() => {
+    circle.innerHTML = "Completado";
+    addGardenProgress(5);
+  }, 12000);
 }
+
 let pomodoroRunning = false;
 
-function startPomodoro(){
-
-  if(pomodoroRunning) return;
+function startPomodoro() {
+  if (pomodoroRunning) return;
 
   pomodoroRunning = true;
-
   let totalSeconds = 1500;
 
-  const timer =
-  document.getElementById("pomodoroTime");
+  const timer = document.getElementById("pomodoroTime");
 
-  const interval = setInterval(()=>{
+  const interval = setInterval(() => {
+    totalSeconds--;
 
-      totalSeconds--;
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
 
-      const minutes =
-      Math.floor(totalSeconds/60);
+    timer.innerHTML = `${minutes}:${seconds.toString().padStart(2, "0")}`;
 
-      const seconds =
-      totalSeconds%60;
-
-      timer.innerHTML =
-      `${minutes}:${seconds.toString().padStart(2,'0')}`;
-
-      if(totalSeconds<=0){
-
-          clearInterval(interval);
-
-          pomodoroRunning=false;
-
-          alert("🎉 Sesión completada");
-
-      }
-
-  },1000);
-
+    if (totalSeconds <= 0) {
+      clearInterval(interval);
+      pomodoroRunning = false;
+      timer.innerHTML = "25:00";
+      addGardenProgress(10);
+      alert("🎉 Sesión Pomodoro completada. Tu jardín creció.");
+    }
+  }, 1000);
 }
-let wheelRotation = 0;
+
+/* Ruleta real con canvas */
+const wheelActivities = ["Respira", "Camina", "Agua", "Música", "Estira", "Ordena"];
+
+const wheelResults = [
+  "🌿 Respira profundamente durante 1 minuto",
+  "🚶 Camina durante 5 minutos",
+  "💧 Toma un vaso de agua",
+  "🎵 Escucha una canción relajante",
+  "🧘 Haz estiramientos rápidos",
+  "📚 Ordena tu espacio de estudio"
+];
+
+let wheelAngle = 0;
+let isWheelSpinning = false;
+
+function drawStressWheel() {
+  const canvas = document.getElementById("stressWheelCanvas");
+  if (!canvas) return;
+
+  const ctx = canvas.getContext("2d");
+  const size = canvas.width;
+  const center = size / 2;
+  const radius = center - 10;
+  const slice = (2 * Math.PI) / wheelActivities.length;
+
+  const colors = ["#8b5cf6", "#facc15", "#c4b5fd", "#fde68a", "#a78bfa", "#ede9fe"];
+
+  ctx.clearRect(0, 0, size, size);
+
+  for (let i = 0; i < wheelActivities.length; i++) {
+    const start = wheelAngle + i * slice;
+    const end = start + slice;
+
+    ctx.beginPath();
+    ctx.moveTo(center, center);
+    ctx.arc(center, center, radius, start, end);
+    ctx.closePath();
+    ctx.fillStyle = colors[i];
+    ctx.fill();
+    ctx.strokeStyle = "#ffffff";
+    ctx.lineWidth = 4;
+    ctx.stroke();
+
+    ctx.save();
+    ctx.translate(center, center);
+    ctx.rotate(start + slice / 2);
+    ctx.textAlign = "right";
+    ctx.fillStyle = i === 0 || i === 4 ? "#ffffff" : "#333333";
+    ctx.font = "bold 15px Arial";
+    ctx.fillText(wheelActivities[i], radius - 25, 5);
+    ctx.restore();
+  }
+
+  ctx.beginPath();
+  ctx.arc(center, center, 34, 0, Math.PI * 2);
+  ctx.fillStyle = "#ffffff";
+  ctx.fill();
+
+  ctx.beginPath();
+  ctx.arc(center, center, 20, 0, Math.PI * 2);
+  ctx.fillStyle = "#8b5cf6";
+  ctx.fill();
+
+  ctx.fillStyle = "#ffffff";
+  ctx.font = "bold 16px Arial";
+  ctx.textAlign = "center";
+  ctx.fillText("💜", center, center + 6);
+}
 
 function spinStressWheel() {
-  const wheel = document.getElementById("stressWheel");
+  if (isWheelSpinning) return;
+
   const result = document.getElementById("activityResult");
+  const randomIndex = Math.floor(Math.random() * wheelActivities.length);
 
-  const activities = [
-    "🌿 Respira profundamente durante 1 minuto",
-    "🚶 Camina durante 5 minutos",
-    "💧 Toma un vaso de agua",
-    "🎵 Escucha una canción relajante",
-    "🧘 Haz estiramientos rápidos",
-    "📚 Ordena tu espacio de estudio"
-  ];
+  let spins = 0;
+  const totalSpins = 90 + randomIndex * 12;
 
-  const randomIndex = Math.floor(Math.random() * activities.length);
-
-  wheelRotation += 1440 + randomIndex * 60;
-
-  wheel.style.transform = `rotate(${wheelRotation}deg)`;
+  isWheelSpinning = true;
   result.textContent = "Girando...";
 
-setTimeout(() => {
+  const interval = setInterval(() => {
+    wheelAngle += 0.25;
+    spins++;
+    drawStressWheel();
 
-  result.textContent = activities[randomIndex];
+    if (spins >= totalSpins) {
+      clearInterval(interval);
 
-  wellnessData.activitiesCompleted++;
+      result.textContent = wheelResults[randomIndex];
 
-  wellnessData.points += 5;
+      addGardenProgress(5);
 
-  saveWellnessData();
-
-  updateWellnessUI();
-
-}, 3000);
+      isWheelSpinning = false;
+    }
+  }, 20);
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+  updateWellnessUI();
+  drawStressWheel();
+});
