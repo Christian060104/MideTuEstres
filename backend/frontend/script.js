@@ -1041,6 +1041,7 @@ themeToggle.addEventListener("click", () => {
 let wellnessData = JSON.parse(localStorage.getItem("wellnessData")) || {
   points: 0,
   streak: 0,
+  activitiesCompleted: 0,
   lastCompletedDate: null,
   achievement: "Aún no tienes logros"
 };
@@ -1075,6 +1076,7 @@ function updateWellnessUI() {
   const currentAchievement = document.getElementById("currentAchievement");
   const virtualGarden = document.getElementById("virtualGarden");
   const gardenMessage = document.getElementById("gardenMessage");
+  const activitiesCounter = document.getElementById("activitiesCounter");
   const dailyChallengeText = document.getElementById("dailyChallengeText");
 
   if (!streakDays) return;
@@ -1087,20 +1089,59 @@ function updateWellnessUI() {
     dailyChallenges[new Date().getDay() % dailyChallenges.length];
 
   dailyChallengeText.textContent = todayChallenge;
+  const completed = wellnessData.activitiesCompleted;
 
-  if (wellnessData.points >= 100) {
-    virtualGarden.textContent = "🌳🌷🌼";
-    gardenMessage.textContent = "Tu jardín está floreciendo gracias a tu constancia.";
-  } else if (wellnessData.points >= 60) {
-    virtualGarden.textContent = "🌿🌸";
-    gardenMessage.textContent = "Tu jardín está creciendo muy bien.";
-  } else if (wellnessData.points >= 30) {
-    virtualGarden.textContent = "🌱🌿";
-    gardenMessage.textContent = "Tu planta empieza a crecer.";
-  } else {
-    virtualGarden.textContent = "🌱";
-    gardenMessage.textContent = "Tu jardín crecerá con tus hábitos positivos.";
-  }
+if (completed >= 30) {
+
+    virtualGarden.innerHTML = "🌳🌷🌼";
+
+    gardenMessage.textContent =
+    "Tu jardín está completamente florecido.";
+
+}
+else if (completed >= 20) {
+
+    virtualGarden.innerHTML = "🌳🌸";
+
+    gardenMessage.textContent =
+    "Tu árbol ya tiene flores.";
+
+}
+else if (completed >= 10) {
+
+    virtualGarden.innerHTML = "🌳";
+
+    gardenMessage.textContent =
+    "Tu árbol ha crecido.";
+
+}
+else if (completed >= 5) {
+
+    virtualGarden.innerHTML = "🌿🌿";
+
+    gardenMessage.textContent =
+    "Tu planta sigue creciendo.";
+
+}
+else if (completed >= 3) {
+
+    virtualGarden.innerHTML = "🌱🌿";
+
+    gardenMessage.textContent =
+    "Tu semilla comenzó a brotar.";
+
+}
+else {
+
+    virtualGarden.innerHTML = "🌱";
+
+    gardenMessage.textContent =
+    "Completa actividades para hacer crecer tu jardín.";
+
+}if (activitiesCounter) {
+  activitiesCounter.textContent =
+  wellnessData.activitiesCompleted;
+}
 }
 
 function completeDailyChallenge() {
@@ -1243,7 +1284,17 @@ function spinStressWheel() {
   wheel.style.transform = `rotate(${wheelRotation}deg)`;
   result.textContent = "Girando...";
 
-  setTimeout(() => {
-    result.textContent = activities[randomIndex];
-  }, 3000);
+setTimeout(() => {
+
+  result.textContent = activities[randomIndex];
+
+  wellnessData.activitiesCompleted++;
+
+  wellnessData.points += 5;
+
+  saveWellnessData();
+
+  updateWellnessUI();
+
+}, 3000);
 }
