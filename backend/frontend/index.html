@@ -662,15 +662,26 @@
   </button>
 
 </div>
-
 <div class="activity-card">
   <h3>🎲 Ruleta Anti Estrés</h3>
 
-  <div id="activityResult" class="activity-result">
-    Presiona el botón para recibir una actividad.
+  <div class="wheel-wrapper">
+    <div class="wheel-pointer">▼</div>
+    <div id="stressWheel" class="stress-wheel">
+      <span>Respira</span>
+      <span>Camina</span>
+      <span>Agua</span>
+      <span>Música</span>
+      <span>Estira</span>
+      <span>Ordena</span>
+    </div>
   </div>
 
-  <button class="btn-primary" onclick="generateRandomActivity()">
+  <div id="activityResult" class="activity-result">
+    Presiona el botón para girar la ruleta.
+  </div>
+
+  <button class="btn-primary" onclick="spinStressWheel()">
     Girar Ruleta
   </button>
 </div>

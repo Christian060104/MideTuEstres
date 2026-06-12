@@ -1221,3 +1221,29 @@ function startPomodoro(){
   },1000);
 
 }
+let wheelRotation = 0;
+
+function spinStressWheel() {
+  const wheel = document.getElementById("stressWheel");
+  const result = document.getElementById("activityResult");
+
+  const activities = [
+    "🌿 Respira profundamente durante 1 minuto",
+    "🚶 Camina durante 5 minutos",
+    "💧 Toma un vaso de agua",
+    "🎵 Escucha una canción relajante",
+    "🧘 Haz estiramientos rápidos",
+    "📚 Ordena tu espacio de estudio"
+  ];
+
+  const randomIndex = Math.floor(Math.random() * activities.length);
+
+  wheelRotation += 1440 + randomIndex * 60;
+
+  wheel.style.transform = `rotate(${wheelRotation}deg)`;
+  result.textContent = "Girando...";
+
+  setTimeout(() => {
+    result.textContent = activities[randomIndex];
+  }, 3000);
+}
