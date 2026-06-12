@@ -2007,3 +2007,87 @@ body.dark-mode .chart-container {
 body.dark-mode .ai-analysis-box {
   background: #1f1f1f;
 }
+.wellness-section {
+  padding: 80px 0;
+  background: linear-gradient(135deg, #f7f4ff, #eef8ff);
+}
+
+.section-subtitle {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 35px;
+  color: #666;
+}
+
+.wellness-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.wellness-card,
+.daily-challenge-card,
+.garden-card,
+.activity-card {
+  background: white;
+  border-radius: 20px;
+  padding: 25px;
+  text-align: center;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.wellness-card i {
+  font-size: 2rem;
+  color: #8b5cf6;
+  margin-bottom: 10px;
+}
+
+.wellness-card h3,
+.daily-challenge-card h3,
+.garden-card h3,
+.activity-card h3 {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.wellness-card span {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #8b5cf6;
+}
+
+.daily-challenge-card,
+.garden-card,
+.activity-card {
+  margin-top: 20px;
+}
+
+.virtual-garden {
+  font-size: 4rem;
+  margin: 20px 0;
+  transition: transform 0.3s ease;
+}
+
+.virtual-garden:hover {
+  transform: scale(1.1);
+}
+
+body.dark-mode .wellness-section {
+  background: linear-gradient(135deg, #1e1b2e, #172033);
+}
+
+body.dark-mode .wellness-card,
+body.dark-mode .daily-challenge-card,
+body.dark-mode .garden-card,
+body.dark-mode .activity-card {
+  background: #222;
+  color: white;
+}
+
+body.dark-mode .wellness-card h3,
+body.dark-mode .daily-challenge-card h3,
+body.dark-mode .garden-card h3,
+body.dark-mode .activity-card h3 {
+  color: white;
+}

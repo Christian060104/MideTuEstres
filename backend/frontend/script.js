@@ -1037,3 +1037,118 @@ themeToggle.addEventListener("click", () => {
     themeToggle.textContent = "🌙";
   }
 });
+
+let wellnessData = JSON.parse(localStorage.getItem("wellnessData")) || {
+  points: 0,
+  streak: 0,
+  lastCompletedDate: null,
+  achievement: "Aún no tienes logros"
+};
+
+const dailyChallenges = [
+  "Respira profundo durante 1 minuto.",
+  "Toma agua y descansa 5 minutos.",
+  "Organiza tus pendientes del día.",
+  "Haz estiramientos durante 3 minutos.",
+  "Escribe una cosa positiva de tu día.",
+  "Aléjate del celular durante 10 minutos.",
+  "Escucha una canción relajante."
+];
+
+const randomActivities = [
+  "Haz respiración 4-4-4: inhala, mantén y exhala.",
+  "Camina durante 5 minutos.",
+  "Ordena tu espacio de estudio.",
+  "Cierra los ojos y descansa 2 minutos.",
+  "Escribe tus 3 tareas más importantes.",
+  "Toma agua y relaja los hombros.",
+  "Haz una pausa sin pantalla."
+];
+
+function saveWellnessData() {
+  localStorage.setItem("wellnessData", JSON.stringify(wellnessData));
+}
+
+function updateWellnessUI() {
+  const streakDays = document.getElementById("streakDays");
+  const wellnessPoints = document.getElementById("wellnessPoints");
+  const currentAchievement = document.getElementById("currentAchievement");
+  const virtualGarden = document.getElementById("virtualGarden");
+  const gardenMessage = document.getElementById("gardenMessage");
+  const dailyChallengeText = document.getElementById("dailyChallengeText");
+
+  if (!streakDays) return;
+
+  streakDays.textContent = wellnessData.streak;
+  wellnessPoints.textContent = wellnessData.points;
+  currentAchievement.textContent = wellnessData.achievement;
+
+  const todayChallenge =
+    dailyChallenges[new Date().getDay() % dailyChallenges.length];
+
+  dailyChallengeText.textContent = todayChallenge;
+
+  if (wellnessData.points >= 100) {
+    virtualGarden.textContent = "🌳🌷🌼";
+    gardenMessage.textContent = "Tu jardín está floreciendo gracias a tu constancia.";
+  } else if (wellnessData.points >= 60) {
+    virtualGarden.textContent = "🌿🌸";
+    gardenMessage.textContent = "Tu jardín está creciendo muy bien.";
+  } else if (wellnessData.points >= 30) {
+    virtualGarden.textContent = "🌱🌿";
+    gardenMessage.textContent = "Tu planta empieza a crecer.";
+  } else {
+    virtualGarden.textContent = "🌱";
+    gardenMessage.textContent = "Tu jardín crecerá con tus hábitos positivos.";
+  }
+}
+
+function completeDailyChallenge() {
+  const today = new Date().toISOString().split("T")[0];
+
+  if (wellnessData.lastCompletedDate === today) {
+    alert("Ya completaste el reto de hoy 💜");
+    return;
+  }
+
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  const yesterdayString = yesterday.toISOString().split("T")[0];
+
+  if (wellnessData.lastCompletedDate === yesterdayString) {
+    wellnessData.streak++;
+  } else {
+    wellnessData.streak = 1;
+  }
+
+  wellnessData.points += 15;
+  wellnessData.lastCompletedDate = today;
+
+  if (wellnessData.streak >= 7) {
+    wellnessData.achievement = "🏆 Una semana constante";
+  } else if (wellnessData.streak >= 3) {
+    wellnessData.achievement = "🥉 Tres días de bienestar";
+  } else if (wellnessData.points >= 100) {
+    wellnessData.achievement = "🌳 Jardín florecido";
+  } else {
+    wellnessData.achievement = "✨ Primer paso completado";
+  }
+
+  saveWellnessData();
+  updateWellnessUI();
+
+  alert("Reto completado. Ganaste 15 puntos 💜");
+}
+
+function generateRandomActivity() {
+  const randomActivityText = document.getElementById("randomActivityText");
+
+  const activity =
+    randomActivities[Math.floor(Math.random() * randomActivities.length)];
+
+  randomActivityText.textContent = activity;
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  updateWellnessUI();
+});

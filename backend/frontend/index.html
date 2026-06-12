@@ -21,12 +21,17 @@
         <div class="logo">
           <i class="fas fa-brain"></i>
           <h1>MideTuEstres</h1>
+<<<<<<< HEAD
+=======
+          
+>>>>>>> d534819 (preba 2)
         </div>
         <nav class="nav" id="mainNav" style="display: none">
           <ul>
             <li><a href="#inicio" class="nav-link">Inicio</a></li>
             <li><a href="#medicion" class="nav-link">Medición</a></li>
             <li><a href="#seguimiento" class="nav-link">Seguimiento</a></li>
+            <li><a href="#bienestar" class="nav-link">Bienestar</a></li>
             <li><a href="#recursos" class="nav-link">Recursos</a></li>
           </ul>
         </nav>
@@ -591,6 +596,57 @@
         </div>
       </section>
 
+
+      <section id="bienestar" class="wellness-section">
+  <div class="container">
+    <h2 class="section-title">Centro de Bienestar</h2>
+    <p class="section-subtitle">
+      Completa actividades rápidas para reducir el estrés y mejorar tu constancia.
+    </p>
+
+    <div class="wellness-grid">
+      <div class="wellness-card">
+        <i class="fas fa-fire"></i>
+        <h3>Racha actual</h3>
+        <p><span id="streakDays">0</span> días consecutivos</p>
+      </div>
+
+      <div class="wellness-card">
+        <i class="fas fa-star"></i>
+        <h3>Puntos</h3>
+        <p><span id="wellnessPoints">0</span> puntos de bienestar</p>
+      </div>
+
+      <div class="wellness-card">
+        <i class="fas fa-trophy"></i>
+        <h3>Logro</h3>
+        <p id="currentAchievement">Aún no tienes logros</p>
+      </div>
+    </div>
+
+    <div class="daily-challenge-card">
+      <h3>Reto diario</h3>
+      <p id="dailyChallengeText">Respira profundo durante 1 minuto.</p>
+      <button class="btn-primary" onclick="completeDailyChallenge()">
+        Completar reto
+      </button>
+    </div>
+
+    <div class="garden-card">
+      <h3>Jardín virtual</h3>
+      <div id="virtualGarden" class="virtual-garden">🌱</div>
+      <p id="gardenMessage">Tu jardín crecerá con tus hábitos positivos.</p>
+    </div>
+
+    <div class="activity-card">
+      <h3>Ruleta anti estrés</h3>
+      <p id="randomActivityText">Presiona el botón para recibir una actividad.</p>
+      <button class="btn-secondary" onclick="generateRandomActivity()">
+        Generar actividad
+      </button>
+    </div>
+  </div>
+</section>
       <!-- Resources Section -->
       <section id="recursos" class="resources">
         <div class="container">
