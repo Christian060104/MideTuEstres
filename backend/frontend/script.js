@@ -1141,14 +1141,83 @@ function completeDailyChallenge() {
 }
 
 function generateRandomActivity() {
-  const randomActivityText = document.getElementById("randomActivityText");
 
-  const activity =
-    randomActivities[Math.floor(Math.random() * randomActivities.length)];
+  const activities = [
+    "🌿 Respira profundamente durante 1 minuto",
+    "🚶 Camina durante 5 minutos",
+    "💧 Toma un vaso de agua",
+    "🎵 Escucha una canción relajante",
+    "🧘 Haz estiramientos rápidos",
+    "📚 Organiza tu espacio de estudio",
+    "☀️ Sal a tomar aire fresco",
+    "😊 Escribe algo positivo de tu día"
+  ];
 
-  randomActivityText.textContent = activity;
+  const random =
+    activities[Math.floor(Math.random() * activities.length)];
+
+  document.getElementById("activityResult").innerHTML = random;
 }
+function startBreathingExercise(){
 
-document.addEventListener("DOMContentLoaded", function () {
-  updateWellnessUI();
-});
+  const circle =
+    document.getElementById("breathingCircle");
+
+  circle.innerHTML = "Inhala";
+
+  circle.classList.add("expand");
+
+  setTimeout(()=>{
+
+      circle.innerHTML = "Mantén";
+
+  },4000);
+
+  setTimeout(()=>{
+
+      circle.innerHTML = "Exhala";
+
+      circle.classList.remove("expand");
+
+  },8000);
+
+}
+let pomodoroRunning = false;
+
+function startPomodoro(){
+
+  if(pomodoroRunning) return;
+
+  pomodoroRunning = true;
+
+  let totalSeconds = 1500;
+
+  const timer =
+  document.getElementById("pomodoroTime");
+
+  const interval = setInterval(()=>{
+
+      totalSeconds--;
+
+      const minutes =
+      Math.floor(totalSeconds/60);
+
+      const seconds =
+      totalSeconds%60;
+
+      timer.innerHTML =
+      `${minutes}:${seconds.toString().padStart(2,'0')}`;
+
+      if(totalSeconds<=0){
+
+          clearInterval(interval);
+
+          pomodoroRunning=false;
+
+          alert("🎉 Sesión completada");
+
+      }
+
+  },1000);
+
+}

@@ -2091,3 +2091,52 @@ body.dark-mode .garden-card h3,
 body.dark-mode .activity-card h3 {
   color: white;
 }
+.activity-result{
+    background: #f5f3ff;
+    padding: 20px;
+    border-radius: 15px;
+    margin: 20px auto;
+    max-width: 500px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #6d28d9;
+    transition: all .3s ease;
+}
+.breathing-card{
+    text-align:center;
+    margin-top:30px;
+    background:white;
+    padding:30px;
+    border-radius:20px;
+}
+
+.breathing-circle{
+    width:150px;
+    height:150px;
+    border-radius:50%;
+    background:#8b5cf6;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:20px auto;
+    transition:all 4s ease;
+    font-size:1.2rem;
+    font-weight:bold;
+}
+
+.expand{
+    transform:scale(1.5);
+}
+.pomodoro-card{
+    margin-top:30px;
+    background:white;
+    border-radius:20px;
+    padding:30px;
+    text-align:center;
+}
+
+#pomodoroTime{
+    font-size:4rem;
+    color:#8b5cf6;
+}
