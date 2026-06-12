@@ -1225,7 +1225,6 @@ const wheelResults = [
 
 let wheelAngle = 0;
 let isWheelSpinning = false;
-
 function drawStressWheel() {
   const canvas = document.getElementById("stressWheelCanvas");
   if (!canvas) return;
@@ -1233,44 +1232,57 @@ function drawStressWheel() {
   const ctx = canvas.getContext("2d");
   const size = canvas.width;
   const center = size / 2;
-  const radius = center - 10;
+  const radius = center - 12;
   const slice = (2 * Math.PI) / wheelActivities.length;
 
-  const colors = ["#8b5cf6", "#facc15", "#c4b5fd", "#fde68a", "#a78bfa", "#ede9fe"];
+  const colors = [
+    "#8b5cf6",
+    "#facc15",
+    "#c4b5fd",
+    "#fde68a",
+    "#a78bfa",
+    "#f3e8ff"
+  ];
 
   ctx.clearRect(0, 0, size, size);
 
+  ctx.save();
+  ctx.translate(center, center);
+  ctx.rotate(wheelAngle);
+
   for (let i = 0; i < wheelActivities.length; i++) {
-    const start = wheelAngle + i * slice;
+    const start = i * slice;
     const end = start + slice;
 
     ctx.beginPath();
-    ctx.moveTo(center, center);
-    ctx.arc(center, center, radius, start, end);
+    ctx.moveTo(0, 0);
+    ctx.arc(0, 0, radius, start, end);
     ctx.closePath();
     ctx.fillStyle = colors[i];
     ctx.fill();
+
     ctx.strokeStyle = "#ffffff";
     ctx.lineWidth = 4;
     ctx.stroke();
 
     ctx.save();
-    ctx.translate(center, center);
     ctx.rotate(start + slice / 2);
-    ctx.textAlign = "right";
+    ctx.textAlign = "center";
     ctx.fillStyle = i === 0 || i === 4 ? "#ffffff" : "#333333";
-    ctx.font = "bold 15px Arial";
-    ctx.fillText(wheelActivities[i], radius - 25, 5);
+    ctx.font = "bold 14px Arial";
+    ctx.fillText(wheelActivities[i], radius * 0.62, 5);
     ctx.restore();
   }
 
+  ctx.restore();
+
   ctx.beginPath();
-  ctx.arc(center, center, 34, 0, Math.PI * 2);
+  ctx.arc(center, center, 36, 0, Math.PI * 2);
   ctx.fillStyle = "#ffffff";
   ctx.fill();
 
   ctx.beginPath();
-  ctx.arc(center, center, 20, 0, Math.PI * 2);
+  ctx.arc(center, center, 22, 0, Math.PI * 2);
   ctx.fillStyle = "#8b5cf6";
   ctx.fill();
 
