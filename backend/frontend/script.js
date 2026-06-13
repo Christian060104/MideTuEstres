@@ -1522,26 +1522,14 @@ function actualizarResumenActual() {
 
 document.addEventListener("DOMContentLoaded", actualizarResumenActual);
 actualizarResumenActual();
-// =======================
-// EXPLOTA LAS PREOCUPACIONES
-// =======================
-
-let bubbleCanvas;
-let bubbleCtx;
+let bubbleCanvas, bubbleCtx;
 let bubbles = [];
 let liberated = 0;
+let mistakes = 0;
 let bubbleAnimation;
 
-const worries = [
-  "Examen",
-  "Tarea",
-  "Proyecto",
-  "Ansiedad",
-  "Desvelo",
-  "Estrés",
-  "Presión",
-  "Calificaciones"
-];
+const badBubbles = ["Estrés", "Ansiedad", "Desvelo", "Presión", "Examen", "Tarea"];
+const goodBubbles = ["Respirar", "Descansar", "Agua", "Dormir", "Calma", "Organizarse"];
 
 function openBubbleGame() {
   document.getElementById("bubbleGameModal").classList.add("active");
@@ -1549,155 +1537,154 @@ function openBubbleGame() {
 
 function closeBubbleGame() {
   document.getElementById("bubbleGameModal").classList.remove("active");
-
   cancelAnimationFrame(bubbleAnimation);
 }
 
 function startBubbleGame() {
-
   bubbleCanvas = document.getElementById("bubbleCanvas");
   bubbleCtx = bubbleCanvas.getContext("2d");
 
   liberated = 0;
+  mistakes = 0;
   bubbles = [];
 
-  for(let i=0;i<12;i++){
+  for (let i = 0; i < 14; i++) {
     createBubble();
   }
 
   animateBubbles();
 }
 
-function createBubble(){
+function createBubble() {
+  const isBad = Math.random() < 0.65;
+  const list = isBad ? badBubbles : goodBubbles;
 
   bubbles.push({
-    x: Math.random()*650 + 20,
-    y: Math.random()*350 + 50,
-    radius: 40,
-    text: worries[Math.floor(Math.random()*worries.length)],
-    speed: Math.random()*1.5 + 0.5
+    x: Math.random() * 620 + 40,
+    y: Math.random() * 360 + 60,
+    radius: 42,
+    text: list[Math.floor(Math.random() * list.length)],
+    type: isBad ? "bad" : "good",
+    speed: Math.random() * 1.2 + 0.5,
+    wrong: false,
+    wrongTime: 0
   });
-
 }
 
-function animateBubbles(){
+function animateBubbles() {
+  bubbleCtx.clearRect(0, 0, bubbleCanvas.width, bubbleCanvas.height);
 
-  bubbleCtx.clearRect(0,0,bubbleCanvas.width,bubbleCanvas.height);
-
-  bubbles.forEach((bubble)=>{
-
+  bubbles.forEach((bubble) => {
     bubble.y -= bubble.speed;
 
-    bubbleCtx.beginPath();
-    bubbleCtx.arc(
-      bubble.x,
-      bubble.y,
-      bubble.radius,
-      0,
-      Math.PI*2
-    );
-
-    bubbleCtx.fillStyle = "rgba(168,85,247,0.25)";
-    bubbleCtx.fill();
-
-    bubbleCtx.strokeStyle = "#8b5cf6";
-    bubbleCtx.stroke();
-
-    bubbleCtx.fillStyle = "#4c1d95";
-    bubbleCtx.font = "14px Arial";
-    bubbleCtx.textAlign = "center";
-    bubbleCtx.fillText(
-      bubble.text,
-      bubble.x,
-      bubble.y+5
-    );
-
-    if(bubble.y < -50){
-
-      bubble.y = 500;
-
+    if (bubble.y < -60) {
+      resetBubble(bubble);
     }
 
+    bubbleCtx.beginPath();
+    bubbleCtx.arc(bubble.x, bubble.y, bubble.radius, 0, Math.PI * 2);
+
+    bubbleCtx.fillStyle =
+      bubble.type === "bad"
+        ? "rgba(239, 68, 68, 0.22)"
+        : "rgba(34, 197, 94, 0.22)";
+
+    bubbleCtx.fill();
+
+    bubbleCtx.strokeStyle =
+      bubble.type === "bad" ? "#ef4444" : "#22c55e";
+
+    bubbleCtx.lineWidth = 2;
+    bubbleCtx.stroke();
+
+    bubbleCtx.fillStyle = "#1e293b";
+    bubbleCtx.font = "bold 14px Arial";
+    bubbleCtx.textAlign = "center";
+    bubbleCtx.fillText(bubble.text, bubble.x, bubble.y + 5);
+
+    if (bubble.wrong) {
+      bubbleCtx.strokeStyle = "#dc2626";
+      bubbleCtx.lineWidth = 5;
+
+      bubbleCtx.beginPath();
+      bubbleCtx.moveTo(bubble.x - 22, bubble.y - 22);
+      bubbleCtx.lineTo(bubble.x + 22, bubble.y + 22);
+      bubbleCtx.moveTo(bubble.x + 22, bubble.y - 22);
+      bubbleCtx.lineTo(bubble.x - 22, bubble.y + 22);
+      bubbleCtx.stroke();
+
+      bubble.wrongTime--;
+
+      if (bubble.wrongTime <= 0) {
+        bubble.wrong = false;
+      }
+    }
   });
 
-  bubbleCtx.fillStyle="#111827";
-  bubbleCtx.font="20px Arial";
-  bubbleCtx.fillText(
-    "Liberadas: " + liberated,
-    100,
-    30
-  );
+  bubbleCtx.fillStyle = "#111827";
+  bubbleCtx.font = "18px Arial";
+  bubbleCtx.textAlign = "left";
+  bubbleCtx.fillText("Malas liberadas: " + liberated, 20, 30);
+  bubbleCtx.fillText("Errores: " + mistakes, 20, 55);
 
-  if(liberated >= 15){
+  if (liberated >= 15) {
+    bubbleCtx.fillStyle = "rgba(255,255,255,0.92)";
+    bubbleCtx.fillRect(130, 145, 440, 140);
 
-    bubbleCtx.fillStyle="rgba(255,255,255,0.9)";
-    bubbleCtx.fillRect(150,150,400,120);
+    bubbleCtx.fillStyle = "#7c3aed";
+    bubbleCtx.font = "24px Arial";
+    bubbleCtx.textAlign = "center";
+    bubbleCtx.fillText("✨ Excelente trabajo", 350, 195);
 
-    bubbleCtx.fillStyle="#7c3aed";
-    bubbleCtx.font="24px Arial";
-
-    bubbleCtx.fillText(
-      "✨ Excelente trabajo",
-      350,
-      200
-    );
-
-    bubbleCtx.fillStyle="#334155";
-    bubbleCtx.font="16px Arial";
-
-    bubbleCtx.fillText(
-      "Has liberado tus preocupaciones por hoy",
-      350,
-      240
-    );
-
+    bubbleCtx.fillStyle = "#334155";
+    bubbleCtx.font = "16px Arial";
+    bubbleCtx.fillText("Liberaste pensamientos negativos", 350, 230);
+    bubbleCtx.fillText("sin perder tus hábitos positivos.", 350, 255);
     return;
   }
 
-  bubbleAnimation =
-    requestAnimationFrame(animateBubbles);
-
+  bubbleAnimation = requestAnimationFrame(animateBubbles);
 }
 
-document.addEventListener("click", function(e){
+function resetBubble(bubble) {
+  const isBad = Math.random() < 0.65;
+  const list = isBad ? badBubbles : goodBubbles;
 
-  if(!bubbleCanvas) return;
+  bubble.x = Math.random() * 620 + 40;
+  bubble.y = 500;
+  bubble.radius = 42;
+  bubble.text = list[Math.floor(Math.random() * list.length)];
+  bubble.type = isBad ? "bad" : "good";
+  bubble.speed = Math.random() * 1.2 + 0.5;
+  bubble.wrong = false;
+  bubble.wrongTime = 0;
+}
 
-  const rect =
-    bubbleCanvas.getBoundingClientRect();
+document.addEventListener("click", function (e) {
+  if (!bubbleCanvas) return;
+  if (!document.getElementById("bubbleGameModal").classList.contains("active")) return;
 
-  const mouseX =
-    e.clientX - rect.left;
+  const rect = bubbleCanvas.getBoundingClientRect();
+  const scaleX = bubbleCanvas.width / rect.width;
+  const scaleY = bubbleCanvas.height / rect.height;
 
-  const mouseY =
-    e.clientY - rect.top;
+  const mouseX = (e.clientX - rect.left) * scaleX;
+  const mouseY = (e.clientY - rect.top) * scaleY;
 
-  bubbles.forEach((bubble)=>{
-
+  bubbles.forEach((bubble) => {
     const dx = mouseX - bubble.x;
     const dy = mouseY - bubble.y;
+    const distance = Math.sqrt(dx * dx + dy * dy);
 
-    const distance =
-      Math.sqrt(dx*dx + dy*dy);
-
-    if(distance < bubble.radius){
-
-      liberated++;
-
-      bubble.x =
-        Math.random()*650 + 20;
-
-      bubble.y = 500;
-
-      bubble.text =
-        worries[
-          Math.floor(
-            Math.random()*worries.length
-          )
-        ];
-
+    if (distance < bubble.radius) {
+      if (bubble.type === "bad") {
+        liberated++;
+        resetBubble(bubble);
+      } else {
+        mistakes++;
+        bubble.wrong = true;
+        bubble.wrongTime = 35;
+      }
     }
-
   });
-
 });
