@@ -2820,3 +2820,102 @@ body.dark-mode .breathing-steps span {
   pointer-events: all;
   cursor: pointer;
 }
+.congrats-modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(15,23,42,.65);
+    backdrop-filter:blur(6px);
+    z-index:10000;
+    justify-content:center;
+    align-items:center;
+}
+
+.congrats-modal.active{
+    display:flex;
+}
+
+.congrats-content{
+    width:min(90%,650px);
+    background:white;
+    border-radius:35px;
+    padding:35px;
+    text-align:center;
+    position:relative;
+    border:4px solid #d8b4fe;
+    box-shadow:0 25px 60px rgba(124,58,237,.25);
+    animation:popCongrats .3s ease;
+}
+
+@keyframes popCongrats{
+    from{
+        transform:scale(.85);
+        opacity:0;
+    }
+    to{
+        transform:scale(1);
+        opacity:1;
+    }
+}
+
+.confetti{
+    font-size:1.5rem;
+    margin-bottom:10px;
+}
+
+.star-container{
+    font-size:6rem;
+    margin-bottom:10px;
+}
+
+.congrats-content h2{
+    font-size:3rem;
+    color:#7c3aed;
+    margin-bottom:10px;
+}
+
+.congrats-text{
+    font-size:1.2rem;
+    color:#475569;
+}
+
+.reward-box{
+    margin:25px auto;
+    max-width:420px;
+    display:flex;
+    align-items:center;
+    gap:15px;
+    background:#f5f3ff;
+    border-radius:20px;
+    padding:18px;
+}
+
+.reward-icon{
+    font-size:2.5rem;
+}
+
+.reward-box strong{
+    color:#312e81;
+    font-size:1.2rem;
+}
+
+.reward-box p{
+    margin-top:4px;
+    color:#7c3aed;
+}
+
+.congrats-btn{
+    border:none;
+    padding:15px 35px;
+    border-radius:999px;
+    background:linear-gradient(
+      135deg,
+      #ec4899,
+      #8b5cf6
+    );
+    color:white;
+    font-weight:800;
+    font-size:1rem;
+    cursor:pointer;
+    box-shadow:0 10px 25px rgba(124,58,237,.25);
+}

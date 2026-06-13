@@ -1736,9 +1736,7 @@ function updateProgress() {
       window.drawingCompleted = true;
 
       setTimeout(() => {
-        alert(
-          "🎉 ¡Felicidades!\n\nHas completado tu dibujo.\n\n+25 puntos de bienestar 💜"
-        );
+       showCongratsModal();
       }, 200);
 
     }
@@ -1754,4 +1752,19 @@ function resetDrawing() {
   window.drawingCompleted = false;
 
   updateProgress();
+}
+function showCongratsModal() {
+
+    document
+      .getElementById("congratsModal")
+      .classList.add("active");
+
+}
+
+function closeCongratsModal() {
+
+    document
+      .getElementById("congratsModal")
+      .classList.remove("active");
+
 }
