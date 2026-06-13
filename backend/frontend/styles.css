@@ -2122,25 +2122,23 @@ body.dark-mode .ai-analysis-box {
   align-items: stretch;
 }
 
-.breathing-card {
-  min-height: 530px;
+.breathing-card,
+.pomodoro-card,
+.activity-card {
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .breathing-scene {
-  height: 180px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 18px 0 8px;
+  height: 145px;
+  margin: 12px 0 5px;
 }
 
 .breathing-person {
-  position: relative;
-  width: 115px;
-  height: 150px;
-  animation: breathingFloat 3s ease-in-out infinite;
+  transform: scale(0.85);
 }
-
 .person-head {
   width: 46px;
   height: 46px;
@@ -2187,26 +2185,18 @@ body.dark-mode .ai-analysis-box {
 }
 
 .breathing-phase-text {
-  font-size: 1.8rem;
-  font-weight: 900;
-  color: #8b5cf6;
-  margin: 8px 0;
+  font-size: 1.55rem;
+  margin: 5px 0;
 }
 
 .breathing-instruction {
-  color: #555;
-  font-weight: 600;
-  margin-bottom: 8px;
+  font-size: 0.9rem;
+  max-width: 260px;
+  margin: 0 auto 8px;
 }
 
 .breathing-timer {
-  display: inline-block;
-  font-size: 1.7rem;
-  color: #8b5cf6;
-  background: #f5f3ff;
-  padding: 8px 20px;
-  border-radius: 999px;
-  margin-bottom: 12px;
+  font-size: 1.4rem;
 }
 
 .breathing-progress {
@@ -2332,4 +2322,10 @@ body.dark-mode #breathingTimer,
 body.dark-mode .breathing-steps span {
   background: #2d2545;
   color: #d8b4fe;
+}
+.pomodoro-text {
+  margin-top: 22px;
+  color: #666;
+  font-weight: 600;
+  max-width: 260px;
 }
