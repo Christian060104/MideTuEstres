@@ -1719,6 +1719,26 @@ document.addEventListener(
         "fill",
         selectedColor
       );
+      function updateProgress() {
+
+  const items = document.querySelectorAll(".paintable");
+
+  let painted = 0;
+
+  items.forEach(item => {
+    if(item.getAttribute("fill") !== "#ffffff"){
+      painted++;
+    }
+  });
+
+  const percent = Math.round((painted / items.length) * 100);
+
+  document.getElementById("paintProgressText").textContent =
+    percent + "%";
+
+  document.getElementById("paintProgressFill").style.width =
+    percent + "%";
+}
     }
 
   }
@@ -1729,4 +1749,11 @@ function openColorGame() {
 
 function closeColorGame() {
   document.getElementById("colorGameModal").classList.remove("active");
+}
+function resetDrawing() {
+  document.querySelectorAll(".paintable").forEach(element => {
+    element.setAttribute("fill", "#ffffff");
+  });
+
+  updateProgress();
 }

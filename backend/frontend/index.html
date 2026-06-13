@@ -1130,6 +1130,9 @@
       <button class="color-btn" style="background:#93c5fd" onclick="selectColor('#93c5fd')"></button>
 
       <button class="color-btn" style="background:#86efac" onclick="selectColor('#86efac')"></button>
+      <button class="btn-secondary" onclick="resetDrawing()">
+  🧽 Limpiar dibujo
+</button>
     </div>
 
     <svg id="wellnessDrawing" viewBox="0 0 700 430">
@@ -1144,33 +1147,64 @@
 
   <path class="paintable" d="M0 320 Q180 260 350 320 T700 320 V430 H0 Z" fill="#86efac"/>
 
-  <rect class="paintable" x="338" y="220" width="24" height="100" rx="10" fill="#22c55e"/>
+  <rect class="paintable" x="338" y="220" width="24" height="100" rx="10"  fill="#ffffff"
+  stroke="#64748b"
+  stroke-width="2"/>
+  <ellipse class="paintable" cx="310" cy="250" rx="35" ry="18"  fill="#ffffff"
+  stroke="#64748b"
+  stroke-width="2"/>
+  <ellipse class="paintable" cx="390" cy="250" rx="35" ry="18"  fill="#ffffff"
+  stroke="#64748b"
+  stroke-width="2"/>
 
-  <ellipse class="paintable" cx="310" cy="250" rx="35" ry="18" fill="#4ade80"/>
-  <ellipse class="paintable" cx="390" cy="250" rx="35" ry="18" fill="#4ade80"/>
+  <circle class="paintable" cx="350" cy="170" r="25"  fill="#ffffff"
+  stroke="#64748b"
+  stroke-width="2"/>
+  <circle class="paintable" cx="320" cy="190" r="25"  fill="#ffffff"
+  stroke="#64748b"
+  stroke-width="2"/>
+  <circle class="paintable" cx="380" cy="190" r="25"  fill="#ffffff"
+  stroke="#64748b"
+  stroke-width="2"/>
+  <circle class="paintable" cx="330" cy="220" r="25"  fill="#ffffff"
+  stroke="#64748b"
+  stroke-width="2"/>
+  <circle class="paintable" cx="370" cy="220" r="25"  fill="#ffffff"
+  stroke="#64748b"
+  stroke-width="2"/>
 
-  <circle class="paintable" cx="350" cy="170" r="25" fill="#f9a8d4"/>
-  <circle class="paintable" cx="320" cy="190" r="25" fill="#f9a8d4"/>
-  <circle class="paintable" cx="380" cy="190" r="25" fill="#f9a8d4"/>
-  <circle class="paintable" cx="330" cy="220" r="25" fill="#f9a8d4"/>
-  <circle class="paintable" cx="370" cy="220" r="25" fill="#f9a8d4"/>
+  <circle cx="350" cy="200" r="20"  fill="#ffffff"
+  stroke="#64748b"
+  stroke-width="2"/>
+  <circle class="paintable" cx="180" cy="260" r="18"  fill="#ffffff"
+  stroke="#64748b"
+  stroke-width="2"/>
+  <circle class="paintable" cx="210" cy="260" r="18"  fill="#ffffff"
+  stroke="#64748b"
+  stroke-width="2"/>
+  <rect x="193" y="248" width="4" height="24"  fill="#ffffff"
+  stroke="#64748b"
+  stroke-width="2"/>
 
-  <circle cx="350" cy="200" r="20" fill="#facc15"/>
-
-  <circle class="paintable" cx="180" cy="260" r="18" fill="#c4b5fd"/>
-  <circle class="paintable" cx="210" cy="260" r="18" fill="#c4b5fd"/>
-  <rect x="193" y="248" width="4" height="24" fill="#64748b"/>
-
-  <circle class="paintable" cx="500" cy="260" r="18" fill="#93c5fd"/>
-  <circle class="paintable" cx="530" cy="260" r="18" fill="#93c5fd"/>
+  <circle class="paintable" cx="500" cy="260" r="18"  fill="#ffffff"
+  stroke="#64748b"
+  stroke-width="2"/>
+  <circle class="paintable" cx="530" cy="260" r="18"  fill="#ffffff"
+  stroke="#64748b"
+  stroke-width="2"/>
   <rect x="513" y="248" width="4" height="24" fill="#64748b"/>
 
-  <text x="350" y="390" text-anchor="middle" font-size="20" fill="#64748b">
-    Respira, colorea y relájate 💜
-  </text>
+
 </svg>
 
-   
+   <div class="color-progress-box">
+  <span>🎨 Progreso</span>
+  <strong id="paintProgressText">0%</strong>
+</div>
+
+<div class="color-progress-bar">
+  <div id="paintProgressFill"></div>
+</div>
 
   </div>
 </div>
