@@ -2772,3 +2772,32 @@ body.dark-mode .breathing-steps span {
   color: #64748b;
   margin-top: 6px;
 }
+.color-palette{
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    margin:20px 0;
+}
+
+.color-btn{
+    width:45px;
+    height:45px;
+    border:none;
+    border-radius:50%;
+    cursor:pointer;
+}
+
+#wellnessDrawing{
+    background:white;
+    border-radius:20px;
+    border:2px solid #ede9fe;
+}
+
+.paintable{
+    cursor:pointer;
+    transition:.2s;
+}
+
+.paintable:hover{
+    opacity:.8;
+}

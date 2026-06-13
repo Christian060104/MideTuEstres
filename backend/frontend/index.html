@@ -756,8 +756,22 @@
     <button class="btn-game" onclick="openBubbleGame()">
         Jugar ahora
     </button>
+
 </div>
   </div>
+  <div class="wellness-card">
+    <div class="wellness-icon">🎨</div>
+
+    <h3>Colorea y Relájate</h3>
+
+    <p>
+        Tómate unos minutos para colorear y despejar tu mente.
+    </p>
+
+    <button class="btn-game" onclick="openColorGame()">
+        Comenzar
+    </button>
+</div>
 </section>
 <!-- Resources Section -->
 <section id="recursos" class="resources">
@@ -1093,6 +1107,82 @@
     <div class="game-controls">
       <button onclick="startBubbleGame()">Iniciar juego</button>
     </div>
+  </div>
+</div>
+<div id="colorGameModal" class="stress-game-modal">
+  <div class="stress-game-content">
+
+    <button class="close-game"
+            onclick="closeColorGame()">
+      ×
+    </button>
+
+    <h2>🎨 Colorea y Relájate</h2>
+
+    <p class="game-subtitle">
+      Elige un color y pinta el jardín.
+    </p>
+
+    <div class="color-palette">
+
+      <button class="color-btn"
+              style="background:#f9a8d4"
+              onclick="selectColor('#f9a8d4')">
+      </button>
+
+      <button class="color-btn"
+              style="background:#c4b5fd"
+              onclick="selectColor('#c4b5fd')">
+      </button>
+
+      <button class="color-btn"
+              style="background:#93c5fd"
+              onclick="selectColor('#93c5fd')">
+      </button>
+
+      <button class="color-btn"
+              style="background:#86efac"
+              onclick="selectColor('#86efac')">
+      </button>
+
+    </div>
+
+    <svg
+      id="wellnessDrawing"
+      width="500"
+      height="350">
+
+      <circle
+        class="paintable"
+        cx="250"
+        cy="90"
+        r="40"
+        fill="#fde68a"/>
+
+      <circle
+        class="paintable"
+        cx="180"
+        cy="180"
+        r="45"
+        fill="#ffffff"/>
+
+      <circle
+        class="paintable"
+        cx="320"
+        cy="180"
+        r="45"
+        fill="#ffffff"/>
+
+      <rect
+        class="paintable"
+        x="220"
+        y="220"
+        width="60"
+        height="90"
+        fill="#86efac"/>
+
+    </svg>
+
   </div>
 </div>
   </body>

@@ -1688,3 +1688,38 @@ document.addEventListener("click", function (e) {
     }
   });
 });
+let selectedColor = "#f9a8d4";
+
+function openColorGame(){
+    document
+      .getElementById("colorGameModal")
+      .classList.add("active");
+}
+
+function closeColorGame(){
+    document
+      .getElementById("colorGameModal")
+      .classList.remove("active");
+}
+
+function selectColor(color){
+    selectedColor = color;
+}
+
+document.addEventListener(
+  "click",
+  function(e){
+
+    if(
+      e.target.classList.contains(
+        "paintable"
+      )
+    ){
+      e.target.setAttribute(
+        "fill",
+        selectedColor
+      );
+    }
+
+  }
+);
