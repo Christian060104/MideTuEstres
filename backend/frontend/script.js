@@ -1215,7 +1215,7 @@ let completedPomodoros = 0;
 let pomodoroPaused = false;
 
 function startPomodoro() {
-  if (pomodoroRunning && !pomodoroPaused) return;
+ if (pomodoroInterval) return;
 
   const timeDisplay = document.getElementById("pomodoroTime");
   const status = document.getElementById("pomodoroStatus");
@@ -1268,9 +1268,10 @@ function startPomodoro() {
 }
 
 function pausePomodoro() {
-  if (!pomodoroRunning) return;
+  if (!pomodoroInterval) return;
 
   clearInterval(pomodoroInterval);
+  pomodoroInterval = null;
   pomodoroRunning = false;
   pomodoroPaused = true;
 
