@@ -1716,30 +1716,42 @@ function activateColorGame() {
 }
 
 function updateProgress() {
+
   const items = document.querySelectorAll("#wellnessDrawing .paintable");
   const painted = document.querySelectorAll("#wellnessDrawing .paintable[data-painted='true']");
 
-  const percent = items.length === 0 ? 0 : Math.round((painted.length / items.length) * 100);
+  const percent = items.length === 0
+    ? 0
+    : Math.round((painted.length / items.length) * 100);
 
   document.getElementById("paintProgressText").textContent = percent + "%";
   document.getElementById("paintProgressFill").style.width = percent + "%";
-}if (percent === 100 && !window.drawingCompleted) {
 
-  window.drawingCompleted = true;
+  console.log("Porcentaje:", percent);
 
-  wellnessPoints += 25;
-  document.getElementById("wellnessPoints").textContent = wellnessPoints;
+  if (painted.length === items.length && items.length > 0) {
 
-  alert(
-    "🎉 ¡Felicidades!\n\nHas completado tu dibujo.\n\n+25 puntos de bienestar 💜"
-  );
+    if (!window.drawingCompleted) {
+
+      window.drawingCompleted = true;
+
+      setTimeout(() => {
+        alert(
+          "🎉 ¡Felicidades!\n\nHas completado tu dibujo.\n\n+25 puntos de bienestar 💜"
+        );
+      }, 200);
+
+    }
+  }
 }
 function resetDrawing() {
+
   document.querySelectorAll("#wellnessDrawing .paintable").forEach(item => {
     item.setAttribute("fill", "#ffffff");
     item.removeAttribute("data-painted");
   });
-    window.drawingCompleted = false;
+
+  window.drawingCompleted = false;
 
   updateProgress();
 }
