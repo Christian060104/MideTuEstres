@@ -1084,7 +1084,10 @@ function saveWellnessData() {
 }
 
 function addGardenProgress(points = 5) {
-  wellnessData.activitiesCompleted++;
+  wellnessData.activitiesCompleted = Math.min(
+  wellnessData.activitiesCompleted + 1,
+  30
+);
   wellnessData.points += points;
 
   if (wellnessData.activitiesCompleted >= 30) {
@@ -1106,6 +1109,7 @@ function addGardenProgress(points = 5) {
 }
 
 function updateWellnessUI() {
+  checkGardenReset();
   const streakDays = document.getElementById("streakDays");
   const wellnessPoints = document.getElementById("wellnessPoints");
   const currentAchievement = document.getElementById("currentAchievement");
@@ -1149,7 +1153,7 @@ function updateWellnessUI() {
   setTimeout(() => virtualGarden.classList.remove("garden-grow"), 700);
 
   if (activitiesCounter) {
-    activitiesCounter.textContent = completed;
+    activitiesCounter.textContent = Math.min(completed, 30);
   }
 
   if (gardenProgressFill) {
@@ -1157,6 +1161,25 @@ function updateWellnessUI() {
     gardenProgressFill.style.width = progress + "%";
   }
   loadDailyChallenge();
+}
+function checkGardenReset() {
+  const today = new Date();
+  const resetDate = localStorage.getItem("gardenResetDate");
+
+  if (!resetDate) {
+    localStorage.setItem("gardenResetDate", today.toISOString());
+    return;
+  }
+
+  const lastReset = new Date(resetDate);
+  const daysPassed = Math.floor((today - lastReset) / (1000 * 60 * 60 * 24));
+
+  if (daysPassed >= 10) {
+    wellnessData.activitiesCompleted = 0;
+    wellnessData.achievement = "Aún no tienes logros";
+    localStorage.setItem("gardenResetDate", today.toISOString());
+    saveWellnessData();
+  }
 }
 
 function completeDailyChallenge() {
