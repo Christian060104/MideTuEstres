@@ -686,15 +686,33 @@
 
       <div class="pomodoro-card">
         <h3>⏰ Pomodoro</h3>
+        <div class="pomodoro-icon">
+  📚
+</div>
+<div class="pomodoro-icon">
+  🍅
+</div>
 
         <h1 id="pomodoroTime">25:00</h1>
-
+<div class="pomodoro-progress">
+  <div id="pomodoroProgressFill"></div>
+</div>
+<h3 id="pomodoroStatus">Listo para comenzar</h3>
         <button class="btn-primary" onclick="startPomodoro()">
           Iniciar
         </button>
-             <p class="pomodoro-text">
-  Trabaja 25 minutos con concentración y después toma un descanso breve.
-</p>
+        <div class="pomodoro-stats">
+  <div>
+    <strong id="completedPomodoros">0</strong>
+    <span>Completados</span>
+  </div>
+
+  <div>
+    <strong id="focusMinutes">0</strong>
+    <span>Minutos</span>
+  </div>
+</div>
+
       </div>
  
 
