@@ -608,26 +608,26 @@ function updateChart(measurements) {
 
 // Resource Functions
 function playVideo(videoType) {
-
   const videos = {
     relajacion: "https://www.youtube.com/embed/inpok4MKVLM",
     tiempo: "https://www.youtube.com/embed/iONDebHX9qk",
     motivacion: "https://www.youtube.com/embed/ZXsQAXx_ao0"
   };
 
-  openVideoModal(videos[videoType]);
-}
-  // In a real application, this would open a video player
-  // For now, we'll show a message
-  const videoMessages = {
-    relajacion: "Video de técnicas de relajación - En desarrollo",
-    tiempo: "Video de gestión del tiempo - En desarrollo",
-    motivacion: "Video de motivación académica - En desarrollo",
-  };
-
-  showMessage("info", videoMessages[videoType] || "Video no disponible");
+  if (videos[videoType]) {
+    openVideoModal(videos[videoType]);
+  }
 }
 
+function openVideoModal(videoUrl) {
+  document.getElementById("videoModal").style.display = "flex";
+  document.getElementById("videoFrame").src = videoUrl;
+}
+
+function closeVideoModal() {
+  document.getElementById("videoModal").style.display = "none";
+  document.getElementById("videoFrame").src = "";
+}
 // Utility Functions
 function scrollToSection(sectionId) {
   // Check authentication before allowing navigation
@@ -1242,6 +1242,7 @@ function startPomodoro() {
 
  
   const status = document.getElementById("pomodoroStatus");
+  const timeDisplay = document.getElementById("pomodoroTime");
   const progressFill = document.getElementById("pomodoroProgressFill");
 
 
@@ -1308,7 +1309,7 @@ function resetPomodoro() {
   document.getElementById("pomodoroTime").textContent = "25:00";
   document.getElementById("pomodoroStatus").textContent = "Listo para comenzar";
   document.getElementById("pomodoroProgressFill").style.width = "0%";
-  document.getElementById("focusMinutes").textContent = "0";
+
 }
 /* Ruleta real con canvas */
 const wheelActivities = ["Respira", "Camina", "Agua", "Música", "Estira", "Ordena"];
@@ -1424,15 +1425,7 @@ document.addEventListener("DOMContentLoaded", function () {
   updateWellnessUI();
   drawStressWheel();
 });
-function openVideoModal(videoUrl) {
-  document.getElementById("videoModal").style.display = "flex";
-  document.getElementById("videoFrame").src = videoUrl;
-}
 
-function closeVideoModal() {
-  document.getElementById("videoModal").style.display = "none";
-  document.getElementById("videoFrame").src = "";
-}
 document.addEventListener("keydown", function(e){
   if(e.key === "Escape"){
     closeVideoModal();
