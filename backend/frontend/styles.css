@@ -2122,136 +2122,160 @@ body.dark-mode .ai-analysis-box {
   align-items: stretch;
 }
 
-.breathing-circle {
-  width: 145px;
-  height: 145px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-  color: white;
+.breathing-card {
+  min-height: 530px;
+}
+
+.breathing-scene {
+  height: 180px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 24px auto;
-  transition: all 4s ease;
-  font-size: 1.2rem;
-  font-weight: 900;
+  margin: 18px 0 8px;
 }
 
-.expand {
-  transform: scale(1.35);
-}
-
-#pomodoroTime {
-  font-size: 3.8rem;
-  color: #8b5cf6;
-  margin: 18px 0;
-}
-
-.real-wheel-box {
+.breathing-person {
   position: relative;
-  width: 320px;
-  height: 320px;
-  margin: 18px auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 115px;
+  height: 150px;
+  animation: breathingFloat 3s ease-in-out infinite;
 }
 
-.real-wheel-box canvas {
-  width: 300px;
-  height: 300px;
+.person-head {
+  width: 46px;
+  height: 46px;
+  background: linear-gradient(135deg, #8b5cf6, #c4b5fd);
   border-radius: 50%;
-  filter: drop-shadow(0 14px 24px rgba(15, 23, 42, 0.18));
+  margin: 0 auto;
 }
 
-.wheel-marker {
+.person-body {
+  width: 72px;
+  height: 72px;
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+  border-radius: 40px 40px 28px 28px;
+  margin: -2px auto 0;
+  position: relative;
+}
+
+.person-chest {
   position: absolute;
-  top: -6px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: #7c3aed;
-  font-size: 2rem;
-  z-index: 5;
+  inset: 16px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
 }
 
-.activity-result {
+.person-arms {
+  width: 120px;
+  height: 36px;
+  border-bottom: 10px solid #a78bfa;
+  border-radius: 0 0 80px 80px;
+  margin: -38px auto 0;
+}
+
+.person-legs {
+  width: 120px;
+  height: 55px;
+  border-bottom: 12px solid #7c3aed;
+  border-radius: 0 0 90px 90px;
+  margin: 4px auto 0;
+}
+
+.breathing-person.breathe-active .person-body,
+.breathing-person.breathe-active .person-chest {
+  animation: chestBreath 4s ease-in-out infinite;
+}
+
+.breathing-phase-text {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #8b5cf6;
+  margin: 8px 0;
+}
+
+.breathing-instruction {
+  color: #555;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.breathing-timer {
+  display: inline-block;
+  font-size: 1.7rem;
+  color: #8b5cf6;
   background: #f5f3ff;
-  padding: 16px;
-  border-radius: 16px;
-  margin: 16px auto;
-  max-width: 420px;
-  font-weight: 800;
+  padding: 8px 20px;
+  border-radius: 999px;
+  margin-bottom: 12px;
+}
+
+.breathing-progress {
+  width: 85%;
+  height: 12px;
+  background: #ede9fe;
+  border-radius: 999px;
+  overflow: hidden;
+  margin: 12px auto 16px;
+}
+
+.breathing-progress-fill {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(135deg, #8b5cf6, #22c55e);
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}
+
+.breathing-steps {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 15px 0 20px;
+}
+
+.breathing-steps span {
+  background: #f5f3ff;
   color: #6d28d9;
+  padding: 8px 10px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 800;
 }
 
-/* Modo oscuro bienestar */
-body.dark-mode .wellness-section {
-  background: linear-gradient(135deg, #1e1b2e, #172033);
+@keyframes breathingFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
 }
 
-body.dark-mode .wellness-card,
-body.dark-mode .daily-challenge-card,
-body.dark-mode .garden-card,
-body.dark-mode .breathing-card,
-body.dark-mode .pomodoro-card,
-body.dark-mode .activity-card {
-  background: #222;
+@keyframes chestBreath {
+  0%, 100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.12);
+  }
+}
+
+body.dark-mode .breathing-instruction {
   color: white;
 }
 
-body.dark-mode .section-title,
-body.dark-mode .wellness-card h3,
-body.dark-mode .daily-challenge-card h3,
-body.dark-mode .garden-card h3,
-body.dark-mode .breathing-card h3,
-body.dark-mode .pomodoro-card h3,
-body.dark-mode .activity-card h3 {
-  color: white;
-}
-
-body.dark-mode .activity-result {
+body.dark-mode .breathing-timer,
+body.dark-mode .breathing-steps span {
   background: #2d2545;
   color: #d8b4fe;
 }
-
-body.dark-mode .garden-progress-top {
-  color: white;
-}
-
-/* Responsive */
-@media (max-width: 1000px) {
-  .wellness-actions-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .wellness-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 500px) {
-  .real-wheel-box {
-    width: 260px;
-    height: 260px;
-  }
-
-  .real-wheel-box canvas {
-    width: 250px;
-    height: 250px;
-  }
-
-  #pomodoroTime {
-    font-size: 3rem;
-  }
   .wheel-wrapper,
 .stress-wheel,
 .wheel-pointer {
   display: none !important;
-}
-.breathing-person {
-  font-size: 4.5rem;
-  margin: 10px 0 5px;
-  animation: personFloat 3s ease-in-out infinite;
 }
 
 @keyframes personFloat {

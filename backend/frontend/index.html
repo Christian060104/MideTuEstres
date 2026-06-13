@@ -647,17 +647,42 @@
     </div>
 
     <div class="wellness-actions-grid">
-      <div class="breathing-card">
-        <h3>🧘 Respiración guiada</h3>
+ <div class="breathing-card">
+  <h3>🧘 Respiración guiada</h3>
 
-        <div id="breathingCircle" class="breathing-circle">
-          Inhala
-        </div>
-
-        <button class="btn-primary" onclick="startBreathingExercise()">
-          Iniciar ejercicio
-        </button>
+  <div class="breathing-scene">
+    <div id="breathingPerson" class="breathing-person">
+      <div class="person-head"></div>
+      <div class="person-body">
+        <div class="person-chest"></div>
       </div>
+      <div class="person-arms"></div>
+      <div class="person-legs"></div>
+    </div>
+  </div>
+
+  <h4 id="breathingPhaseText" class="breathing-phase-text">Inhala</h4>
+
+  <p id="breathingInstruction" class="breathing-instruction">
+    Ejercicio 4-4-4 para relajarte.
+  </p>
+
+  <strong id="breathingTimer" class="breathing-timer">00:12</strong>
+
+  <div class="breathing-progress">
+    <div id="breathingProgressFill" class="breathing-progress-fill"></div>
+  </div>
+
+  <div class="breathing-steps">
+    <span>Inhala 4s</span>
+    <span>Mantén 4s</span>
+    <span>Exhala 4s</span>
+  </div>
+
+  <button class="btn-primary" onclick="startBreathingExercise()">
+    Iniciar ejercicio
+  </button>
+</div>
 
       <div class="pomodoro-card">
         <h3>⏰ Pomodoro</h3>
