@@ -1047,37 +1047,31 @@ let wellnessData = JSON.parse(localStorage.getItem("wellnessData")) || {
 };
 
 const dailyChallenges = [
-  "Respira profundamente durante 1 minuto.",
-  "Realiza 5 respiraciones lentas.",
-  "Camina durante 5 minutos.",
-  "Haz 10 estiramientos.",
-  "Bebe un vaso de agua.",
-  "Escucha una canción relajante.",
-  "Aléjate del celular durante 10 minutos.",
-  "Organiza tu espacio de estudio.",
-  "Completa un Pomodoro.",
-  "Descansa la vista durante 2 minutos.",
-  "Habla con un amigo o familiar.",
-  "Escribe 3 cosas positivas de tu día.",
-  "Toma agua antes de seguir estudiando.",
-  "Haz una pausa de relajación de 3 minutos.",
-  "Termina una tarea pendiente.",
-  "Sal a tomar aire fresco.",
-  "Sonríe y toma un descanso breve.",
-  "Realiza movimientos de cuello y hombros.",
-  "No revises redes sociales durante 30 minutos.",
-  "Come una fruta hoy."
+  { icon: "🧘", text: "Respira profundamente durante 1 minuto." },
+  { icon: "🌬️", text: "Realiza 5 respiraciones lentas." },
+  { icon: "🚶", text: "Camina durante 5 minutos." },
+  { icon: "🤸", text: "Haz 10 estiramientos." },
+  { icon: "💧", text: "Bebe un vaso de agua." },
+  { icon: "🎧", text: "Escucha una canción relajante." },
+  { icon: "📵", text: "Aléjate del celular durante 10 minutos." },
+  { icon: "🧹", text: "Organiza tu espacio de estudio." },
+  { icon: "🍅", text: "Completa un Pomodoro." },
+  { icon: "👀", text: "Descansa la vista durante 2 minutos." },
+  { icon: "🗣️", text: "Habla con un amigo o familiar." },
+  { icon: "📝", text: "Escribe 3 cosas positivas de tu día." },
+  { icon: "🍎", text: "Come una fruta hoy." },
+  { icon: "🌿", text: "Sal a tomar aire fresco." },
+  { icon: "🙂", text: "Sonríe y toma un descanso breve." }
 ];
 function loadDailyChallenge() {
-  const challengeElement =
-    document.getElementById("dailyChallengeText");
+  const challengeIcon = document.getElementById("dailyChallengeIcon");
+  const challengeText = document.getElementById("dailyChallengeText");
 
   const today = new Date().getDate();
+  const challenge = dailyChallenges[today % dailyChallenges.length];
 
-  const challenge =
-    dailyChallenges[today % dailyChallenges.length];
-
-  challengeElement.textContent = challenge;
+  challengeIcon.textContent = challenge.icon;
+  challengeText.textContent = challenge.text;
 }
 function saveWellnessData() {
   localStorage.setItem("wellnessData", JSON.stringify(wellnessData));

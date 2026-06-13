@@ -2435,6 +2435,10 @@ body.dark-mode .breathing-steps span {
   flex-direction:column;
   justify-content:center;
 }
+.daily-challenge-icon{
+  font-size:4rem;
+  margin:12px 0;
+}
 @media (max-width: 900px){
   .garden-challenge-grid{
     grid-template-columns:1fr;
