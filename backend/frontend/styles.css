@@ -2418,3 +2418,25 @@ body.dark-mode .breathing-steps span {
   font-weight:600;
   text-align:center;
 }
+.garden-challenge-grid{
+  display:grid;
+  grid-template-columns: 2fr 1fr;
+  gap:22px;
+  margin-bottom:26px;
+}
+
+.garden-card,
+.daily-challenge-card{
+  margin-bottom:0;
+  height:100%;
+}
+.daily-challenge-card{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+@media (max-width: 900px){
+  .garden-challenge-grid{
+    grid-template-columns:1fr;
+  }
+}

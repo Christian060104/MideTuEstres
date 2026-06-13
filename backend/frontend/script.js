@@ -1210,23 +1210,23 @@ function startBreathingExercise() {
 }
 let pomodoroRunning = false;
 let pomodoroInterval;
-let pomodoroSeconds = 15;
+let pomodoroSeconds = 25 * 60;
 let completedPomodoros = 0;
 let pomodoroPaused = false;
 
 function startPomodoro() {
  if (pomodoroInterval) return;
 
-  const timeDisplay = document.getElementById("pomodoroTime");
+ 
   const status = document.getElementById("pomodoroStatus");
   const progressFill = document.getElementById("pomodoroProgressFill");
-  const minutesDisplay = document.getElementById("focusMinutes");
+
 
   pomodoroRunning = true;
   pomodoroPaused = false;
   status.textContent = "🍅 Concentración activa";
 
-  const totalSeconds = 15;
+  const totalSeconds = 25 * 60;
 
   pomodoroInterval = setInterval(() => {
     pomodoroSeconds--;
@@ -1241,10 +1241,7 @@ function startPomodoro() {
     const progress = ((totalSeconds - pomodoroSeconds) / totalSeconds) * 100;
     progressFill.style.width = `${progress}%`;
 
-    minutesDisplay.textContent = Math.floor(
-      (totalSeconds - pomodoroSeconds) / 60
-    );
-
+   
     if (pomodoroSeconds <= 0) {
       clearInterval(pomodoroInterval);
 
