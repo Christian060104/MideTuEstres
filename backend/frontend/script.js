@@ -608,12 +608,15 @@ function updateChart(measurements) {
 
 // Resource Functions
 function playVideo(videoType) {
-  if (!currentUser) {
-    showMessage("error", "Debes iniciar sesión para ver los recursos");
-    showLoginModal();
-    return;
-  }
 
+  const videos = {
+    relajacion: "https://www.youtube.com/embed/inpok4MKVLM",
+    tiempo: "https://www.youtube.com/embed/iONDebHX9qk",
+    motivacion: "https://www.youtube.com/embed/ZXsQAXx_ao0"
+  };
+
+  openVideoModal(videos[videoType]);
+}
   // In a real application, this would open a video player
   // For now, we'll show a message
   const videoMessages = {
@@ -1420,4 +1423,18 @@ function spinStressWheel() {
 document.addEventListener("DOMContentLoaded", function () {
   updateWellnessUI();
   drawStressWheel();
+});
+function openVideoModal(videoUrl) {
+  document.getElementById("videoModal").style.display = "flex";
+  document.getElementById("videoFrame").src = videoUrl;
+}
+
+function closeVideoModal() {
+  document.getElementById("videoModal").style.display = "none";
+  document.getElementById("videoFrame").src = "";
+}
+document.addEventListener("keydown", function(e){
+  if(e.key === "Escape"){
+    closeVideoModal();
+  }
 });
