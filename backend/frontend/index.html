@@ -1076,22 +1076,27 @@
     </button>
   </div>
 </div>
-<div id="stressGameModal" class="stress-game-modal">
-  <div class="stress-game-content">
-    <button class="close-game" onclick="closeStressGame()">×</button>
+<div class="wellness-card stress-game-card">
+  <div class="game-card-content">
+    <div class="game-icon">🎮</div>
 
-    <h2>🎮 Dino Relax</h2>
-    <p class="game-subtitle">Corre contra el estrés y cuida tu bienestar.</p>
+    <div>
+      <h3>Dino Relax</h3>
+      <p>
+        Ayuda a tu personaje a esquivar el estrés y recolectar hábitos saludables.
+      </p>
 
-    <canvas id="stressGameCanvas" width="700" height="280"></canvas>
-
-    <div class="game-controls">
-      <button onclick="startStressGame()">Iniciar</button>
-      <button onclick="jumpStressPlayer()">Saltar</button>
+      <div class="game-tags">
+        <span>🧘 Respirar</span>
+        <span>💧 Agua</span>
+        <span>🌱 Descanso</span>
+      </div>
     </div>
-
-    <p class="game-tip">Presiona espacio o toca “Saltar”.</p>
   </div>
+
+  <button class="btn-game" onclick="openStressGame()">
+    Jugar ahora
+  </button>
 </div>
   </body>
 </html>
