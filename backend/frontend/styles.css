@@ -2398,7 +2398,17 @@ body.dark-mode .breathing-steps span {
 }
 
 .pomodoro-buttons button{
-  min-width:110px;
+  background:#ffd700;
+  color:#333;
+  border:none;
+  border-radius:25px;
+  font-weight:700;
+  transition:0.3s;
+}
+
+.pomodoro-buttons button:hover{
+  background:#ffed4e;
+  transform:translateY(-2px);
 }
 
 .pomodoro-card .btn-secondary{

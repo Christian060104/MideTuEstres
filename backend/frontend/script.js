@@ -1254,7 +1254,7 @@ function startPomodoro() {
       document.getElementById("completedPomodoros").textContent =
         completedPomodoros;
 
-      minutesDisplay.textContent = "25";
+   minutesDisplay.textContent = "1500";
       status.textContent = "✅ Pomodoro completado";
       timeDisplay.textContent = "25:00";
       progressFill.style.width = "100%";
