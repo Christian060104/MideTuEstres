@@ -1210,7 +1210,7 @@ function startBreathingExercise() {
 }
 let pomodoroRunning = false;
 let pomodoroInterval;
-let pomodoroSeconds = 25 * 60;
+let pomodoroSeconds = 15;
 let completedPomodoros = 0;
 let pomodoroPaused = false;
 
@@ -1226,7 +1226,7 @@ function startPomodoro() {
   pomodoroPaused = false;
   status.textContent = "🍅 Concentración activa";
 
-  const totalSeconds = 25 * 60;
+  const totalSeconds = 15;
 
   pomodoroInterval = setInterval(() => {
     pomodoroSeconds--;
