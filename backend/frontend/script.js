@@ -1210,17 +1210,12 @@ function startBreathingExercise() {
 }
 let pomodoroRunning = false;
 
+function startPomodoro() {
 let pomodoroInterval;
 let pomodoroRunning = false;
 let pomodoroSeconds = 25 * 60;
 let completedPomodoros = 0;
-
-function startPomodoro() {
-  const timeDisplay = document.getElementById("pomodoroTime");
-  const status = document.getElementById("pomodoroStatus");
-  const progressFill = document.getElementById("pomodoroProgressFill");
-  const completedDisplay = document.getElementById("completedPomodoros");
-  const minutesDisplay = document.getElementById("focusMinutes");
+let focusMinutes = 0;
 
   if (pomodoroRunning) return;
 
@@ -1235,25 +1230,23 @@ function startPomodoro() {
     const minutes = Math.floor(pomodoroSeconds / 60);
     const seconds = pomodoroSeconds % 60;
 
-    timeDisplay.textContent = `${minutes}:${seconds
-      .toString()
-      .padStart(2, "0")}`;
+    timeDisplay.textContent =
+      `${minutes}:${seconds.toString().padStart(2, "0")}`;
 
     const progress = ((totalSeconds - pomodoroSeconds) / totalSeconds) * 100;
     progressFill.style.width = `${progress}%`;
 
-    minutesDisplay.textContent = Math.floor(
-      (totalSeconds - pomodoroSeconds) / 60
-    );
+    focusMinutes = Math.floor((totalSeconds - pomodoroSeconds) / 60);
+    minutesDisplay.textContent = focusMinutes;
 
     if (pomodoroSeconds <= 0) {
       clearInterval(pomodoroInterval);
 
       pomodoroRunning = false;
       completedPomodoros++;
-
       completedDisplay.textContent = completedPomodoros;
       minutesDisplay.textContent = 25;
+
       status.textContent = "✅ Pomodoro completado";
       timeDisplay.textContent = "25:00";
       progressFill.style.width = "100%";
@@ -1265,6 +1258,8 @@ function startPomodoro() {
     }
   }, 1000);
 }
+
+
 /* Ruleta real con canvas */
 const wheelActivities = ["Respira", "Camina", "Agua", "Música", "Estira", "Ordena"];
 
