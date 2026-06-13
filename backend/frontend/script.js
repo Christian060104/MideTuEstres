@@ -1493,3 +1493,27 @@ function schedulePsychAppointment() {
 
   closePsychChat();
 }
+function actualizarResumenActual() {
+  const historial = JSON.parse(localStorage.getItem("historialEstres")) || [];
+
+  const nivel = document.getElementById("summaryNivel");
+  const fecha = document.getElementById("summaryFecha");
+  const total = document.getElementById("summaryTotal");
+
+  if (!nivel || !fecha || !total) return;
+
+  if (historial.length === 0) {
+    nivel.textContent = "Sin registros";
+    fecha.textContent = "Sin registros";
+    total.textContent = "0";
+    return;
+  }
+
+  const ultimaMedicion = historial[historial.length - 1];
+
+  nivel.textContent = ultimaMedicion.nivel || "Sin dato";
+  fecha.textContent = ultimaMedicion.fecha || "Sin fecha";
+  total.textContent = historial.length;
+}
+
+document.addEventListener("DOMContentLoaded", actualizarResumenActual);
