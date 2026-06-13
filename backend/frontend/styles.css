@@ -2788,16 +2788,12 @@ body.dark-mode .breathing-steps span {
 }
 
 #wellnessDrawing{
+    width:100%;
+    max-width:700px;
+    height:auto;
     background:white;
     border-radius:20px;
-    border:2px solid #ede9fe;
-}
-
-.paintable{
-    cursor:pointer;
-    transition:.2s;
-}
-
-.paintable:hover{
-    opacity:.8;
+    border:2px solid #e9d5ff;
+    display:block;
+    margin:auto;
 }
