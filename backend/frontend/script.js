@@ -1727,12 +1727,12 @@ function updateProgress() {
 
   window.drawingCompleted = true;
 
-  setTimeout(() => {
-    alert(
-      "🎉 ¡Felicidades!\n\nHas completado tu dibujo.\n\nTomarte unos minutos para actividades creativas ayuda a reducir el estrés y mejorar la concentración. 💜"
-    );
-  }, 300);
+  wellnessPoints += 25;
+  document.getElementById("wellnessPoints").textContent = wellnessPoints;
 
+  alert(
+    "🎉 ¡Felicidades!\n\nHas completado tu dibujo.\n\n+25 puntos de bienestar 💜"
+  );
 }
 function resetDrawing() {
   document.querySelectorAll("#wellnessDrawing .paintable").forEach(item => {
