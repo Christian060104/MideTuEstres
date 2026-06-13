@@ -1186,7 +1186,10 @@ function completeDailyChallenge() {
   const today = new Date().toISOString().split("T")[0];
 
   if (wellnessData.lastCompletedDate === today) {
-    alert("Ya completaste el reto de hoy 💜");
+showMessage(
+  "info",
+  "💜 Ya completaste el reto del día de hoy. Regresa mañana para un nuevo desafío."
+);
     return;
   }
 
@@ -1204,7 +1207,10 @@ function completeDailyChallenge() {
 
   addGardenProgress(15);
 
-  alert("Reto completado. Tu jardín creció 🌱");
+  showMessage(
+  "success",
+  "🎯 Reto completado correctamente. Tu jardín ha crecido 🌱"
+);
 }
 
 let breathingRunning = false;
@@ -1474,7 +1480,10 @@ function schedulePsychAppointment() {
     return;
   }
 
-  alert("Tu solicitud de cita fue registrada correctamente 💜");
+ showMessage(
+  "success",
+  "💜 Solicitud enviada. Tu cita ha sido registrada. Espera la confirmación del área de orientación psicológica."
+);
 
   document.getElementById("psychName").value = "";
   document.getElementById("psychEmail").value = "";
