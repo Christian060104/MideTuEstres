@@ -2368,7 +2368,7 @@ body.dark-mode .breathing-steps span {
   font-size:1.4rem;
 }
 .pomodoro-icon{
-  font-size:4rem;
+  font-size:3rem;
   margin:10px 0;
   animation: floatPomodoro 3s ease-in-out infinite;
 }
@@ -2376,4 +2376,16 @@ body.dark-mode .breathing-steps span {
 @keyframes floatPomodoro{
   0%,100%{transform:translateY(0);}
   50%{transform:translateY(-8px);}
+}
+.pomodoro-card{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+.pomodoro-stats div{
+  background:#f5f3ff;
+  padding:10px 15px;
+  border-radius:12px;
+  min-width:80px;
 }
