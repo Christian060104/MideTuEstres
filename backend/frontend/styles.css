@@ -2615,3 +2615,19 @@ body.dark-mode .breathing-steps span {
     bottom: 18px;
   }
 }
+.psych-chat-button {
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  cursor: pointer;
+}
+
+.psych-chat-button i {
+  font-size: 28px;
+  line-height: 1;
+}
