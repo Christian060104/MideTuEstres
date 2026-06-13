@@ -1215,33 +1215,15 @@ let completedPomodoros = 0;
 let pomodoroPaused = false;
 
 function startPomodoro() {
+  if (pomodoroRunning && !pomodoroPaused) return;
+
   const timeDisplay = document.getElementById("pomodoroTime");
   const status = document.getElementById("pomodoroStatus");
   const progressFill = document.getElementById("pomodoroProgressFill");
-  const completedDisplay = document.getElementById("completedPomodoros");
   const minutesDisplay = document.getElementById("focusMinutes");
 
-  function pausePomodoro() {
-  if (!pomodoroRunning) return;
-
-  if (!pomodoroPaused) {
-    clearInterval(pomodoroInterval);
-    pomodoroPaused = true;
-
-    document.getElementById("pomodoroStatus").textContent =
-      "⏸️ Pomodoro pausado";
-  } else {
-    pomodoroPaused = false;
-
-    document.getElementById("pomodoroStatus").textContent =
-      "🍅 Concentración activa";
-
-    startPomodoro();
-  }
-}
-  if (pomodoroRunning) return;
-
   pomodoroRunning = true;
+  pomodoroPaused = false;
   status.textContent = "🍅 Concentración activa";
 
   const totalSeconds = 25 * 60;
@@ -1252,8 +1234,9 @@ function startPomodoro() {
     const minutes = Math.floor(pomodoroSeconds / 60);
     const seconds = pomodoroSeconds % 60;
 
-    timeDisplay.textContent =
-      `${minutes}:${seconds.toString().padStart(2, "0")}`;
+    timeDisplay.textContent = `${minutes}:${seconds
+      .toString()
+      .padStart(2, "0")}`;
 
     const progress = ((totalSeconds - pomodoroSeconds) / totalSeconds) * 100;
     progressFill.style.width = `${progress}%`;
@@ -1268,13 +1251,13 @@ function startPomodoro() {
       pomodoroRunning = false;
       completedPomodoros++;
 
-      completedDisplay.textContent = completedPomodoros;
-      minutesDisplay.textContent = "25";
+      document.getElementById("completedPomodoros").textContent =
+        completedPomodoros;
 
+      minutesDisplay.textContent = "25";
       status.textContent = "✅ Pomodoro completado";
       timeDisplay.textContent = "25:00";
       progressFill.style.width = "100%";
-
       pomodoroSeconds = 25 * 60;
 
       if (typeof completeWellnessActivity === "function") {
@@ -1282,6 +1265,29 @@ function startPomodoro() {
       }
     }
   }, 1000);
+}
+
+function pausePomodoro() {
+  if (!pomodoroRunning) return;
+
+  clearInterval(pomodoroInterval);
+  pomodoroRunning = false;
+  pomodoroPaused = true;
+
+  document.getElementById("pomodoroStatus").textContent = "⏸️ Pomodoro pausado";
+}
+
+function resetPomodoro() {
+  clearInterval(pomodoroInterval);
+
+  pomodoroRunning = false;
+  pomodoroPaused = false;
+  pomodoroSeconds = 25 * 60;
+
+  document.getElementById("pomodoroTime").textContent = "25:00";
+  document.getElementById("pomodoroStatus").textContent = "Listo para comenzar";
+  document.getElementById("pomodoroProgressFill").style.width = "0%";
+  document.getElementById("focusMinutes").textContent = "0";
 }
 /* Ruleta real con canvas */
 const wheelActivities = ["Respira", "Camina", "Agua", "Música", "Estira", "Ordena"];
