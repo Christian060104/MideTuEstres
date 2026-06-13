@@ -608,11 +608,11 @@ function updateChart(measurements) {
 
 // Resource Functions
 function playVideo(videoType) {
-  const videos = {
-    relajacion: "https://www.youtube.com/embed/inpok4MKVLM",
-    tiempo: "https://www.youtube.com/embed/iONDebHX9qk",
-    motivacion: "https://www.youtube.com/embed/ZXsQAXx_ao0"
-  };
+const videos = {
+  relajacion: "https://www.youtube.com/embed/aNXKjGFUlMs",
+  tiempo: "https://www.youtube.com/embed/ZVhLJ8jV0uE",
+  motivacion: "https://www.youtube.com/embed/4Q6D4s4Yq4Q"
+};
 
   if (videos[videoType]) {
     openVideoModal(videos[videoType]);
