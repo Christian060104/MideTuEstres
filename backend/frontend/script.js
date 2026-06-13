@@ -1245,29 +1245,27 @@ function startPomodoro() {
       (totalSeconds - pomodoroSeconds) / 60
     );
 
-if (pomodoroSeconds <= 0) {
-  clearInterval(pomodoroInterval);
+    if (pomodoroSeconds <= 0) {
+      clearInterval(pomodoroInterval);
 
-  pomodoroRunning = false;
-  pomodoroInterval = null;
+      pomodoroRunning = false;
+      completedPomodoros++;
 
-  completedPomodoros++;
+      document.getElementById("completedPomodoros").textContent =
+        completedPomodoros;
 
-  document.getElementById("completedPomodoros").textContent =
-    completedPomodoros;
+   minutesDisplay.textContent = "1500";
+      status.textContent = "✅ Pomodoro completado";
+      timeDisplay.textContent = "25:00";
+      progressFill.style.width = "100%";
+      pomodoroSeconds = 25 * 60;
 
-  status.textContent = "✅ Pomodoro completado";
-  progressFill.style.width = "100%";
-
-  pomodoroSeconds = totalSeconds;
-
-  if (typeof completeWellnessActivity === "function") {
-    completeWellnessActivity();
-  }
-
-  return;
+      if (typeof completeWellnessActivity === "function") {
+        completeWellnessActivity();
+      }
+    }
+  }, 1000);
 }
-
 
 function pausePomodoro() {
   if (!pomodoroInterval) return;
