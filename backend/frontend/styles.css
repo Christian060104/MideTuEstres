@@ -2479,3 +2479,53 @@ body.dark-mode .breathing-steps span {
     grid-template-columns:1fr;
   }
 }
+.report-card{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+
+  background:#f8f5ff;
+  border:2px solid #ede9fe;
+  border-radius:20px;
+
+  padding:20px 25px;
+  margin:25px auto;
+
+  max-width:700px;
+}
+
+.report-icon{
+  font-size:3rem;
+}
+
+.report-info{
+  flex:1;
+}
+
+.report-info h4{
+  margin:0;
+  color:#6d28d9;
+  font-size:1.2rem;
+}
+
+.report-info p{
+  margin-top:5px;
+  color:#666;
+}
+
+.report-btn{
+  background:linear-gradient(135deg,#8b5cf6,#6d28d9);
+  color:white;
+  border:none;
+  border-radius:30px;
+  padding:14px 24px;
+  font-weight:700;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.report-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 20px rgba(139,92,246,.25);
+}
