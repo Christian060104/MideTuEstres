@@ -608,16 +608,21 @@ function updateChart(measurements) {
 
 // Resource Functions
 function playVideo(videoType) {
-const videos = {
-  relajacion: "https://www.youtube.com/embed/aNXKjGFUlMs",
-  tiempo: "https://www.youtube.com/embed/ZVhLJ8jV0uE",
-  motivacion: "https://www.youtube.com/embed/4Q6D4s4Yq4Q"
-};
+  const videos = {
+    relajacion: "https://www.youtube.com/embed/tYwnSBkc_To",
+    tiempo: "https://www.youtube.com/embed/Ctd3gH4O4Bc",
+    motivacion: "https://www.youtube.com/embed/_zmDAFZV6fk"
+  };
 
   if (videos[videoType]) {
     openVideoModal(videos[videoType]);
   }
 }
+
+  if (videos[videoType]) {
+    openVideoModal(videos[videoType]);
+  }
+
 
 function openVideoModal(videoUrl) {
   document.getElementById("videoModal").style.display = "flex";
