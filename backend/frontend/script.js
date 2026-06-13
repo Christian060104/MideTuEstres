@@ -1161,26 +1161,55 @@ function completeDailyChallenge() {
   alert("Reto completado. Tu jardín creció 🌱");
 }
 
+let breathingRunning = false;
+
 function startBreathingExercise() {
+  if (breathingRunning) return;
+
   const circle = document.getElementById("breathingCircle");
-  if (!circle) return;
+  const instruction = document.getElementById("breathingInstruction");
+  const timer = document.getElementById("breathingTimer");
+
+  if (!circle || !instruction || !timer) return;
+
+  breathingRunning = true;
+
+  let secondsLeft = 12;
+
+  timer.textContent = "00:12";
+  instruction.textContent = "Comenzamos. Sigue el ritmo del círculo.";
 
   circle.innerHTML = "Inhala";
   circle.classList.add("expand");
 
-  setTimeout(() => {
-    circle.innerHTML = "Mantén";
-  }, 4000);
+  const interval = setInterval(() => {
+    secondsLeft--;
 
-  setTimeout(() => {
-    circle.innerHTML = "Exhala";
-    circle.classList.remove("expand");
-  }, 8000);
+    timer.textContent = `00:${secondsLeft.toString().padStart(2, "0")}`;
 
-  setTimeout(() => {
-    circle.innerHTML = "Completado";
-    addGardenProgress(5);
-  }, 12000);
+    if (secondsLeft === 8) {
+      circle.innerHTML = "Mantén";
+      instruction.textContent = "Mantén la respiración suavemente.";
+    }
+
+    if (secondsLeft === 4) {
+      circle.innerHTML = "Exhala";
+      instruction.textContent = "Exhala lento y relaja los hombros.";
+      circle.classList.remove("expand");
+    }
+
+    if (secondsLeft <= 0) {
+      clearInterval(interval);
+
+      circle.innerHTML = "Completado";
+      instruction.textContent = "Excelente. Tu cuerpo acaba de hacer una pausa.";
+      timer.textContent = "00:00";
+
+      breathingRunning = false;
+
+      addGardenProgress(5);
+    }
+  }, 1000);
 }
 
 let pomodoroRunning = false;

@@ -2243,4 +2243,70 @@ body.dark-mode .garden-progress-top {
   #pomodoroTime {
     font-size: 3rem;
   }
+  .wheel-wrapper,
+.stress-wheel,
+.wheel-pointer {
+  display: none !important;
+}
+.breathing-person {
+  font-size: 4.5rem;
+  margin: 10px 0 5px;
+  animation: personFloat 3s ease-in-out infinite;
+}
+
+@keyframes personFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.breathing-info {
+  margin: 10px 0 14px;
+}
+
+.breathing-info p {
+  color: #555;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+#breathingTimer {
+  display: inline-block;
+  font-size: 1.6rem;
+  color: #8b5cf6;
+  background: #f5f3ff;
+  padding: 8px 18px;
+  border-radius: 999px;
+}
+
+.breathing-steps {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 15px 0 20px;
+}
+
+.breathing-steps span {
+  background: #f5f3ff;
+  color: #6d28d9;
+  padding: 8px 10px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+body.dark-mode .breathing-info p {
+  color: white;
+}
+
+body.dark-mode #breathingTimer,
+body.dark-mode .breathing-steps span {
+  background: #2d2545;
+  color: #d8b4fe;
+}
 }
