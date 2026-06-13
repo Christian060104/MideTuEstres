@@ -2411,3 +2411,10 @@ body.dark-mode .breathing-steps span {
   transform:translateY(-2px);
 }
 
+.pomodoro-tip{
+  margin-top:20px;
+  color:#666;
+  font-size:0.95rem;
+  font-weight:600;
+  text-align:center;
+}
