@@ -1690,47 +1690,50 @@ document.addEventListener("click", function (e) {
 });
 let selectedColor = "#f9a8d4";
 
-function openColorGame(){
-    document
-      .getElementById("colorGameModal")
-      .classList.add("active");
+function selectColor(color) {
+  selectedColor = color;
 }
 
-function closeColorGame(){
-    document
-      .getElementById("colorGameModal")
-      .classList.remove("active");
+function openColorGame() {
+  document.getElementById("colorGameModal").classList.add("active");
+  updateProgress();
 }
 
-function selectColor(color){
-    selectedColor = color;
+function closeColorGame() {
+  document.getElementById("colorGameModal").classList.remove("active");
 }
 
-document.addEventListener(
-  "click",
-  function(e){
+function paintElement(element) {
+  element.setAttribute("fill", selectedColor);
+  element.dataset.painted = "true";
+  updateProgress();
+}
 
-    if(
-      e.target.classList.contains(
-        "paintable"
-      )
-    ){
-      e.target.setAttribute(
-        "fill",
-        selectedColor
-      );
-      function updateProgress() {
+function updateProgress() {
+  const items = document.querySelectorAll("#wellnessDrawing .paintable");
+  const painted = document.querySelectorAll("#wellnessDrawing .paintable[data-painted='true']").length;
 
-  const items = document.querySelectorAll(".paintable");
+  const percent = items.length === 0 ? 0 : Math.round((painted / items.length) * 100);
 
-  let painted = 0;
+  document.getElementById("paintProgressText").textContent = percent + "%";
+  document.getElementById("paintProgressFill").style.width = percent + "%";
+}
 
-  items.forEach(item => {
-    if(item.getAttribute("fill") !== "#ffffff"){
-      painted++;
-    }
+function resetDrawing() {
+  document.querySelectorAll("#wellnessDrawing .paintable").forEach(item => {
+    item.setAttribute("fill", "#ffffff");
+    item.removeAttribute("data-painted");
   });
 
+  updateProgress();
+}
+
+document.querySelectorAll("#wellnessDrawing .paintable").forEach(item => {
+  item.addEventListener("click", function(e) {
+    e.stopPropagation();
+    paintElement(this);
+  });
+});
   const percent = Math.round((painted / items.length) * 100);
 
   document.getElementById("paintProgressText").textContent =
