@@ -1197,7 +1197,7 @@ function startBreathingExercise() {
       clearInterval(breathingInterval);
 
       person.classList.remove("breathe-active");
-      phaseText.textContent = "Ejercicio completado ✅";
+      phaseText.textContent = "Ejercicio completado ";
       instruction.textContent = "Muy bien, acabas de tomar una pausa saludable.";
       timer.textContent = "00:00";
       progressFill.style.width = "100%";
