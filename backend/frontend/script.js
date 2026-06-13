@@ -619,11 +619,6 @@ function playVideo(videoType) {
   }
 }
 
-  if (videos[videoType]) {
-    openVideoModal(videos[videoType]);
-  }
-
-
 function openVideoModal(videoUrl) {
   document.getElementById("videoModal").style.display = "flex";
   document.getElementById("videoFrame").src = videoUrl;
