@@ -1734,18 +1734,6 @@ document.querySelectorAll("#wellnessDrawing .paintable").forEach(item => {
     paintElement(this);
   });
 });
-  const percent = Math.round((painted / items.length) * 100);
-
-  document.getElementById("paintProgressText").textContent =
-    percent + "%";
-
-  document.getElementById("paintProgressFill").style.width =
-    percent + "%";
-}
-    }
-
-  }
-);
 function openColorGame() {
   document.getElementById("colorGameModal").classList.add("active");
 }
