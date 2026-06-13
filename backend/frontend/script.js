@@ -1494,7 +1494,11 @@ function schedulePsychAppointment() {
   closePsychChat();
 }
 function actualizarResumenActual() {
-  const historial = JSON.parse(localStorage.getItem("historialEstres")) || [];
+  const historial =
+    JSON.parse(localStorage.getItem("historialEstres")) ||
+    JSON.parse(localStorage.getItem("stressHistory")) ||
+    JSON.parse(localStorage.getItem("evaluaciones")) ||
+    [];
 
   const nivel = document.getElementById("summaryNivel");
   const fecha = document.getElementById("summaryFecha");
@@ -1509,11 +1513,12 @@ function actualizarResumenActual() {
     return;
   }
 
-  const ultimaMedicion = historial[historial.length - 1];
+  const ultima = historial[historial.length - 1];
 
-  nivel.textContent = ultimaMedicion.nivel || "Sin dato";
-  fecha.textContent = ultimaMedicion.fecha || "Sin fecha";
+  nivel.textContent = ultima.nivel || ultima.level || ultima.resultado || "Sin dato";
+  fecha.textContent = ultima.fecha || ultima.date || ultima.createdAt || "Sin fecha";
   total.textContent = historial.length;
 }
 
 document.addEventListener("DOMContentLoaded", actualizarResumenActual);
+actualizarResumenActual();
