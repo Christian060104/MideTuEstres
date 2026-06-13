@@ -2329,3 +2329,17 @@ body.dark-mode .breathing-steps span {
   font-weight: 600;
   max-width: 260px;
 }
+.pomodoro-progress{
+  width: 85%;
+  height: 12px;
+  background: #ede9fe;
+  border-radius: 999px;
+  margin: 20px auto;
+  overflow: hidden;
+}
+
+#pomodoroProgressFill{
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(135deg,#8b5cf6,#22c55e);
+}
