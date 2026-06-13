@@ -1047,15 +1047,38 @@ let wellnessData = JSON.parse(localStorage.getItem("wellnessData")) || {
 };
 
 const dailyChallenges = [
-  "Respira profundo durante 1 minuto.",
-  "Toma agua y descansa 5 minutos.",
-  "Organiza tus pendientes del día.",
-  "Haz estiramientos durante 3 minutos.",
-  "Escribe una cosa positiva de tu día.",
+  "Respira profundamente durante 1 minuto.",
+  "Realiza 5 respiraciones lentas.",
+  "Camina durante 5 minutos.",
+  "Haz 10 estiramientos.",
+  "Bebe un vaso de agua.",
+  "Escucha una canción relajante.",
   "Aléjate del celular durante 10 minutos.",
-  "Escucha una canción relajante."
+  "Organiza tu espacio de estudio.",
+  "Completa un Pomodoro.",
+  "Descansa la vista durante 2 minutos.",
+  "Habla con un amigo o familiar.",
+  "Escribe 3 cosas positivas de tu día.",
+  "Toma agua antes de seguir estudiando.",
+  "Haz una pausa de relajación de 3 minutos.",
+  "Termina una tarea pendiente.",
+  "Sal a tomar aire fresco.",
+  "Sonríe y toma un descanso breve.",
+  "Realiza movimientos de cuello y hombros.",
+  "No revises redes sociales durante 30 minutos.",
+  "Come una fruta hoy."
 ];
+function loadDailyChallenge() {
+  const challengeElement =
+    document.getElementById("dailyChallengeText");
 
+  const today = new Date().getDate();
+
+  const challenge =
+    dailyChallenges[today % dailyChallenges.length];
+
+  challengeElement.textContent = challenge;
+}
 function saveWellnessData() {
   localStorage.setItem("wellnessData", JSON.stringify(wellnessData));
 }
