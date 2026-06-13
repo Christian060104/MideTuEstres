@@ -744,13 +744,18 @@
         </button>
       </div>
     </div>
-    <div class="wellness-card stress-game-card">
-  <div class="wellness-icon">🎮</div>
-  <h3>Dino Relax</h3>
-  <p>Esquiva tareas, exámenes y desvelos mientras recolectas hábitos saludables.</p>
-  <button class="btn-game" onclick="openStressGame()">
-    Jugar ahora
-  </button>
+    <div class="wellness-card bubble-game-card">
+    <div class="wellness-icon">🫧</div>
+
+    <h3>Explota las preocupaciones</h3>
+
+    <p>
+        Libera pensamientos negativos explotando las burbujas antes de que escapen.
+    </p>
+
+    <button class="btn-game" onclick="openBubbleGame()">
+        Jugar ahora
+    </button>
 </div>
   </div>
 </section>
@@ -1076,27 +1081,32 @@
     </button>
   </div>
 </div>
-<div class="wellness-card stress-game-card">
-  <div class="game-card-content">
-    <div class="game-icon">🎮</div>
+<div id="bubbleGameModal" class="stress-game-modal">
+    <div class="stress-game-content">
 
-    <div>
-      <h3>Dino Relax</h3>
-      <p>
-        Ayuda a tu personaje a esquivar el estrés y recolectar hábitos saludables.
-      </p>
+        <button class="close-game" onclick="closeBubbleGame()">
+            ×
+        </button>
 
-      <div class="game-tags">
-        <span>🧘 Respirar</span>
-        <span>💧 Agua</span>
-        <span>🌱 Descanso</span>
-      </div>
+        <h2>🫧 Explota las preocupaciones</h2>
+
+        <p class="game-subtitle">
+            Haz clic sobre las preocupaciones para liberarlas.
+        </p>
+
+        <canvas
+            id="bubbleCanvas"
+            width="700"
+            height="450">
+        </canvas>
+
+        <div class="game-controls">
+            <button onclick="startBubbleGame()">
+                Iniciar
+            </button>
+        </div>
+
     </div>
-  </div>
-
-  <button class="btn-game" onclick="openStressGame()">
-    Jugar ahora
-  </button>
 </div>
   </body>
 </html>
