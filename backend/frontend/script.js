@@ -1522,157 +1522,182 @@ function actualizarResumenActual() {
 
 document.addEventListener("DOMContentLoaded", actualizarResumenActual);
 actualizarResumenActual();
-let gameCanvas, gameCtx;
-let gameRunning = false;
-let gameScore = 0;
-let gameFrame = 0;
-let gameSpeed = 4;
+// =======================
+// EXPLOTA LAS PREOCUPACIONES
+// =======================
 
-const player = {
-  x: 60,
-  y: 210,
-  width: 36,
-  height: 36,
-  vy: 0,
-  jumping: false
-};
+let bubbleCanvas;
+let bubbleCtx;
+let bubbles = [];
+let liberated = 0;
+let bubbleAnimation;
 
-let obstacles = [];
+const worries = [
+  "Examen",
+  "Tarea",
+  "Proyecto",
+  "Ansiedad",
+  "Desvelo",
+  "Estrés",
+  "Presión",
+  "Calificaciones"
+];
 
-function openStressGame() {
-  document.getElementById("stressGameModal").classList.add("active");
-  setupStressGame();
+function openBubbleGame() {
+  document.getElementById("bubbleGameModal").classList.add("active");
 }
 
-function closeStressGame() {
-  document.getElementById("stressGameModal").classList.remove("active");
-  gameRunning = false;
+function closeBubbleGame() {
+  document.getElementById("bubbleGameModal").classList.remove("active");
+
+  cancelAnimationFrame(bubbleAnimation);
 }
 
-function setupStressGame() {
-  gameCanvas = document.getElementById("stressGameCanvas");
-  gameCtx = gameCanvas.getContext("2d");
-  drawStressGame();
-}
+function startBubbleGame() {
 
-function startStressGame() {
-  gameRunning = true;
-  gameScore = 0;
-  gameFrame = 0;
-  gameSpeed = 4;
-  obstacles = [];
-  player.y = 210;
-  player.vy = 0;
-  player.jumping = false;
-  requestAnimationFrame(gameLoop);
-}
+  bubbleCanvas = document.getElementById("bubbleCanvas");
+  bubbleCtx = bubbleCanvas.getContext("2d");
 
-function jumpStressPlayer() {
-  if (!player.jumping) {
-    player.vy = -13;
-    player.jumping = true;
-  }
-}
+  liberated = 0;
+  bubbles = [];
 
-function gameLoop() {
-  if (!gameRunning) return;
-
-  updateStressGame();
-  drawStressGame();
-
-  requestAnimationFrame(gameLoop);
-}
-
-function updateStressGame() {
-  gameFrame++;
-  gameScore++;
-
-  player.y += player.vy;
-  player.vy += 0.7;
-
-  if (player.y >= 210) {
-    player.y = 210;
-    player.vy = 0;
-    player.jumping = false;
+  for(let i=0;i<12;i++){
+    createBubble();
   }
 
-  if (gameFrame % 90 === 0) {
-    obstacles.push({
-      x: 700,
-      y: 218,
-      width: 38,
-      height: 30,
-      text: ["Tarea", "Examen", "Desvelo"][Math.floor(Math.random() * 3)]
-    });
-  }
+  animateBubbles();
+}
 
-  obstacles.forEach(obs => obs.x -= gameSpeed);
-  obstacles = obstacles.filter(obs => obs.x + obs.width > 0);
+function createBubble(){
 
-  obstacles.forEach(obs => {
-    if (
-      player.x < obs.x + obs.width &&
-      player.x + player.width > obs.x &&
-      player.y < obs.y + obs.height &&
-      player.y + player.height > obs.y
-    ) {
-      endStressGame();
+  bubbles.push({
+    x: Math.random()*650 + 20,
+    y: Math.random()*350 + 50,
+    radius: 40,
+    text: worries[Math.floor(Math.random()*worries.length)],
+    speed: Math.random()*1.5 + 0.5
+  });
+
+}
+
+function animateBubbles(){
+
+  bubbleCtx.clearRect(0,0,bubbleCanvas.width,bubbleCanvas.height);
+
+  bubbles.forEach((bubble)=>{
+
+    bubble.y -= bubble.speed;
+
+    bubbleCtx.beginPath();
+    bubbleCtx.arc(
+      bubble.x,
+      bubble.y,
+      bubble.radius,
+      0,
+      Math.PI*2
+    );
+
+    bubbleCtx.fillStyle = "rgba(168,85,247,0.25)";
+    bubbleCtx.fill();
+
+    bubbleCtx.strokeStyle = "#8b5cf6";
+    bubbleCtx.stroke();
+
+    bubbleCtx.fillStyle = "#4c1d95";
+    bubbleCtx.font = "14px Arial";
+    bubbleCtx.textAlign = "center";
+    bubbleCtx.fillText(
+      bubble.text,
+      bubble.x,
+      bubble.y+5
+    );
+
+    if(bubble.y < -50){
+
+      bubble.y = 500;
+
     }
+
   });
 
-  if (gameScore % 400 === 0) gameSpeed += 0.5;
-}
+  bubbleCtx.fillStyle="#111827";
+  bubbleCtx.font="20px Arial";
+  bubbleCtx.fillText(
+    "Liberadas: " + liberated,
+    100,
+    30
+  );
 
-function drawStressGame() {
-  if (!gameCtx) return;
+  if(liberated >= 15){
 
-  gameCtx.clearRect(0, 0, 700, 280);
+    bubbleCtx.fillStyle="rgba(255,255,255,0.9)";
+    bubbleCtx.fillRect(150,150,400,120);
 
-  gameCtx.fillStyle = "#dbeafe";
-  gameCtx.fillRect(0, 0, 700, 280);
+    bubbleCtx.fillStyle="#7c3aed";
+    bubbleCtx.font="24px Arial";
 
-  gameCtx.fillStyle = "#bbf7d0";
-  gameCtx.fillRect(0, 245, 700, 35);
+    bubbleCtx.fillText(
+      "✨ Excelente trabajo",
+      350,
+      200
+    );
 
-  gameCtx.fillStyle = "#7c3aed";
-  gameCtx.font = "28px Arial";
-  gameCtx.fillText("🌱", player.x, player.y + 30);
+    bubbleCtx.fillStyle="#334155";
+    bubbleCtx.font="16px Arial";
 
-  gameCtx.fillStyle = "#ef4444";
-  obstacles.forEach(obs => {
-    gameCtx.fillRect(obs.x, obs.y, obs.width, obs.height);
-    gameCtx.fillStyle = "#111827";
-    gameCtx.font = "12px Arial";
-    gameCtx.fillText(obs.text, obs.x - 4, obs.y - 8);
-    gameCtx.fillStyle = "#ef4444";
-  });
+    bubbleCtx.fillText(
+      "Has liberado tus preocupaciones por hoy",
+      350,
+      240
+    );
 
-  gameCtx.fillStyle = "#111827";
-  gameCtx.font = "18px Arial";
-  gameCtx.fillText("Puntos: " + gameScore, 20, 30);
-}
-
-function endStressGame() {
-  gameRunning = false;
-
-  drawStressGame();
-
-  gameCtx.fillStyle = "rgba(255,255,255,0.85)";
-  gameCtx.fillRect(120, 70, 460, 130);
-
-  gameCtx.fillStyle = "#7c3aed";
-  gameCtx.font = "26px Arial";
-  gameCtx.fillText("💜 Tómate un respiro", 215, 115);
-
-  gameCtx.fillStyle = "#334155";
-  gameCtx.font = "16px Arial";
-  gameCtx.fillText("Descansar también es avanzar.", 235, 150);
-
-  gameCtx.fillText("Puntaje final: " + gameScore, 285, 175);
-}
-
-document.addEventListener("keydown", function(e) {
-  if (e.code === "Space") {
-    jumpStressPlayer();
+    return;
   }
+
+  bubbleAnimation =
+    requestAnimationFrame(animateBubbles);
+
+}
+
+document.addEventListener("click", function(e){
+
+  if(!bubbleCanvas) return;
+
+  const rect =
+    bubbleCanvas.getBoundingClientRect();
+
+  const mouseX =
+    e.clientX - rect.left;
+
+  const mouseY =
+    e.clientY - rect.top;
+
+  bubbles.forEach((bubble)=>{
+
+    const dx = mouseX - bubble.x;
+    const dy = mouseY - bubble.y;
+
+    const distance =
+      Math.sqrt(dx*dx + dy*dy);
+
+    if(distance < bubble.radius){
+
+      liberated++;
+
+      bubble.x =
+        Math.random()*650 + 20;
+
+      bubble.y = 500;
+
+      bubble.text =
+        worries[
+          Math.floor(
+            Math.random()*worries.length
+          )
+        ];
+
+    }
+
+  });
+
 });
