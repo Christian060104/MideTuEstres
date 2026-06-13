@@ -1723,13 +1723,23 @@ function updateProgress() {
 
   document.getElementById("paintProgressText").textContent = percent + "%";
   document.getElementById("paintProgressFill").style.width = percent + "%";
-}
+}if (percent === 100 && !window.drawingCompleted) {
 
+  window.drawingCompleted = true;
+
+  setTimeout(() => {
+    alert(
+      "🎉 ¡Felicidades!\n\nHas completado tu dibujo.\n\nTomarte unos minutos para actividades creativas ayuda a reducir el estrés y mejorar la concentración. 💜"
+    );
+  }, 300);
+
+}
 function resetDrawing() {
   document.querySelectorAll("#wellnessDrawing .paintable").forEach(item => {
     item.setAttribute("fill", "#ffffff");
     item.removeAttribute("data-painted");
   });
+    window.drawingCompleted = false;
 
   updateProgress();
 }
