@@ -1211,29 +1211,60 @@ function startBreathingExercise() {
 let pomodoroRunning = false;
 
 function startPomodoro() {
+let pomodoroInterval;
+let pomodoroRunning = false;
+let pomodoroSeconds = 25 * 60;
+let completedPomodoros = 0;
+let focusMinutes = 0;
+
+function startPomodoro() {
+  const timeDisplay = document.getElementById("pomodoroTime");
+  const status = document.getElementById("pomodoroStatus");
+  const progressFill = document.getElementById("pomodoroProgressFill");
+  const completedDisplay = document.getElementById("completedPomodoros");
+  const minutesDisplay = document.getElementById("focusMinutes");
+
   if (pomodoroRunning) return;
 
   pomodoroRunning = true;
-  let totalSeconds = 1500;
+  status.textContent = "🍅 Concentración activa";
 
-  const timer = document.getElementById("pomodoroTime");
+  const totalSeconds = 25 * 60;
 
-  const interval = setInterval(() => {
-    totalSeconds--;
+  pomodoroInterval = setInterval(() => {
+    pomodoroSeconds--;
 
-    const minutes = Math.floor(totalSeconds / 60);
-    const seconds = totalSeconds % 60;
+    const minutes = Math.floor(pomodoroSeconds / 60);
+    const seconds = pomodoroSeconds % 60;
 
-    timer.innerHTML = `${minutes}:${seconds.toString().padStart(2, "0")}`;
+    timeDisplay.textContent =
+      `${minutes}:${seconds.toString().padStart(2, "0")}`;
 
-    if (totalSeconds <= 0) {
-      clearInterval(interval);
+    const progress = ((totalSeconds - pomodoroSeconds) / totalSeconds) * 100;
+    progressFill.style.width = `${progress}%`;
+
+    focusMinutes = Math.floor((totalSeconds - pomodoroSeconds) / 60);
+    minutesDisplay.textContent = focusMinutes;
+
+    if (pomodoroSeconds <= 0) {
+      clearInterval(pomodoroInterval);
+
       pomodoroRunning = false;
-      timer.innerHTML = "25:00";
-      addGardenProgress(10);
-      alert("🎉 Sesión Pomodoro completada. Tu jardín creció.");
+      completedPomodoros++;
+      completedDisplay.textContent = completedPomodoros;
+      minutesDisplay.textContent = 25;
+
+      status.textContent = "✅ Pomodoro completado";
+      timeDisplay.textContent = "25:00";
+      progressFill.style.width = "100%";
+      pomodoroSeconds = 25 * 60;
+
+      if (typeof completeWellnessActivity === "function") {
+        completeWellnessActivity();
+      }
     }
   }, 1000);
+}
 }
 
 /* Ruleta real con canvas */
