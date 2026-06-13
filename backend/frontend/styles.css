@@ -2690,3 +2690,12 @@ body.dark-mode .breathing-steps span {
     color:#0f172a;
     font-weight:700;
 }
+.plant-level-badge{
+    background: linear-gradient(135deg,#a7f3d0,#dcfce7);
+    color:#166534;
+    padding:8px 14px;
+    border-radius:999px;
+    font-size:.9rem;
+    font-weight:700;
+    white-space:nowrap;
+}
