@@ -1690,12 +1690,9 @@ document.addEventListener("click", function (e) {
 });
 let selectedColor = "#f9a8d4";
 
-function selectColor(color) {
-  selectedColor = color;
-}
-
 function openColorGame() {
   document.getElementById("colorGameModal").classList.add("active");
+  activateColorGame();
   updateProgress();
 }
 
@@ -1703,17 +1700,26 @@ function closeColorGame() {
   document.getElementById("colorGameModal").classList.remove("active");
 }
 
-function paintElement(element) {
-  element.setAttribute("fill", selectedColor);
-  element.dataset.painted = "true";
-  updateProgress();
+function selectColor(color) {
+  selectedColor = color;
+}
+
+function activateColorGame() {
+  document.querySelectorAll("#wellnessDrawing .paintable").forEach(item => {
+    item.onclick = function (e) {
+      e.stopPropagation();
+      this.setAttribute("fill", selectedColor);
+      this.dataset.painted = "true";
+      updateProgress();
+    };
+  });
 }
 
 function updateProgress() {
   const items = document.querySelectorAll("#wellnessDrawing .paintable");
-  const painted = document.querySelectorAll("#wellnessDrawing .paintable[data-painted='true']").length;
+  const painted = document.querySelectorAll("#wellnessDrawing .paintable[data-painted='true']");
 
-  const percent = items.length === 0 ? 0 : Math.round((painted / items.length) * 100);
+  const percent = items.length === 0 ? 0 : Math.round((painted.length / items.length) * 100);
 
   document.getElementById("paintProgressText").textContent = percent + "%";
   document.getElementById("paintProgressFill").style.width = percent + "%";
@@ -1723,27 +1729,6 @@ function resetDrawing() {
   document.querySelectorAll("#wellnessDrawing .paintable").forEach(item => {
     item.setAttribute("fill", "#ffffff");
     item.removeAttribute("data-painted");
-  });
-
-  updateProgress();
-}
-
-document.querySelectorAll("#wellnessDrawing .paintable").forEach(item => {
-  item.addEventListener("click", function(e) {
-    e.stopPropagation();
-    paintElement(this);
-  });
-});
-function openColorGame() {
-  document.getElementById("colorGameModal").classList.add("active");
-}
-
-function closeColorGame() {
-  document.getElementById("colorGameModal").classList.remove("active");
-}
-function resetDrawing() {
-  document.querySelectorAll(".paintable").forEach(element => {
-    element.setAttribute("fill", "#ffffff");
   });
 
   updateProgress();
