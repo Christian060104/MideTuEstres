@@ -2411,13 +2411,3 @@ body.dark-mode .breathing-steps span {
   transform:translateY(-2px);
 }
 
-.pomodoro-card .btn-secondary{
-  background:#ede9fe;
-  color:#6d28d9;
-  border:none;
-}
-
-.pomodoro-card .btn-secondary:hover{
-  background:#d8b4fe;
-  color:#4c1d95;
-}
