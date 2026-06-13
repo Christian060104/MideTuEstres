@@ -1454,3 +1454,33 @@ document.addEventListener("keydown", function(e){
     closeVideoModal();
   }
 });
+function openPsychChat() {
+  document.getElementById("psychChatModal").style.display = "block";
+}
+
+function closePsychChat() {
+  document.getElementById("psychChatModal").style.display = "none";
+}
+
+function schedulePsychAppointment() {
+  const name = document.getElementById("psychName").value;
+  const email = document.getElementById("psychEmail").value;
+  const date = document.getElementById("psychDate").value;
+  const time = document.getElementById("psychTime").value;
+  const reason = document.getElementById("psychReason").value;
+
+  if (!name || !email || !date || !time || !reason) {
+    alert("Por favor completa todos los campos.");
+    return;
+  }
+
+  alert("Tu solicitud de cita fue registrada correctamente 💜");
+
+  document.getElementById("psychName").value = "";
+  document.getElementById("psychEmail").value = "";
+  document.getElementById("psychDate").value = "";
+  document.getElementById("psychTime").value = "";
+  document.getElementById("psychReason").value = "";
+
+  closePsychChat();
+}
