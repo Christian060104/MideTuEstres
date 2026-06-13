@@ -768,9 +768,7 @@
         Tómate unos minutos para colorear y despejar tu mente.
     </p>
 
-    <button class="btn-game" onclick="openColorGame()">
-        Comenzar
-    </button>
+  <button class="btn-game" onclick="openColorGame()">Comenzar</button>
 </div>
 </section>
 <!-- Resources Section -->
@@ -1190,5 +1188,25 @@
   </text>
 
 </svg>
+<div id="colorGameModal" class="stress-game-modal">
+  <div class="stress-game-content color-game-content">
+    <button class="close-game" onclick="closeColorGame()">×</button>
+
+    <h2>🎨 Colorea y Relájate</h2>
+    <p class="game-subtitle">Elige un color y pinta el jardín.</p>
+
+    <div class="color-palette">
+      <button class="color-btn" style="background:#f9a8d4" onclick="selectColor('#f9a8d4')"></button>
+      <button class="color-btn" style="background:#c4b5fd" onclick="selectColor('#c4b5fd')"></button>
+      <button class="color-btn" style="background:#93c5fd" onclick="selectColor('#93c5fd')"></button>
+      <button class="color-btn" style="background:#86efac" onclick="selectColor('#86efac')"></button>
+    </div>
+
+    <!-- aquí va tu SVG completo -->
+    <svg id="wellnessDrawing" viewBox="0 0 700 430">
+      <!-- pega aquí el dibujo SVG -->
+    </svg>
+  </div>
+</div>
   </body>
 </html>

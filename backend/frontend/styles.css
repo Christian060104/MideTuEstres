@@ -2797,3 +2797,23 @@ body.dark-mode .breathing-steps span {
     display:block;
     margin:auto;
 }
+.stress-game-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(6px);
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.stress-game-modal.active {
+  display: flex;
+}
+
+.color-game-content {
+  max-height: 90vh;
+  overflow-y: auto;
+}

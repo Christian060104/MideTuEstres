@@ -1723,3 +1723,10 @@ document.addEventListener(
 
   }
 );
+function openColorGame() {
+  document.getElementById("colorGameModal").classList.add("active");
+}
+
+function closeColorGame() {
+  document.getElementById("colorGameModal").classList.remove("active");
+}
