@@ -1082,31 +1082,18 @@
   </div>
 </div>
 <div id="bubbleGameModal" class="stress-game-modal">
-    <div class="stress-game-content">
+  <div class="stress-game-content">
+    <button class="close-game" onclick="closeBubbleGame()">×</button>
 
-        <button class="close-game" onclick="closeBubbleGame()">
-            ×
-        </button>
+    <h2>🫧 Explota las preocupaciones</h2>
+    <p class="game-subtitle">Haz clic sobre las burbujas para liberar el estrés.</p>
 
-        <h2>🫧 Explota las preocupaciones</h2>
+    <canvas id="bubbleCanvas" width="700" height="420"></canvas>
 
-        <p class="game-subtitle">
-            Haz clic sobre las preocupaciones para liberarlas.
-        </p>
-
-        <canvas
-            id="bubbleCanvas"
-            width="700"
-            height="450">
-        </canvas>
-
-        <div class="game-controls">
-            <button onclick="startBubbleGame()">
-                Iniciar
-            </button>
-        </div>
-
+    <div class="game-controls">
+      <button onclick="startBubbleGame()">Iniciar juego</button>
     </div>
+  </div>
 </div>
   </body>
 </html>
