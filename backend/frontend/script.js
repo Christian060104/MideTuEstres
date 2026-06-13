@@ -1212,6 +1212,7 @@ let pomodoroRunning = false;
 let pomodoroInterval;
 let pomodoroSeconds = 25 * 60;
 let completedPomodoros = 0;
+let pomodoroPaused = false;
 
 function startPomodoro() {
   const timeDisplay = document.getElementById("pomodoroTime");
@@ -1220,6 +1221,24 @@ function startPomodoro() {
   const completedDisplay = document.getElementById("completedPomodoros");
   const minutesDisplay = document.getElementById("focusMinutes");
 
+  function pausePomodoro() {
+  if (!pomodoroRunning) return;
+
+  if (!pomodoroPaused) {
+    clearInterval(pomodoroInterval);
+    pomodoroPaused = true;
+
+    document.getElementById("pomodoroStatus").textContent =
+      "⏸️ Pomodoro pausado";
+  } else {
+    pomodoroPaused = false;
+
+    document.getElementById("pomodoroStatus").textContent =
+      "🍅 Concentración activa";
+
+    startPomodoro();
+  }
+}
   if (pomodoroRunning) return;
 
   pomodoroRunning = true;
