@@ -1070,8 +1070,11 @@ function loadDailyChallenge() {
   const today = new Date().getDate();
   const challenge = dailyChallenges[today % dailyChallenges.length];
 
-  challengeIcon.textContent = challenge.icon;
-  challengeText.textContent = challenge.text;
+document.getElementById("dailyChallengeIcon").textContent =
+  challenge.icon;
+
+document.getElementById("dailyChallengeText").textContent =
+  challenge.text;
 }
 function saveWellnessData() {
   localStorage.setItem("wellnessData", JSON.stringify(wellnessData));
