@@ -1209,9 +1209,7 @@ function startBreathingExercise() {
   }, 1000);
 }
 let pomodoroRunning = false;
-
 let pomodoroInterval;
-let pomodoroRunning = false;
 let pomodoroSeconds = 25 * 60;
 let completedPomodoros = 0;
 
@@ -1235,9 +1233,8 @@ function startPomodoro() {
     const minutes = Math.floor(pomodoroSeconds / 60);
     const seconds = pomodoroSeconds % 60;
 
-    timeDisplay.textContent = `${minutes}:${seconds
-      .toString()
-      .padStart(2, "0")}`;
+    timeDisplay.textContent =
+      `${minutes}:${seconds.toString().padStart(2, "0")}`;
 
     const progress = ((totalSeconds - pomodoroSeconds) / totalSeconds) * 100;
     progressFill.style.width = `${progress}%`;
@@ -1253,10 +1250,12 @@ function startPomodoro() {
       completedPomodoros++;
 
       completedDisplay.textContent = completedPomodoros;
-      minutesDisplay.textContent = 25;
+      minutesDisplay.textContent = "25";
+
       status.textContent = "✅ Pomodoro completado";
       timeDisplay.textContent = "25:00";
       progressFill.style.width = "100%";
+
       pomodoroSeconds = 25 * 60;
 
       if (typeof completeWellnessActivity === "function") {
@@ -1265,7 +1264,6 @@ function startPomodoro() {
     }
   }, 1000);
 }
-
 /* Ruleta real con canvas */
 const wheelActivities = ["Respira", "Camina", "Agua", "Música", "Estira", "Ordena"];
 
