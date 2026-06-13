@@ -1110,7 +1110,7 @@ function updateWellnessUI() {
   const gardenMessage = document.getElementById("gardenMessage");
   const activitiesCounter = document.getElementById("activitiesCounter");
   const gardenProgressFill = document.getElementById("gardenProgressFill");
-  const dailyChallengeText = document.getElementById("dailyChallengeText");
+  
 
   if (!streakDays) return;
 
@@ -1118,8 +1118,7 @@ function updateWellnessUI() {
   wellnessPoints.textContent = wellnessData.points;
   currentAchievement.textContent = wellnessData.achievement;
 
-  dailyChallengeText.textContent =
-    dailyChallenges[new Date().getDay() % dailyChallenges.length];
+  
 
   const completed = wellnessData.activitiesCompleted;
 
@@ -1154,6 +1153,7 @@ function updateWellnessUI() {
     const progress = Math.min((completed / 30) * 100, 100);
     gardenProgressFill.style.width = progress + "%";
   }
+  loadDailyChallenge();
 }
 
 function completeDailyChallenge() {
