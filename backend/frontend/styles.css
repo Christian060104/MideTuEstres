@@ -2700,57 +2700,6 @@ body.dark-mode .breathing-steps span {
     white-space:nowrap;
 }
 .stress-game-card {
-  border: 2px solid rgba(168, 85, 247, 0.15);
-}
-
-.btn-game {
-  margin-top: 15px;
-  border: none;
-  padding: 12px 20px;
-  border-radius: 999px;
-  background: linear-gradient(135deg, #ec4899, #8b5cf6);
-  color: white;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.stress-game-modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(15, 23, 42, 0.55);
-  z-index: 9999;
-  align-items: center;
-  justify-content: center;
-}
-
-.stress-game-modal.active {
-  display: flex;
-}
-
-.stress-game-content {
-  background: white;
-  width: min(92%, 820px);
-  border-radius: 28px;
-  padding: 28px;
-  text-align: center;
-  position: relative;
-}
-
-.close-game {
-  position: absolute;
-  top: 18px;
-  right: 22px;
-  border: none;
-  background: #f1f5f9;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  font-size: 24px;
-  cursor: pointer;
-}
-
-.stress-game-card {
   margin-top: 35px;
   padding: 35px;
   border-radius: 28px;
