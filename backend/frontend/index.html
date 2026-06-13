@@ -744,6 +744,14 @@
         </button>
       </div>
     </div>
+    <div class="wellness-card stress-game-card">
+  <div class="wellness-icon">🎮</div>
+  <h3>Dino Relax</h3>
+  <p>Esquiva tareas, exámenes y desvelos mientras recolectas hábitos saludables.</p>
+  <button class="btn-game" onclick="openStressGame()">
+    Jugar ahora
+  </button>
+</div>
   </div>
 </section>
 <!-- Resources Section -->
@@ -1066,6 +1074,23 @@
     <button class="btn-primary" onclick="schedulePsychAppointment()">
       Solicitar cita
     </button>
+  </div>
+</div>
+<div id="stressGameModal" class="stress-game-modal">
+  <div class="stress-game-content">
+    <button class="close-game" onclick="closeStressGame()">×</button>
+
+    <h2>🎮 Dino Relax</h2>
+    <p class="game-subtitle">Corre contra el estrés y cuida tu bienestar.</p>
+
+    <canvas id="stressGameCanvas" width="700" height="280"></canvas>
+
+    <div class="game-controls">
+      <button onclick="startStressGame()">Iniciar</button>
+      <button onclick="jumpStressPlayer()">Saltar</button>
+    </div>
+
+    <p class="game-tip">Presiona espacio o toca “Saltar”.</p>
   </div>
 </div>
   </body>

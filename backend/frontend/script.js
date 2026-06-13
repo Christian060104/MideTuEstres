@@ -1522,3 +1522,157 @@ function actualizarResumenActual() {
 
 document.addEventListener("DOMContentLoaded", actualizarResumenActual);
 actualizarResumenActual();
+let gameCanvas, gameCtx;
+let gameRunning = false;
+let gameScore = 0;
+let gameFrame = 0;
+let gameSpeed = 4;
+
+const player = {
+  x: 60,
+  y: 210,
+  width: 36,
+  height: 36,
+  vy: 0,
+  jumping: false
+};
+
+let obstacles = [];
+
+function openStressGame() {
+  document.getElementById("stressGameModal").classList.add("active");
+  setupStressGame();
+}
+
+function closeStressGame() {
+  document.getElementById("stressGameModal").classList.remove("active");
+  gameRunning = false;
+}
+
+function setupStressGame() {
+  gameCanvas = document.getElementById("stressGameCanvas");
+  gameCtx = gameCanvas.getContext("2d");
+  drawStressGame();
+}
+
+function startStressGame() {
+  gameRunning = true;
+  gameScore = 0;
+  gameFrame = 0;
+  gameSpeed = 4;
+  obstacles = [];
+  player.y = 210;
+  player.vy = 0;
+  player.jumping = false;
+  requestAnimationFrame(gameLoop);
+}
+
+function jumpStressPlayer() {
+  if (!player.jumping) {
+    player.vy = -13;
+    player.jumping = true;
+  }
+}
+
+function gameLoop() {
+  if (!gameRunning) return;
+
+  updateStressGame();
+  drawStressGame();
+
+  requestAnimationFrame(gameLoop);
+}
+
+function updateStressGame() {
+  gameFrame++;
+  gameScore++;
+
+  player.y += player.vy;
+  player.vy += 0.7;
+
+  if (player.y >= 210) {
+    player.y = 210;
+    player.vy = 0;
+    player.jumping = false;
+  }
+
+  if (gameFrame % 90 === 0) {
+    obstacles.push({
+      x: 700,
+      y: 218,
+      width: 38,
+      height: 30,
+      text: ["Tarea", "Examen", "Desvelo"][Math.floor(Math.random() * 3)]
+    });
+  }
+
+  obstacles.forEach(obs => obs.x -= gameSpeed);
+  obstacles = obstacles.filter(obs => obs.x + obs.width > 0);
+
+  obstacles.forEach(obs => {
+    if (
+      player.x < obs.x + obs.width &&
+      player.x + player.width > obs.x &&
+      player.y < obs.y + obs.height &&
+      player.y + player.height > obs.y
+    ) {
+      endStressGame();
+    }
+  });
+
+  if (gameScore % 400 === 0) gameSpeed += 0.5;
+}
+
+function drawStressGame() {
+  if (!gameCtx) return;
+
+  gameCtx.clearRect(0, 0, 700, 280);
+
+  gameCtx.fillStyle = "#dbeafe";
+  gameCtx.fillRect(0, 0, 700, 280);
+
+  gameCtx.fillStyle = "#bbf7d0";
+  gameCtx.fillRect(0, 245, 700, 35);
+
+  gameCtx.fillStyle = "#7c3aed";
+  gameCtx.font = "28px Arial";
+  gameCtx.fillText("🌱", player.x, player.y + 30);
+
+  gameCtx.fillStyle = "#ef4444";
+  obstacles.forEach(obs => {
+    gameCtx.fillRect(obs.x, obs.y, obs.width, obs.height);
+    gameCtx.fillStyle = "#111827";
+    gameCtx.font = "12px Arial";
+    gameCtx.fillText(obs.text, obs.x - 4, obs.y - 8);
+    gameCtx.fillStyle = "#ef4444";
+  });
+
+  gameCtx.fillStyle = "#111827";
+  gameCtx.font = "18px Arial";
+  gameCtx.fillText("Puntos: " + gameScore, 20, 30);
+}
+
+function endStressGame() {
+  gameRunning = false;
+
+  drawStressGame();
+
+  gameCtx.fillStyle = "rgba(255,255,255,0.85)";
+  gameCtx.fillRect(120, 70, 460, 130);
+
+  gameCtx.fillStyle = "#7c3aed";
+  gameCtx.font = "26px Arial";
+  gameCtx.fillText("💜 Tómate un respiro", 215, 115);
+
+  gameCtx.fillStyle = "#334155";
+  gameCtx.font = "16px Arial";
+  gameCtx.fillText("Descansar también es avanzar.", 235, 150);
+
+  gameCtx.fillText("Puntaje final: " + gameScore, 285, 175);
+}
+
+document.addEventListener("keydown", function(e) {
+  if (e.code === "Space") {
+    jumpStressPlayer();
+  }
+});
