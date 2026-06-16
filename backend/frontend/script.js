@@ -160,6 +160,8 @@ async function handleLogin(e) {
       currentUser = result.user;
       loadWellnessData();
       updateWellnessUI();
+      resetStressFormUI();
+actualizarResumenActual();
       document.getElementById("measurementForm").style.display = "block";
 document.getElementById("resultContainer").style.display = "none";
 actualizarResumenActual();
@@ -250,7 +252,7 @@ function logout() {
   localStorage.removeItem("currentUser");
   updateAuthUI();
   showMessage("success", "Sesión cerrada correctamente");
-
+resetStressFormUI();
   // Clear user-specific data
   stressMeasurements = [];
   document.getElementById("totalMeasurements").textContent = "0";
@@ -1745,4 +1747,22 @@ function closeCongratsModal() {
 function getCurrentUserKey() {
   if (!currentUser) return "guest";
   return currentUser.email;
+}
+function resetStressFormUI() {
+  const form = document.getElementById("stressForm");
+
+  if (form) {
+    form.reset();
+  }
+
+  document.querySelectorAll("#stressForm input[type='radio']").forEach(input => {
+    input.checked = false;
+  });
+
+  document.querySelectorAll("#stressForm .selected, #stressForm .active").forEach(el => {
+    el.classList.remove("selected", "active");
+  });
+
+  document.getElementById("measurementForm").style.display = "block";
+  document.getElementById("resultContainer").style.display = "none";
 }
