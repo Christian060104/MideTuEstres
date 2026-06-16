@@ -1,3 +1,6 @@
+console.log(currentUser);
+console.log(getCurrentUserKey());
+console.log(localStorage);
 // Global Variables
 let currentUser = null;
 let stressMeasurements = [];
