@@ -1,6 +1,4 @@
-console.log(currentUser);
-console.log(getCurrentUserKey());
-console.log(localStorage);
+
 // Global Variables
 let currentUser = null;
 let stressMeasurements = [];
@@ -434,6 +432,23 @@ function showStressResults(score) {
     scoreCircle.style.background =
       "linear-gradient(135deg, #dc3545 0%, #e74c3c 100%)";
   }
+  const historialKey = `historialEstres_${getCurrentUserKey()}`;
+
+const historial =
+  JSON.parse(localStorage.getItem(historialKey)) || [];
+
+historial.push({
+  nivel: level,
+  fecha: new Date().toLocaleDateString("es-MX"),
+  puntaje: score
+});
+
+localStorage.setItem(
+  historialKey,
+  JSON.stringify(historial)
+);
+
+actualizarResumenActual();
 }
 
 function resetMeasurement() {
@@ -1442,11 +1457,11 @@ function schedulePsychAppointment() {
   closePsychChat();
 }
 function actualizarResumenActual() {
+
+  const key = `historialEstres_${getCurrentUserKey()}`;
+
   const historial =
-    JSON.parse(localStorage.getItem("historialEstres")) ||
-    JSON.parse(localStorage.getItem("stressHistory")) ||
-    JSON.parse(localStorage.getItem("evaluaciones")) ||
-    [];
+    JSON.parse(localStorage.getItem(key)) || [];
 
   const nivel = document.getElementById("summaryNivel");
   const fecha = document.getElementById("summaryFecha");
@@ -1463,8 +1478,8 @@ function actualizarResumenActual() {
 
   const ultima = historial[historial.length - 1];
 
-  nivel.textContent = ultima.nivel || ultima.level || ultima.resultado || "Sin dato";
-  fecha.textContent = ultima.fecha || ultima.date || ultima.createdAt || "Sin fecha";
+  nivel.textContent = ultima.nivel || "Sin dato";
+  fecha.textContent = ultima.fecha || "Sin fecha";
   total.textContent = historial.length;
 }
 
