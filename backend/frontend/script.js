@@ -13,6 +13,7 @@ function initializeApp() {
   loadUserData();
    if (currentUser) {
   loadWellnessData();
+  actualizarResumenActual();
    }
   // Check authentication and show appropriate screen
   checkAuthenticationStatus();
@@ -159,6 +160,9 @@ async function handleLogin(e) {
       currentUser = result.user;
       loadWellnessData();
       updateWellnessUI();
+      document.getElementById("measurementForm").style.display = "block";
+document.getElementById("resultContainer").style.display = "none";
+actualizarResumenActual();
 
       localStorage.setItem("currentUser", JSON.stringify(result.user));
       localStorage.setItem("token", result.token);
@@ -252,6 +256,13 @@ function logout() {
   document.getElementById("totalMeasurements").textContent = "0";
   document.getElementById("averageScore").textContent = "0";
   document.getElementById("improvement").textContent = "0%";
+  document.getElementById("measurementForm").style.display = "block";
+document.getElementById("resultContainer").style.display = "none";
+
+document.getElementById("scoreValue").textContent = "0";
+document.getElementById("levelTitle").textContent = "";
+document.getElementById("levelDescription").textContent = "";
+document.getElementById("aiAnalysis").textContent = "";
   initializeChart();
 }
 
