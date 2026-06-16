@@ -10,7 +10,9 @@ document.addEventListener("DOMContentLoaded", function () {
 function initializeApp() {
   // Load user data from localStorage
   loadUserData();
-
+   if (currentUser) {
+  loadWellnessData();
+   }
   // Check authentication and show appropriate screen
   checkAuthenticationStatus();
 
@@ -129,6 +131,7 @@ function switchToLogin() {
 async function handleLogin(e) {
   e.preventDefault();
 
+
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
@@ -153,6 +156,8 @@ async function handleLogin(e) {
 
     if (result.success) {
       currentUser = result.user;
+      loadWellnessData();
+      updateWellnessUI();
 
       localStorage.setItem("currentUser", JSON.stringify(result.user));
       localStorage.setItem("token", result.token);
@@ -348,17 +353,13 @@ function showStressResults(score) {
   // Hide form, show results
   document.getElementById("measurementForm").style.display = "none";
   document.getElementById("resultContainer").style.display = "block";
-
   // Calculate score percentage
   const maxScore = 20; // 5 questions * 4 points max
   const percentage = (score / maxScore) * 100;
-
   // Update score display
   document.getElementById("scoreValue").textContent = score;
-
   // Determine stress level and recommendations
   let level, description, recommendations;
-
   if (score <= 8) {
     level = "Nivel de Estrés Bajo";
     description = "Tienes un buen manejo del estrés académico. Sigue así!";
@@ -888,12 +889,8 @@ optimizeForMobile();
 // Generar PDF
 async function generatePDF() {
   const { jsPDF } = window.jspdf;
-
   const doc = new jsPDF();
-
   const nivel = document.getElementById("levelTitle")?.textContent || "";
-
-  // Color del encabezado según nivel
   if (nivel.includes("Bajo")) {
     doc.setFillColor(40, 167, 69);
   } else if (nivel.includes("Moderado")) {
@@ -901,53 +898,35 @@ async function generatePDF() {
   } else {
     doc.setFillColor(220, 53, 69);
   }
-
   // Encabezado
   doc.rect(0, 0, 210, 25, "F");
-
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(20);
   doc.text("MideTuEstrés", 20, 15);
-
   doc.setFontSize(12);
   doc.text("Reporte de Estrés Académico", 20, 22);
-
   // Información general
   doc.setTextColor(0, 0, 0);
   doc.setFontSize(12);
-
   doc.text(`Fecha: ${new Date().toLocaleDateString("es-MX")}`, 20, 35);
-
   doc.text(`Usuario: ${currentUser?.name || "Estudiante"}`, 20, 45);
-
   doc.text(`Nivel actual: ${nivel}`, 20, 55);
-
   // Tendencia
   let trendText = document.getElementById("stressTrend")?.textContent || "";
-
   trendText = trendText
     .replace(/📈|📉|➡️/g, "")
     .replace(/[^\x20-\x7EáéíóúÁÉÍÓÚñÑüÜ]/g, "")
     .trim();
-
   const trendLines = doc.splitTextToSize(`Tendencia: ${trendText}`, 170);
-
   doc.text(trendLines, 20, 70);
-
   let currentY = 70 + trendLines.length * 7;
-
   // Análisis Inteligente
   const analysisText = document.getElementById("aiAnalysis")?.textContent || "";
-
   const analysisLines = doc.splitTextToSize(`Análisis: ${analysisText}`, 170);
-
   doc.text(analysisLines, 20, currentY);
-
   currentY += analysisLines.length * 7 + 10;
-
   // Estado actual
   doc.setFontSize(14);
-
   if (nivel.includes("Bajo")) {
     doc.setTextColor(40, 167, 69);
   } else if (nivel.includes("Moderado")) {
@@ -955,40 +934,25 @@ async function generatePDF() {
   } else {
     doc.setTextColor(220, 53, 69);
   }
-
   doc.text(`Estado actual: ${nivel}`, 20, currentY);
-
   doc.setTextColor(0, 0, 0);
-
   currentY += 15;
-
   // Gráfica
   const chartCanvas = document.getElementById("stressChart");
-
   if (chartCanvas) {
     const chartImage = chartCanvas.toDataURL("image/png");
-
     doc.setFontSize(14);
-
     doc.text("Gráfica de Evolución del Estrés", 20, currentY);
-
     doc.addImage(chartImage, "PNG", 15, currentY + 10, 180, 80);
-
     currentY += 100;
   }
-
   // Historial
   let y = currentY;
-
   doc.setFontSize(12);
-
   doc.text("Historial de Mediciones:", 20, y);
-
   stressMeasurements.forEach((m, index) => {
     y += 10;
-
     if (y > 260) return;
-
     doc.text(`${index + 1}. ${m.measurement_date} - ${m.score} puntos`, 25, y);
   });
   doc.text(
@@ -996,14 +960,10 @@ async function generatePDF() {
     20,
     y + 15,
   );
-
   // Pie de página
   doc.setFontSize(10);
-
   doc.text("Generado automáticamente por MideTuEstrés", 20, 285);
-
   doc.text(new Date().toLocaleString("es-MX"), 145, 285);
-
   doc.save("Reporte_MideTuEstres.pdf");
 }
 
@@ -1041,14 +1001,19 @@ themeToggle.addEventListener("click", () => {
   }
 });
 
-let wellnessData = JSON.parse(localStorage.getItem("wellnessData")) || {
-  points: 0,
-  streak: 0,
-  activitiesCompleted: 0,
-  lastCompletedDate: null,
-  achievement: "Aún no tienes logros"
-};
+let wellnessData = {};
 
+function loadWellnessData() {
+  const key = `wellnessData_${getCurrentUserKey()}`;
+
+  wellnessData = JSON.parse(localStorage.getItem(key)) || {
+    points: 0,
+    streak: 0,
+    activitiesCompleted: 0,
+    lastCompletedDate: null,
+    achievement: "Aún no tienes logros"
+  };
+}
 const dailyChallenges = [
   { icon: "🧘", text: "Respira profundamente durante 1 minuto." },
   { icon: "🌬️", text: "Realiza 5 respiraciones lentas." },
@@ -1080,7 +1045,8 @@ document.getElementById("dailyChallengeText").textContent =
   challenge.text;
 }
 function saveWellnessData() {
-  localStorage.setItem("wellnessData", JSON.stringify(wellnessData));
+  const key = `wellnessData_${getCurrentUserKey()}`;
+  localStorage.setItem(key, JSON.stringify(wellnessData));
 }
 
 function addGardenProgress(points = 5) {
@@ -1117,18 +1083,11 @@ function updateWellnessUI() {
   const gardenMessage = document.getElementById("gardenMessage");
   const activitiesCounter = document.getElementById("activitiesCounter");
   const gardenProgressFill = document.getElementById("gardenProgressFill");
-  
-
   if (!streakDays) return;
-
   streakDays.textContent = wellnessData.streak;
   wellnessPoints.textContent = wellnessData.points;
   currentAchievement.textContent = wellnessData.achievement;
-
-  
-
   const completed = wellnessData.activitiesCompleted;
-
   if (completed >= 30) {
     virtualGarden.innerHTML = "🌳🌷🌼";
     gardenMessage.textContent = "Tu jardín está completamente florecido.";
@@ -1164,10 +1123,11 @@ function updateWellnessUI() {
 }
 function checkGardenReset() {
   const today = new Date();
-  const resetDate = localStorage.getItem("gardenResetDate");
+  const resetKey = `gardenResetDate_${getCurrentUserKey()}`;
+  const resetDate = localStorage.getItem(resetKey);
 
   if (!resetDate) {
-    localStorage.setItem("gardenResetDate", today.toISOString());
+    localStorage.setItem(resetKey, today.toISOString());
     return;
   }
 
@@ -1177,7 +1137,7 @@ function checkGardenReset() {
   if (daysPassed >= 10) {
     wellnessData.activitiesCompleted = 0;
     wellnessData.achievement = "Aún no tienes logros";
-    localStorage.setItem("gardenResetDate", today.toISOString());
+    localStorage.setItem(resetKey, today.toISOString());
     saveWellnessData();
   }
 }
@@ -1268,48 +1228,33 @@ let pomodoroPaused = false;
 
 function startPomodoro() {
  if (pomodoroInterval) return;
-
- 
   const status = document.getElementById("pomodoroStatus");
   const timeDisplay = document.getElementById("pomodoroTime");
   const progressFill = document.getElementById("pomodoroProgressFill");
-
-
   pomodoroRunning = true;
   pomodoroPaused = false;
   status.textContent = "🍅 Concentración activa";
-
   const totalSeconds = 25 * 60;
-
   pomodoroInterval = setInterval(() => {
     pomodoroSeconds--;
-
     const minutes = Math.floor(pomodoroSeconds / 60);
     const seconds = pomodoroSeconds % 60;
-
     timeDisplay.textContent = `${minutes}:${seconds
       .toString()
       .padStart(2, "0")}`;
-
     const progress = ((totalSeconds - pomodoroSeconds) / totalSeconds) * 100;
     progressFill.style.width = `${progress}%`;
-
-   
     if (pomodoroSeconds <= 0) {
       clearInterval(pomodoroInterval);
-
       pomodoroRunning = false;
       completedPomodoros++;
-
       document.getElementById("completedPomodoros").textContent =
         completedPomodoros;
-
    minutesDisplay.textContent = "1500";
       status.textContent = "✅ Pomodoro completado";
       timeDisplay.textContent = "25:00";
       progressFill.style.width = "100%";
       pomodoroSeconds = 25 * 60;
-
       if (typeof completeWellnessActivity === "function") {
         completeWellnessActivity();
       }
@@ -1767,4 +1712,8 @@ function closeCongratsModal() {
       .getElementById("congratsModal")
       .classList.remove("active");
 
+}
+function getCurrentUserKey() {
+  if (!currentUser) return "guest";
+  return currentUser.email;
 }
