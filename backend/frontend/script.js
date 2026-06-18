@@ -1458,7 +1458,7 @@ function schedulePsychAppointment() {
 
  showMessage(
   "success",
-  " Solicitud enviada. Tu cita ha sido registrada. Espera la confirmación del área de orientación psicológica."
+  "💜 Solicitud enviada. Tu cita ha sido registrada. Espera la confirmación del área de orientación psicológica."
 );
 
   document.getElementById("psychName").value = "";
@@ -1514,19 +1514,25 @@ function openBubbleGame() {
 
 function closeBubbleGame() {
   document.getElementById("bubbleGameModal").classList.remove("active");
-  resetBubbleGame();
+  cancelAnimationFrame(bubbleAnimation);
+
+  liberated = 0;
+  mistakes = 0;
+  bubbles = [];
+  window.bubbleRewardGiven = false;
 }
 
 function startBubbleGame() {
-  resetBubbleGame();
-
   bubbleCanvas = document.getElementById("bubbleCanvas");
   bubbleCtx = bubbleCanvas.getContext("2d");
 
+liberated = 0;
+mistakes = 0;
+bubbles = [];
+window.bubbleRewardGiven = false;
   for (let i = 0; i < 14; i++) {
     createBubble();
   }
-
   animateBubbles();
 }
 
