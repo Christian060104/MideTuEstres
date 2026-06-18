@@ -1508,21 +1508,31 @@ const badBubbles = ["Estrés", "Ansiedad", "Desvelo", "Presión", "Examen", "Tar
 const goodBubbles = ["Respirar", "Descansar", "Agua", "Dormir", "Calma", "Organizarse"];
 
 function openBubbleGame() {
+  liberated = 0;
+  mistakes = 0;
+  bubbles = [];
+  window.bubbleRewardGiven = false;
+
   document.getElementById("bubbleGameModal").classList.add("active");
 }
 
 function closeBubbleGame() {
   document.getElementById("bubbleGameModal").classList.remove("active");
   cancelAnimationFrame(bubbleAnimation);
+
+  liberated = 0;
+  mistakes = 0;
+  bubbles = [];
+  window.bubbleRewardGiven = false;
 }
 
 function startBubbleGame() {
   bubbleCanvas = document.getElementById("bubbleCanvas");
   bubbleCtx = bubbleCanvas.getContext("2d");
 
-  liberated = 0;
-  mistakes = 0;
-  bubbles = [];
+liberated = 0;
+mistakes = 0;
+bubbles = [];
 window.bubbleRewardGiven = false;
   for (let i = 0; i < 14; i++) {
     createBubble();
