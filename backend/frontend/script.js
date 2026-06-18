@@ -1523,11 +1523,10 @@ function startBubbleGame() {
   liberated = 0;
   mistakes = 0;
   bubbles = [];
-
+window.bubbleRewardGiven = false;
   for (let i = 0; i < 14; i++) {
     createBubble();
   }
-
   animateBubbles();
 }
 
@@ -1616,6 +1615,10 @@ function animateBubbles() {
     bubbleCtx.font = "16px Arial";
     bubbleCtx.fillText("Liberaste pensamientos negativos", 350, 230);
     bubbleCtx.fillText("sin perder tus hábitos positivos.", 350, 255);
+  if (!window.bubbleRewardGiven) {
+  window.bubbleRewardGiven = true;
+  completeWellnessActivity();
+}
     return;
   }
 
@@ -1710,8 +1713,12 @@ function updateProgress() {
     if (!window.drawingCompleted) {
 
       window.drawingCompleted = true;
-
+       if (!window.colorRewardGiven) {
+  window.colorRewardGiven = true;
+  completeWellnessActivity();
+}
       setTimeout(() => {
+ 
        showCongratsModal();
       }, 200);
 
@@ -1726,6 +1733,7 @@ function resetDrawing() {
   });
 
   window.drawingCompleted = false;
+  window.colorRewardGiven = false;
 
   updateProgress();
 }
