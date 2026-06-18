@@ -1766,3 +1766,13 @@ function resetStressFormUI() {
   document.getElementById("measurementForm").style.display = "block";
   document.getElementById("resultContainer").style.display = "none";
 }
+function completeWellnessActivity() {
+
+  addGardenProgress(0);
+
+  showMessage(
+    "success",
+    "🌱 Tu jardín ha crecido +1 progreso"
+  );
+
+}
